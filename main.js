@@ -2,7 +2,7 @@
 // @name         小雅自动刷
 // @namespace    http://tampermonkey.net/
 // @version      1.4
-// @description  小雅平台自动刷课脚本。
+// @description  🚀 小雅平台自动刷课神器！视频自动播放、无缝跳转，突破防切屏限制实现后台挂机 🛡️！智能监测未开启任务倒计时 ⏳，成倍提升学习效率！📈
 // @author       Qy
 // @match        https://*.ai-augmented.com/*
 // @grant        none
