@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         小雅自动刷
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @description  🚀 小雅平台自动刷课神器！视频自动播放、无缝跳转，突破防切屏限制实现后台挂机 🛡️！智能监测未开启任务倒计时 ⏳，成倍提升学习效率！📈
 // @author       Qy
 // @match        https://*.ai-augmented.com/*
@@ -284,6 +284,28 @@
             return taskQueue.find(t => String(t.nodeId) === String(nodeId)) || null;
         }
 
+        function getTaskRouteResourceId(task) {
+            if (!task) return null;
+            if (task.resourceId !== undefined && task.resourceId !== null && task.resourceId !== '') return String(task.resourceId);
+            if (task.taskId !== undefined && task.taskId !== null && task.taskId !== '') return String(task.taskId);
+            if (task.nodeId !== undefined && task.nodeId !== null && task.nodeId !== '') return String(task.nodeId);
+            return null;
+        }
+
+        function getTaskHeartbeatResourceId(task) {
+            if (!task) return null;
+            if (task.resourceId !== undefined && task.resourceId !== null && task.resourceId !== '') return String(task.resourceId);
+            if (task.nodeId !== undefined && task.nodeId !== null && task.nodeId !== '') return String(task.nodeId);
+            if (task.taskId !== undefined && task.taskId !== null && task.taskId !== '') return String(task.taskId);
+            return null;
+        }
+
+        function buildTaskUrl(task) {
+            const routeResourceId = getTaskRouteResourceId(task);
+            if (!task || !task.groupId || !routeResourceId || !task.nodeId) return null;
+            return `https://${DOMAIN}/app/jx-web/mycourse/${task.groupId}/resource/${routeResourceId}/${task.nodeId}`;
+        }
+
         function parseDateTimeSafe(value) {
             if (!value) return null;
             const text = String(value).trim();
@@ -492,7 +514,8 @@
                 if (String(page.nodeId) === String(task.nodeId)) {
                     startTimer(task);
                 } else {
-                    window.location.replace(`https://${DOMAIN}/app/jx-web/mycourse/${task.groupId}/resource/${task.taskId}/${task.nodeId}`);
+                    const targetUrl = buildTaskUrl(task);
+                    if (targetUrl) window.location.replace(targetUrl);
                 }
             }, 1000);
         }
@@ -652,6 +675,7 @@
                         }).map(t => {
                             const allowLateSubmit = normalizeBool(t.is_allow_after_submitted);
                             const resInfo = resourceMap.get(String(t.task_id));
+                            const resourceId = String((resInfo && (resInfo.resource_id || resInfo.id)) || t.resource_id || t.task_id);
                             let isVideo = false;
                             if (resInfo) isVideo = (resInfo.type && String(resInfo.type).includes('video')) || (resInfo.mimetype && resInfo.mimetype.includes('video')) || (resInfo.name && VIDEO_EXT.test(resInfo.name));
                             let dur = isVideo ? 0 : ((resInfo && resInfo.watch_min_minutes > 0) ? (resInfo.watch_min_minutes * 60 + 20) : DEFAULT_DURATION * 60);
@@ -659,6 +683,7 @@
                                 groupId,
                                 nodeId: String(t.node_id),
                                 taskId: String(t.task_id),
+                                resourceId,
                                 name: resInfo ? resInfo.name : t.name,
                                 duration: Math.ceil(dur),
                                 isVideo,
@@ -721,7 +746,8 @@
                         taskQueue = keepTasks.map(t => ({
                             groupId: String(t.group_id),
                             nodeId: String(t.node_id),
-                            taskId: String(t.resource_id || t.task_id),
+                            taskId: String(t.task_id || t.id || t.resource_id),
+                            resourceId: String(t.resource_id || t.id || t.task_id),
                             name: t.name,
                             duration: 0,
                             isVideo: VIDEO_EXT.test(t.name),
@@ -761,18 +787,23 @@
                     localStorage.setItem('xy_user_id', userId);
                 }
                 const targetGroupId = groupId || (currentTask ? currentTask.groupId : null);
-                const targetResourceId = resourceId || (currentTask ? currentTask.taskId : null);
+                const targetResourceId = resourceId || getTaskHeartbeatResourceId(currentTask);
                 if (!targetGroupId || !targetResourceId) return;
                 const message = JSON.stringify({ user_id: userId, group_id: targetGroupId, clientType: 1, roleType: 1, resourceId: targetResourceId });
                 const timestamp = Date.now().toString(), nonce = crypto.randomUUID();
                 const arr = [encodeURIComponent(message), timestamp, nonce, "--xy-create-signature--"].sort().join("");
                 const hashBuffer = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(arr));
                 const signature = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-                await fetchWithRetry(`https://${DOMAIN}/api/jx-iresource/learnLength/learnRecord`, {
+                const res = await fetchWithRetry(`https://${DOMAIN}/api/jx-iresource/learnLength/learnRecord`, {
                     method: 'POST',
                     headers: { 'authorization': `Bearer ${token}`, 'content-type': 'application/json; charset=UTF-8' },
                     body: JSON.stringify({ message, signature, timestamp, nonce })
                 });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const result = await res.json().catch(() => null);
+                if (result && result.success === false && result.code !== 200 && result.code !== 0) {
+                    throw new Error(result.message || `code ${result.code}`);
+                }
             } catch (e) {
                 console.warn('[小雅自动刷] 心跳发送失败:', e.message);
             }
@@ -826,7 +857,9 @@
                 return;
             }
             nextTaskNodeId = null;
-            window.location.replace(`https://${DOMAIN}/app/jx-web/mycourse/${nextTask.groupId}/resource/${nextTask.taskId}/${nextTask.nodeId}`);
+            const targetUrl = buildTaskUrl(nextTask);
+            if (targetUrl) window.location.replace(targetUrl);
+            else stopTimer();
         }
 
         async function handleTaskComplete() {
@@ -918,6 +951,9 @@
                                 if (myNavId !== navigationId) return;
                                 if (resourceRes.success) {
                                     const resInfo = resourceRes.data.find(r => String(r.task_id) === realTaskId);
+                                    const realResourceId = String((resInfo && (resInfo.resource_id || resInfo.id)) || task.resourceId || realTaskId);
+                                    task.resourceId = realResourceId;
+                                    taskQueue[taskIndex].resourceId = realResourceId;
                                     if (resInfo && resInfo.watch_min_minutes > 0) {
                                         task.duration = Math.ceil((resInfo.watch_min_minutes * 60) + 20);
                                     } else {
@@ -1092,7 +1128,7 @@
 
                 const header = document.createElement('div');
                 header.className = 'xy-header';
-                header.innerHTML = `<span class="xy-header-title">小雅自动刷<span class="xy-header-version">v1.4</span></span>`;
+                header.innerHTML = `<span class="xy-header-title">小雅自动刷<span class="xy-header-version">v1.5</span></span>`;
                 const headerBtns = document.createElement('div');
                 headerBtns.className = 'xy-header-btns';
                 const closeBtn = document.createElement('button');
@@ -1239,7 +1275,10 @@
                                     ? '<span class="xy-tag late-submit">📝 可补交</span>'
                                     : (task.isVideo ? '<span class="xy-tag video">▶ 视频</span>' : '<span class="xy-tag">📄 文档</span>')));
                         name.innerHTML = `${tagHtml}${task.name || '未知任务'}`;
-                        name.onclick = () => window.location.replace(`https://${DOMAIN}/app/jx-web/mycourse/${task.groupId}/resource/${task.taskId}/${task.nodeId}`);
+                        name.onclick = () => {
+                            const targetUrl = buildTaskUrl(task);
+                            if (targetUrl) window.location.replace(targetUrl);
+                        };
                         item.appendChild(name);
 
                         const right = document.createElement('div');
