@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         小雅自动刷
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @description  🚀 小雅平台自动刷课神器！视频自动播放、无缝跳转，突破防切屏限制实现后台挂机 🛡️！智能监测未开启任务倒计时 ⏳，成倍提升学习效率！📈
 // @author       Qy
 // @match        https://*.ai-augmented.com/*
@@ -135,6 +135,7 @@
         const DOMAIN = window.location.hostname;
         const DEFAULT_DURATION = 10;
         const NOTICE_API = "https://xiaoya-notice-dwafgrs416f1w156r1fasd11jt.qyrun.me/notice";
+        const SCRIPT_VERSION = '1.5';
         const VIDEO_EXT = /\.(mp4|flv|avi|mov|mkv|wmv|rmvb|m4v|webm)$/i;
         const UI_EDGE_MARGIN = 8;
         const ICON_BASE64 = 'data:image/png;base64,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';
@@ -152,17 +153,49 @@
         let waitingUnlockText = '';
         let docPreviewTimer = null;
         let docPreviewDoneNodeId = '';
+        let videoDurationCleanup = null;
         let uiPos = null;
         let noticeContent = "⏳ 初始化中...";
         let collapsedGroups = new Set();
         let navigationId = 0;
         let silentEnabled = true;
+        let latestVersion = null;
+        let dragOccurred = false;
+
+        function safeLocalStorageGet(key) {
+            try {
+                return localStorage.getItem(key);
+            } catch (e) {
+                console.warn('[小雅自动刷] localStorage 读取失败:', key, e.message);
+                return null;
+            }
+        }
+
+        function safeLocalStorageSet(key, value) {
+            try {
+                localStorage.setItem(key, value);
+                return true;
+            } catch (e) {
+                console.warn('[小雅自动刷] localStorage 写入失败:', key, e.message);
+                return false;
+            }
+        }
+
+        function safeLocalStorageRemove(key) {
+            try {
+                localStorage.removeItem(key);
+                return true;
+            } catch (e) {
+                console.warn('[小雅自动刷] localStorage 删除失败:', key, e.message);
+                return false;
+            }
+        }
 
         function loadData() {
             try {
-                const q = localStorage.getItem(STORAGE_KEY);
-                const p = localStorage.getItem(POS_KEY);
-                const playPref = localStorage.getItem(PLAY_PREF_KEY);
+                const q = safeLocalStorageGet(STORAGE_KEY);
+                const p = safeLocalStorageGet(POS_KEY);
+                const playPref = safeLocalStorageGet(PLAY_PREF_KEY);
                 if (q) taskQueue = JSON.parse(q);
                 if (p) uiPos = JSON.parse(p);
                 if (playPref) {
@@ -173,18 +206,18 @@
                 taskQueue = [];
                 uiPos = null;
                 silentEnabled = true;
-                localStorage.removeItem(STORAGE_KEY);
-                localStorage.removeItem(POS_KEY);
-                localStorage.removeItem(PLAY_PREF_KEY);
+                safeLocalStorageRemove(STORAGE_KEY);
+                safeLocalStorageRemove(POS_KEY);
+                safeLocalStorageRemove(PLAY_PREF_KEY);
             }
         }
 
         function saveData() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(taskQueue));
+            safeLocalStorageSet(STORAGE_KEY, JSON.stringify(taskQueue));
         }
 
         function savePlayPref() {
-            localStorage.setItem(PLAY_PREF_KEY, JSON.stringify({ silentEnabled }));
+            safeLocalStorageSet(PLAY_PREF_KEY, JSON.stringify({ silentEnabled }));
         }
 
         function syncSilentState() {
@@ -195,7 +228,7 @@
         function savePos(top, left) {
             const safe = clampPositionToViewport(top, left, getContainerSize());
             uiPos = { top: safe.top, left: safe.left };
-            localStorage.setItem(POS_KEY, JSON.stringify(uiPos));
+            safeLocalStorageSet(POS_KEY, JSON.stringify(uiPos));
         }
 
         function parsePx(value) {
@@ -244,11 +277,11 @@
             if (safe.top !== uiPos.top || safe.left !== uiPos.left) savePos(safe.top, safe.left);
         }
 
-        function getCookie(keyword = 'prd-access-token') {
+        function getCookie(cookieName = 'prd-access-token') {
             const cookies = document.cookie.split('; ');
             for (const cookie of cookies) {
                 const [name, value] = cookie.split('=');
-                if (name.includes(keyword)) return value;
+                if (name === cookieName) return value;
             }
             return null;
         }
@@ -433,6 +466,13 @@
             docPreviewTimer = null;
         }
 
+        function clearVideoDurationProbe() {
+            if (videoDurationCleanup) {
+                videoDurationCleanup();
+                videoDurationCleanup = null;
+            }
+        }
+
         function isDocPreviewOpened() {
             const viewer = document.querySelector('iframe[src*="ow365.cn"], iframe[src*="office"], .disk_previewer_with_banner iframe');
             return !!viewer;
@@ -528,10 +568,10 @@
         }
 
         function sortTaskQueueByPriority() {
+            const stateCache = new Map();
+            taskQueue.forEach(t => stateCache.set(t, evaluateTaskState(t).state));
             taskQueue.sort((a, b) => {
-                const aState = evaluateTaskState(a).state;
-                const bState = evaluateTaskState(b).state;
-                const stateCmp = stateRank(aState) - stateRank(bState);
+                const stateCmp = stateRank(stateCache.get(a)) - stateRank(stateCache.get(b));
                 if (stateCmp !== 0) return stateCmp;
 
                 const groupCmp = (a.groupName || "").localeCompare(b.groupName || "");
@@ -548,7 +588,7 @@
                 try {
                     const res = await fetch(url, options);
                     if (res.status === 401 || res.status === 403) {
-                        localStorage.removeItem('xy_user_id');
+                        safeLocalStorageRemove('xy_user_id');
                         const newToken = getCookie();
                         if (newToken && options.headers) {
                             options.headers['authorization'] = `Bearer ${newToken}`;
@@ -556,12 +596,27 @@
                         }
                         throw new Error(`Token 过期 (HTTP ${res.status})`);
                     }
+                    if (!res.ok && res.status >= 500) {
+                        throw new Error(`HTTP ${res.status}`);
+                    }
                     return res;
                 } catch (e) {
                     if (i === retries - 1) throw e;
                     await new Promise(r => setTimeout(r, delay));
                 }
             }
+        }
+
+        function isNewerVersion(latest, current) {
+            if (!latest || latest === '0') return false;
+            const a = latest.split('.').map(Number);
+            const b = current.split('.').map(Number);
+            for (let i = 0; i < Math.max(a.length, b.length); i++) {
+                const va = a[i] || 0, vb = b[i] || 0;
+                if (va > vb) return true;
+                if (va < vb) return false;
+            }
+            return false;
         }
 
         async function runOneShotNoticeCheck() {
@@ -573,13 +628,35 @@
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
                 const data = await res.json();
                 noticeContent = data && data.content ? String(data.content) : '暂无公告';
-                localStorage.setItem(NOTICE_CACHE_KEY, noticeContent);
+                if (data && data.version) latestVersion = String(data.version).replace(/[^0-9.]/g, '');
+                safeLocalStorageSet(NOTICE_CACHE_KEY, JSON.stringify({ content: noticeContent, version: latestVersion || '' }));
                 const el = document.getElementById('xy-notice-board');
                 if (el) el.innerText = noticeContent;
             } catch (e) {
-                const cached = localStorage.getItem(NOTICE_CACHE_KEY);
-                if (cached) noticeContent = cached;
-                else noticeContent = "❌ 公告加载失败";
+                const raw = safeLocalStorageGet(NOTICE_CACHE_KEY);
+                if (raw) {
+                    try {
+                        const cached = JSON.parse(raw);
+                        noticeContent = cached.content || raw;
+                        if (cached.version) latestVersion = cached.version;
+                    } catch (_) {
+                        noticeContent = raw;
+                    }
+                } else {
+                    noticeContent = "❌ 公告加载失败";
+                }
+                const el = document.getElementById('xy-notice-board');
+                if (el) el.innerText = noticeContent;
+            }
+            if (latestVersion && isNewerVersion(latestVersion, SCRIPT_VERSION)) {
+                const titleEl = document.querySelector('.xy-header-title');
+                if (titleEl && !titleEl.querySelector('.xy-update-badge')) {
+                    const badge = document.createElement('span');
+                    badge.className = 'xy-update-badge';
+                    badge.title = '发现新版本，请更新脚本';
+                    badge.textContent = `🔥 v${latestVersion} 可用`;
+                    titleEl.appendChild(badge);
+                }
             }
         }
 
@@ -599,18 +676,99 @@
             }
         }
 
-        function tryReadVideoDuration(retryCount = 0) {
+        function tryReadVideoDuration() {
+            clearVideoDurationProbe();
             if (!currentTask || (currentTask.duration && currentTask.duration > 0)) return;
-            const video = document.querySelector('video');
+            const taskNodeId = String(currentTask.nodeId);
             const { nodeId } = getPageInfo();
-            if (!nodeId || String(nodeId) !== String(currentTask.nodeId)) return;
-            if (video && video.duration && video.duration > 1) {
-                const realDuration = Math.ceil(video.duration) + 5;
-                updateTaskDuration(realDuration);
-            } else {
-                if (retryCount < 5) setTimeout(() => tryReadVideoDuration(retryCount + 1), 2000);
-                else updateTaskDuration(DEFAULT_DURATION * 60);
+            if (!nodeId || String(nodeId) !== taskNodeId) return;
+
+            let timeoutId = null;
+            let observer = null;
+            let targetVideo = null;
+            let settled = false;
+
+            function cleanup() {
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                    timeoutId = null;
+                }
+                if (observer) {
+                    observer.disconnect();
+                    observer = null;
+                }
+                if (targetVideo) {
+                    targetVideo.removeEventListener('loadedmetadata', onLoadedMetadata);
+                    targetVideo = null;
+                }
+                if (videoDurationCleanup === cleanup) videoDurationCleanup = null;
             }
+
+            function isStillCurrentTask() {
+                const latestTask = currentTask;
+                const latestPage = getPageInfo();
+                return !!latestTask
+                    && String(latestTask.nodeId) === taskNodeId
+                    && !!latestPage.nodeId
+                    && String(latestPage.nodeId) === taskNodeId;
+            }
+
+            function readDuration(video) {
+                if (!video || !Number.isFinite(video.duration) || video.duration <= 1) return null;
+                return Math.ceil(video.duration) + 5;
+            }
+
+            function finalize(seconds) {
+                if (settled) return;
+                settled = true;
+                cleanup();
+                if (!isStillCurrentTask()) return;
+                updateTaskDuration(seconds);
+            }
+
+            function cancelProbe() {
+                if (settled) return;
+                settled = true;
+                cleanup();
+            }
+
+            function onLoadedMetadata() {
+                const seconds = readDuration(targetVideo);
+                if (seconds) finalize(seconds);
+            }
+
+            function attachVideo(video) {
+                if (!video || settled) return;
+                if (targetVideo === video) {
+                    const seconds = readDuration(video);
+                    if (seconds) finalize(seconds);
+                    return;
+                }
+                if (targetVideo) targetVideo.removeEventListener('loadedmetadata', onLoadedMetadata);
+                targetVideo = video;
+                const seconds = readDuration(video);
+                if (seconds) {
+                    finalize(seconds);
+                    return;
+                }
+                targetVideo.addEventListener('loadedmetadata', onLoadedMetadata);
+            }
+
+            videoDurationCleanup = cleanup;
+
+            attachVideo(document.querySelector('video'));
+            if (settled) return;
+
+            observer = new MutationObserver(() => {
+                if (!isStillCurrentTask()) {
+                    cancelProbe();
+                    return;
+                }
+                attachVideo(document.querySelector('video'));
+            });
+            observer.observe(document.body || document.documentElement, { childList: true, subtree: true });
+
+            timeoutId = setTimeout(() => finalize(DEFAULT_DURATION * 60), 30000);
         }
 
         function updateTaskDuration(seconds) {
@@ -778,13 +936,13 @@
             const token = getCookie();
             if (!token) return;
             try {
-                let userId = localStorage.getItem('xy_user_id');
+                let userId = safeLocalStorageGet('xy_user_id');
                 if (!userId) {
                     const userRes = await fetchWithRetry(`https://${DOMAIN}/api/jx-auth/oauth2/info`, {
                         headers: { "authorization": `Bearer ${token}` }
                     }).then(r => r.json());
                     userId = userRes.data.info.id;
-                    localStorage.setItem('xy_user_id', userId);
+                    safeLocalStorageSet('xy_user_id', userId);
                 }
                 const targetGroupId = groupId || (currentTask ? currentTask.groupId : null);
                 const targetResourceId = resourceId || getTaskHeartbeatResourceId(currentTask);
@@ -814,6 +972,7 @@
             if (heartbeatInterval) clearInterval(heartbeatInterval);
             clearUnlockCheck();
             clearDocPreviewCheck();
+            clearVideoDurationProbe();
             timerInterval = null;
             heartbeatInterval = null;
             currentTask = null;
@@ -914,7 +1073,7 @@
                 }
             }, 1000);
 
-            if (task.duration === 0) setTimeout(() => tryReadVideoDuration(0), 2000);
+            if (task.duration === 0) tryReadVideoDuration();
             if (task.isVideo) {
                 setTimeout(tryAutoPlay, 2000);
             }
@@ -974,11 +1133,14 @@
 
         function makeDraggable(el, handle) {
             handle.addEventListener('mousedown', (e) => {
+                let moved = false;
                 const rect = el.getBoundingClientRect();
                 const offsetX = e.clientX - rect.left, offsetY = e.clientY - rect.top;
                 el.style.right = 'auto'; el.style.bottom = 'auto';
                 el.style.left = rect.left + 'px'; el.style.top = rect.top + 'px';
                 function onMouseMove(e) {
+                    moved = true;
+                    dragOccurred = true;
                     const nextLeft = e.clientX - offsetX;
                     const nextTop = e.clientY - offsetY;
                     const safe = clampPositionToViewport(nextTop + 'px', nextLeft + 'px', { width: rect.width, height: rect.height });
@@ -989,6 +1151,7 @@
                     document.removeEventListener('mousemove', onMouseMove);
                     document.removeEventListener('mouseup', onMouseUp);
                     savePos(el.style.top, el.style.left);
+                    if (moved) setTimeout(() => { dragOccurred = false; }, 0);
                 }
                 document.addEventListener('mousemove', onMouseMove);
                 document.addEventListener('mouseup', onMouseUp);
@@ -1023,16 +1186,19 @@
 
         @keyframes xy-pulse { 0%,100% { box-shadow: 0 4px 20px rgba(0,122,255,0.3); } 50% { box-shadow: 0 8px 36px rgba(0,122,255,0.5); } }
         @keyframes xy-status-dot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+        @keyframes xy-panel-in { from { opacity: 0; transform: scale(0.92) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes xy-badge-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
         
         .xy-ball { width: 56px; height: 56px; background-image: url('${ICON_BASE64}'); background-size: cover; background-position: center; border-radius: 50%; box-shadow: 0 6px 24px rgba(0,122,255,0.25); cursor: grab; display: flex; align-items: center; justify-content: center; user-select: none; transition: all 0.3s cubic-bezier(.25,.8,.25,1); }
         .xy-ball:hover { transform: scale(1.08); box-shadow: 0 10px 32px rgba(0,122,255,0.35); }
         .xy-ball.running { animation: xy-pulse 2.5s ease-in-out infinite; }
 
-        .xy-panel { width: 460px; background: var(--xy-bg); backdrop-filter: blur(30px) saturate(1.8); -webkit-backdrop-filter: blur(30px) saturate(1.8); color: var(--xy-text-main); border-radius: 24px; box-shadow: var(--xy-shadow); overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.5); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; transition: height 0.3s ease; }
+        .xy-panel { width: 460px; background: var(--xy-bg); backdrop-filter: blur(30px) saturate(1.8); -webkit-backdrop-filter: blur(30px) saturate(1.8); color: var(--xy-text-main); border-radius: 24px; box-shadow: var(--xy-shadow); overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.5); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; transition: height 0.3s ease; animation: xy-panel-in 0.35s cubic-bezier(.25,.46,.45,.94); }
 
         .xy-header { padding: 20px 28px; background: linear-gradient(135deg, #007AFF 0%, #0056D2 100%); display: flex; justify-content: space-between; align-items: center; cursor: grab; user-select: none; color: #fff; }
         .xy-header-title { font-weight: 600; font-size: 18px; letter-spacing: -0.3px; }
         .xy-header-version { font-size: 12px; opacity: 0.8; font-weight: 400; margin-left: 8px; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; }
+        .xy-update-badge { font-size: 11px; margin-left: 6px; background: #FF3B30; padding: 2px 8px; border-radius: 10px; cursor: pointer; animation: xy-badge-pulse 2s ease-in-out infinite; font-weight: 500; }
         .xy-header-btns { display: flex; gap: 10px; }
         .xy-header-btn { background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; width: 32px; height: 32px; border-radius: 12px; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
         .xy-header-btn:hover { background: rgba(255,255,255,0.35); transform: scale(1.05); }
@@ -1118,8 +1284,8 @@
             if (!isExpanded) {
                 const ball = document.createElement('div');
                 ball.className = 'xy-ball' + (currentTask ? ' running' : '');
-                ball.title = '双击展开面板';
-                ball.ondblclick = () => { isExpanded = true; renderUI(); };
+                ball.title = '点击展开面板';
+                ball.onclick = () => { if (dragOccurred) return; isExpanded = true; renderUI(); };
                 makeDraggable(container, ball);
                 container.appendChild(ball);
             } else {
@@ -1128,7 +1294,14 @@
 
                 const header = document.createElement('div');
                 header.className = 'xy-header';
-                header.innerHTML = `<span class="xy-header-title">小雅自动刷<span class="xy-header-version">v1.5</span></span>`;
+                header.innerHTML = `<span class="xy-header-title">小雅自动刷<span class="xy-header-version">v${SCRIPT_VERSION}</span></span>`;
+                if (latestVersion && isNewerVersion(latestVersion, SCRIPT_VERSION)) {
+                    const badge = document.createElement('span');
+                    badge.className = 'xy-update-badge';
+                    badge.title = '发现新版本，请更新脚本';
+                    badge.textContent = `🔥 v${latestVersion} 可用`;
+                    header.querySelector('.xy-header-title').appendChild(badge);
+                }
                 const headerBtns = document.createElement('div');
                 headerBtns.className = 'xy-header-btns';
                 const closeBtn = document.createElement('button');
@@ -1144,7 +1317,8 @@
                 statusLeft.className = 'xy-status-left';
                 if (currentTask) {
                     if (waitingUnlockText) {
-                        statusLeft.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">等待解锁</span><span class="xy-status-time waiting">${waitingUnlockText}</span>`;
+                        statusLeft.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">等待解锁</span><span class="xy-status-time waiting"></span>`;
+                        statusLeft.querySelector('.xy-status-time').textContent = waitingUnlockText;
                     } else if (remainingTime > 0) {
                         statusLeft.innerHTML = `<span class="xy-status-dot active"></span><span class="xy-status-text active">进行中</span><span class="xy-status-time">${formatSeconds(remainingTime)}</span>`;
                     } else {
@@ -1164,14 +1338,9 @@
                 silentBtn.innerText = `拦截声音:${silentEnabled ? '开' : '关'}`;
                 silentBtn.title = '切换是否拦截声音';
                 silentBtn.onclick = () => {
-                    const wasOn = silentEnabled;
                     silentEnabled = !silentEnabled;
                     savePlayPref();
-                    if (wasOn) {
-                        alert('已关闭声音拦截，刷新页面后生效');
-                    } else {
-                        syncSilentState();
-                    }
+                    syncSilentState();
                     renderUI();
                 };
                 const clearBtn = document.createElement('button');
@@ -1223,13 +1392,20 @@
                         const isGroupCollapsed = collapsedGroups.has(groupName);
                         const groupHeader = document.createElement('div');
                         groupHeader.className = 'xy-group-header';
-                        groupHeader.innerHTML = `<span class="xy-group-arrow${isGroupCollapsed ? ' collapsed' : ''}">▼</span> 📂 ${groupName} <span class="xy-group-count">${items.length} 项</span>`;
+                        groupHeader.innerHTML = `<span class="xy-group-arrow${isGroupCollapsed ? ' collapsed' : ''}">▼</span> 📂 `;
+                        groupHeader.appendChild(document.createTextNode(groupName + ' '));
+                        const groupCount = document.createElement('span');
+                        groupCount.className = 'xy-group-count';
+                        groupCount.textContent = `${items.length} 项`;
+                        groupHeader.appendChild(groupCount);
                         const groupContainer = document.createElement('div');
                         groupContainer.className = 'xy-group-items' + (isGroupCollapsed ? ' collapsed' : '');
                         groupHeader.onclick = () => {
-                            if (collapsedGroups.has(groupName)) collapsedGroups.delete(groupName);
-                            else collapsedGroups.add(groupName);
-                            renderUI();
+                            const isNowCollapsed = !collapsedGroups.has(groupName);
+                            if (isNowCollapsed) collapsedGroups.add(groupName);
+                            else collapsedGroups.delete(groupName);
+                            groupContainer.classList.toggle('collapsed', isNowCollapsed);
+                            groupHeader.querySelector('.xy-group-arrow').classList.toggle('collapsed', isNowCollapsed);
                         };
                         list.appendChild(groupHeader);
                         items.forEach(({ task, index }) => {
@@ -1274,7 +1450,8 @@
                                 : (stateInfo.lateSubmit
                                     ? '<span class="xy-tag late-submit">📝 可补交</span>'
                                     : (task.isVideo ? '<span class="xy-tag video">▶ 视频</span>' : '<span class="xy-tag">📄 文档</span>')));
-                        name.innerHTML = `${tagHtml}${task.name || '未知任务'}`;
+                        name.innerHTML = tagHtml;
+                        name.appendChild(document.createTextNode(task.name || '未知任务'));
                         name.onclick = () => {
                             const targetUrl = buildTaskUrl(task);
                             if (targetUrl) window.location.replace(targetUrl);
@@ -1333,7 +1510,7 @@
             if (el && currentTask) {
                 const left = el.querySelector('.xy-status-left');
                 if (left) {
-                    if (waitingUnlockText) left.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">等待解锁</span><span class="xy-status-time waiting">${waitingUnlockText}</span>`;
+                    if (waitingUnlockText) { left.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">等待解锁</span><span class="xy-status-time waiting"></span>`; left.querySelector('.xy-status-time').textContent = waitingUnlockText; }
                     else if (remainingTime > 0) left.innerHTML = `<span class="xy-status-dot active"></span><span class="xy-status-text active">进行中</span><span class="xy-status-time">${formatSeconds(remainingTime)}</span>`;
                     else left.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">正在读取时长…</span>`;
                 }
@@ -1368,7 +1545,11 @@
             }
         }).observe(document, { subtree: true, childList: true });
         init();
-        window.addEventListener('resize', () => applySafeContainerPosition());
+        let _resizeTimer = null;
+        window.addEventListener('resize', () => {
+            if (_resizeTimer) clearTimeout(_resizeTimer);
+            _resizeTimer = setTimeout(() => applySafeContainerPosition(), 200);
+        });
 
     }
 
