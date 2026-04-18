@@ -279,20 +279,25 @@
 
         function getCookie(cookieName = 'prd-access-token') {
             const cookies = document.cookie.split('; ');
+            let suffixMatch = null;
             for (const cookie of cookies) {
-                const [name, value] = cookie.split('=');
+                const separatorIndex = cookie.indexOf('=');
+                if (separatorIndex === -1) continue;
+                const name = cookie.slice(0, separatorIndex);
+                const value = cookie.slice(separatorIndex + 1);
                 if (name === cookieName) return value;
+                if (!suffixMatch && name.endsWith(cookieName)) suffixMatch = value;
             }
-            return null;
+            return suffixMatch;
         }
 
         function getPageInfo() {
             const url = window.location.href;
-            const match = url.match(/mycourse\/(\d+)\/resource\/(\d+)\/(\d+)/);
-            if (match) return { groupId: match[1], resourceId: match[2], nodeId: match[3] };
-            const listMatch = url.match(/mycourse\/(\d+)/);
-            if (listMatch) return { groupId: listMatch[1], resourceId: null, nodeId: null };
-            return { groupId: null, resourceId: null, nodeId: null };
+            const match = url.match(/(mycourse|course)\/(\d+)\/resource\/(\d+)\/(\d+)/);
+            if (match) return { routePrefix: match[1], groupId: match[2], resourceId: match[3], nodeId: match[4] };
+            const listMatch = url.match(/(mycourse|course)\/(\d+)/);
+            if (listMatch) return { routePrefix: listMatch[1], groupId: listMatch[2], resourceId: null, nodeId: null };
+            return { routePrefix: 'mycourse', groupId: null, resourceId: null, nodeId: null };
         }
 
         function formatSeconds(s) {
@@ -336,7 +341,8 @@
         function buildTaskUrl(task) {
             const routeResourceId = getTaskRouteResourceId(task);
             if (!task || !task.groupId || !routeResourceId || !task.nodeId) return null;
-            return `https://${DOMAIN}/app/jx-web/mycourse/${task.groupId}/resource/${routeResourceId}/${task.nodeId}`;
+            const { routePrefix } = getPageInfo();
+            return `https://${DOMAIN}/app/jx-web/${task.routePrefix || routePrefix || 'mycourse'}/${task.groupId}/resource/${routeResourceId}/${task.nodeId}`;
         }
 
         function parseDateTimeSafe(value) {
@@ -838,6 +844,7 @@
                             if (resInfo) isVideo = (resInfo.type && String(resInfo.type).includes('video')) || (resInfo.mimetype && resInfo.mimetype.includes('video')) || (resInfo.name && VIDEO_EXT.test(resInfo.name));
                             let dur = isVideo ? 0 : ((resInfo && resInfo.watch_min_minutes > 0) ? (resInfo.watch_min_minutes * 60 + 20) : DEFAULT_DURATION * 60);
                             return {
+                                routePrefix: getPageInfo().routePrefix || 'mycourse',
                                 groupId,
                                 nodeId: String(t.node_id),
                                 taskId: String(t.task_id),
@@ -902,6 +909,7 @@
                             }
                         }
                         taskQueue = keepTasks.map(t => ({
+                            routePrefix: 'mycourse',
                             groupId: String(t.group_id),
                             nodeId: String(t.node_id),
                             taskId: String(t.task_id || t.id || t.resource_id),
