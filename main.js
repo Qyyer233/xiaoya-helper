@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         小雅自动刷
 // @namespace    http://tampermonkey.net/
-// @version      1.5
+// @version      1.6
 // @description  🚀 小雅平台自动刷课神器！视频自动播放、无缝跳转，突破防切屏限制实现后台挂机 🛡️！智能监测未开启任务倒计时 ⏳，成倍提升学习效率！📈
 // @author       Qy
 // @match        https://*.ai-augmented.com/*
@@ -13,6 +13,7 @@
 (function () {
     'use strict';
 
+    
     (function injectAntiPause() {
         const s = document.createElement('script');
         s.textContent = `(function(){
@@ -32,11 +33,12 @@
         s.remove();
     })();
 
-    (function injectAudioIntercept() {
+    
+        (function injectAudioIntercept() {
         let initSilent = true;
         try {
             const pref = JSON.parse(localStorage.getItem('xy_qy_play_pref') || '{}');
-            initSilent = (pref.silentEnabled ?? pref.silentAutoPlay) !== false;
+            initSilent = pref.silentEnabled !== false;
         } catch(e) {}
         if (document.documentElement) {
             document.documentElement.setAttribute('data-xy-silent', initSilent ? '1' : '0');
@@ -126,16 +128,15 @@
         s.remove();
     })();
 
+    
     function main() {
 
         const STORAGE_KEY = 'xy_qy_task_queue';
         const POS_KEY = 'xy_qy_ui_pos';
-        const NOTICE_CACHE_KEY = 'xy_qy_notice_cache';
         const PLAY_PREF_KEY = 'xy_qy_play_pref';
         const DOMAIN = window.location.hostname;
-        const DEFAULT_DURATION = 10;
         const NOTICE_API = "https://xiaoya-notice-dwafgrs416f1w156r1fasd11jt.qyrun.me/notice";
-        const SCRIPT_VERSION = '1.5';
+        const SCRIPT_VERSION = '1.6';
         const VIDEO_EXT = /\.(mp4|flv|avi|mov|mkv|wmv|rmvb|m4v|webm)$/i;
         const UI_EDGE_MARGIN = 8;
         const ICON_BASE64 = 'data:image/png;base64,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';
@@ -146,21 +147,30 @@
         let isExpanded = false;
         let currentTask = null;
         let remainingTime = 0;
-        let timerStartedAt = 0;
-        let timerTotalDuration = 0;
+        let timerStartedAt = 0;       
+        let timerTotalDuration = 0;   
         let nextTaskNodeId = null;
         let unlockCheckTimer = null;
         let waitingUnlockText = '';
         let docPreviewTimer = null;
         let docPreviewDoneNodeId = '';
         let videoDurationCleanup = null;
+        let autoResumeController = null;
+        let autoResumeInterval = null;
+        let autoResumeDelayTimer = null;
+        let autoResumeVideo = null;
         let uiPos = null;
         let noticeContent = "⏳ 初始化中...";
         let collapsedGroups = new Set();
-        let navigationId = 0;
+        let navigationId = 0;         
         let silentEnabled = true;
+        let autoResumeEnabled = true;
         let latestVersion = null;
-        let dragOccurred = false;
+        let taskListMessage = '';
+        let suppressNextClickUntil = 0;
+        const DRAG_THRESHOLD_PX = 5;
+
+        
 
         function safeLocalStorageGet(key) {
             try {
@@ -196,16 +206,18 @@
                 const q = safeLocalStorageGet(STORAGE_KEY);
                 const p = safeLocalStorageGet(POS_KEY);
                 const playPref = safeLocalStorageGet(PLAY_PREF_KEY);
-                if (q) taskQueue = JSON.parse(q);
+                if (q) taskQueue = JSON.parse(q).map(refreshTaskExecutionState);
                 if (p) uiPos = JSON.parse(p);
                 if (playPref) {
                     const parsed = JSON.parse(playPref);
-                    silentEnabled = (parsed.silentEnabled ?? parsed.silentAutoPlay) !== false;
+                    silentEnabled = parsed.silentEnabled !== false;
+                    autoResumeEnabled = parsed.autoResumeEnabled !== false;
                 }
             } catch (e) {
                 taskQueue = [];
                 uiPos = null;
                 silentEnabled = true;
+                autoResumeEnabled = true;
                 safeLocalStorageRemove(STORAGE_KEY);
                 safeLocalStorageRemove(POS_KEY);
                 safeLocalStorageRemove(PLAY_PREF_KEY);
@@ -217,7 +229,7 @@
         }
 
         function savePlayPref() {
-            safeLocalStorageSet(PLAY_PREF_KEY, JSON.stringify({ silentEnabled }));
+            safeLocalStorageSet(PLAY_PREF_KEY, JSON.stringify({ silentEnabled, autoResumeEnabled }));
         }
 
         function syncSilentState() {
@@ -277,18 +289,234 @@
             if (safe.top !== uiPos.top || safe.left !== uiPos.left) savePos(safe.top, safe.left);
         }
 
-        function getCookie(cookieName = 'prd-access-token') {
-            const cookies = document.cookie.split('; ');
-            let suffixMatch = null;
-            for (const cookie of cookies) {
-                const separatorIndex = cookie.indexOf('=');
-                if (separatorIndex === -1) continue;
-                const name = cookie.slice(0, separatorIndex);
-                const value = cookie.slice(separatorIndex + 1);
-                if (name === cookieName) return value;
-                if (!suffixMatch && name.endsWith(cookieName)) suffixMatch = value;
+        
+
+        const TOKEN_COOKIE_NAMES = [
+            'prd-access-token',
+            'prd_access_token',
+            'prdAccessToken',
+            'access-token',
+            'access_token',
+            'accessToken',
+            'authorization',
+            'Authorization',
+            'token'
+        ];
+        const TOKEN_STORAGE_KEYS = [
+            'prd-access-token',
+            'prd_access_token',
+            'prdAccessToken',
+            'access-token',
+            'access_token',
+            'accessToken',
+            'authorization',
+            'Authorization',
+            'token',
+            'userToken',
+            'jwt',
+            'auth',
+            'authToken',
+            'loginInfo',
+            'userInfo',
+            'vuex',
+            'persist:root'
+        ];
+        const TOKEN_KEY_RE = /(token|authorization|access[_-]?token|auth)/i;
+
+        function stripBearer(value) {
+            const text = value === undefined || value === null ? '' : String(value).trim();
+            if (!text) return null;
+            const token = text.replace(/^Bearer\s+/i, '').trim();
+            if (!token || token.length < 8) return null;
+            if (/^(true|false|null|undefined)$/i.test(token)) return null;
+            return token;
+        }
+
+        function extractTokenCandidate(value) {
+            if (value && typeof value === 'object') return findTokenInObject(value);
+            const text = value === undefined || value === null ? '' : String(value).trim();
+            if (!text) return null;
+            if (text[0] === '{' || text[0] === '[') {
+                try {
+                    return findTokenInObject(JSON.parse(text));
+                } catch (e) {
+                    return null;
+                }
             }
-            return suffixMatch;
+            return stripBearer(text);
+        }
+
+        function readCookieMap() {
+            const map = new Map();
+            const cookies = document.cookie.split(';');
+            for (const cookie of cookies) {
+                const text = cookie.trim();
+                const separatorIndex = text.indexOf('=');
+                if (separatorIndex === -1) continue;
+                const name = text.slice(0, separatorIndex);
+                const value = text.slice(separatorIndex + 1);
+                map.set(name, value);
+            }
+            return map;
+        }
+
+        function findTokenInObject(value, depth = 0) {
+            if (depth > 4 || value === null || value === undefined) return null;
+            if (typeof value === 'string') return null;
+            if (typeof value !== 'object') return null;
+
+            for (const key of TOKEN_STORAGE_KEYS) {
+                if (Object.prototype.hasOwnProperty.call(value, key)) {
+                    const token = extractTokenCandidate(value[key]);
+                    if (token) return token;
+                }
+            }
+
+            for (const [key, item] of Object.entries(value)) {
+                if (TOKEN_KEY_RE.test(key)) {
+                    const token = extractTokenCandidate(item);
+                    if (token) return token;
+                }
+            }
+
+            for (const item of Object.values(value)) {
+                const token = findTokenInObject(item, depth + 1);
+                if (token) return token;
+            }
+            return null;
+        }
+
+        function extractTokenFromStorageRaw(raw) {
+            const text = raw === undefined || raw === null ? '' : String(raw).trim();
+            if (!text) return null;
+            if (text[0] === '{' || text[0] === '[') {
+                try {
+                    return findTokenInObject(JSON.parse(text));
+                } catch (e) {
+                    return null;
+                }
+            }
+            return stripBearer(text);
+        }
+
+        function findTokenInStorage(storage, sourceName) {
+            if (!storage) return null;
+            for (const key of TOKEN_STORAGE_KEYS) {
+                let raw = null;
+                try {
+                    raw = storage.getItem(key);
+                } catch (e) {
+                    console.warn(`[小雅自动刷] ${sourceName} token 读取失败:`, key, e.message);
+                }
+                const token = extractTokenFromStorageRaw(raw);
+                if (token) return token;
+            }
+
+            try {
+                for (let i = 0; i < storage.length; i++) {
+                    const key = storage.key(i);
+                    if (!key || !TOKEN_KEY_RE.test(key)) continue;
+                    const raw = storage.getItem(key);
+                    const directToken = extractTokenFromStorageRaw(raw);
+                    if (directToken) return directToken;
+                }
+                for (let i = 0; i < storage.length; i++) {
+                    const key = storage.key(i);
+                    if (!key) continue;
+                    const raw = storage.getItem(key);
+                    if (!raw || (raw[0] !== '{' && raw[0] !== '[')) continue;
+                    const token = extractTokenFromStorageRaw(raw);
+                    if (token) return token;
+                }
+            } catch (e) {
+                console.warn(`[小雅自动刷] ${sourceName} token 扫描失败:`, e.message);
+            }
+            return null;
+        }
+
+        function findTokenInLocalStorage() {
+            try {
+                return findTokenInStorage(localStorage, 'localStorage');
+            } catch (e) {
+                console.warn('[小雅自动刷] localStorage 不可用:', e.message);
+                return null;
+            }
+        }
+
+        function findTokenInSessionStorage() {
+            try {
+                return findTokenInStorage(sessionStorage, 'sessionStorage');
+            } catch (e) {
+                console.warn('[小雅自动刷] sessionStorage 不可用:', e.message);
+                return null;
+            }
+        }
+
+        function debugMissingAuthToken() {
+            const tokenRelatedStorage = {};
+            const tokenRelatedSessionStorage = {};
+            try {
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (!key) continue;
+                    const value = localStorage.getItem(key);
+                    if (TOKEN_KEY_RE.test(key) || TOKEN_KEY_RE.test(String(value || ''))) {
+                        tokenRelatedStorage[key] = value;
+                    }
+                }
+            } catch (e) {
+                tokenRelatedStorage.__error = e.message;
+            }
+            try {
+                for (let i = 0; i < sessionStorage.length; i++) {
+                    const key = sessionStorage.key(i);
+                    if (!key) continue;
+                    const value = sessionStorage.getItem(key);
+                    if (TOKEN_KEY_RE.test(key) || TOKEN_KEY_RE.test(String(value || ''))) {
+                        tokenRelatedSessionStorage[key] = value;
+                    }
+                }
+            } catch (e) {
+                tokenRelatedSessionStorage.__error = e.message;
+            }
+            console.warn('[小雅自动刷] Token 读取失败，当前 document.cookie:', document.cookie);
+            console.warn('[小雅自动刷] localStorage 中 token/auth 相关键值:', tokenRelatedStorage);
+            console.warn('[小雅自动刷] sessionStorage 中 token/auth 相关键值:', tokenRelatedSessionStorage);
+        }
+
+        function getCookie(cookieName = 'prd-access-token') {
+            const cookieMap = readCookieMap();
+
+            const exactCookie = stripBearer(cookieMap.get(cookieName));
+            if (exactCookie) return exactCookie;
+
+            for (const name of TOKEN_COOKIE_NAMES) {
+                const token = stripBearer(cookieMap.get(name));
+                if (token) return token;
+            }
+
+            
+            for (const [name, value] of cookieMap.entries()) {
+                if (name.includes(cookieName) || TOKEN_KEY_RE.test(name)) {
+                    const token = stripBearer(value);
+                    if (token) return token;
+                }
+            }
+
+            const storageToken = findTokenInLocalStorage();
+            if (storageToken) return storageToken;
+
+            const sessionToken = findTokenInSessionStorage();
+            if (sessionToken) return sessionToken;
+
+            const cookieValueToken = findTokenInObject(Object.fromEntries(cookieMap.entries()));
+            if (cookieValueToken) return cookieValueToken;
+
+            return null;
+        }
+
+        function getAuthToken() {
+            return getCookie();
         }
 
         function getPageInfo() {
@@ -298,6 +526,135 @@
             const listMatch = url.match(/(mycourse|course)\/(\d+)/);
             if (listMatch) return { routePrefix: listMatch[1], groupId: listMatch[2], resourceId: null, nodeId: null };
             return { routePrefix: 'mycourse', groupId: null, resourceId: null, nodeId: null };
+        }
+
+        function normalizeResourceId(value) {
+            if (value === undefined || value === null) return null;
+            const text = String(value).trim();
+            if (!text || text === '_' || text === 'null' || text === 'undefined') return null;
+            return text;
+        }
+
+        function getTaskId(task) {
+            if (!task) return null;
+            return normalizeResourceId(task.task_id)
+                || normalizeResourceId(task.taskId)
+                || normalizeResourceId(task.id)
+                || normalizeResourceId(task.resource_id);
+        }
+
+        function getNodeId(task) {
+            if (!task) return null;
+            return normalizeResourceId(task.node_id) || normalizeResourceId(task.nodeId);
+        }
+
+        function getGroupId(task) {
+            if (!task) return null;
+            return normalizeResourceId(task.group_id) || normalizeResourceId(task.groupId);
+        }
+
+        function getStudentTaskList(response) {
+            const data = response && response.data;
+            if (data && Array.isArray(data.student_tasks)) return data.student_tasks;
+            if (Array.isArray(data)) return data;
+            return [];
+        }
+
+        function getUnfinishedTaskList(response) {
+            const data = response && response.data;
+            if (Array.isArray(data)) return data;
+            if (!data || typeof data !== 'object') return [];
+            const keys = ['records', 'list', 'items', 'data'];
+            for (const key of keys) {
+                if (Array.isArray(data[key])) return data[key];
+            }
+            return [];
+        }
+
+        function flattenResources(items) {
+            const result = [];
+            const walk = (list) => {
+                if (!Array.isArray(list)) return;
+                list.forEach(item => {
+                    if (!item || typeof item !== 'object') return;
+                    result.push(item);
+                    walk(item.children);
+                    walk(item.child_nodes);
+                    walk(item.items);
+                });
+            };
+            walk(items);
+            return result;
+        }
+
+        function getResourceIdFromInfo(resource) {
+            return resource ? (normalizeResourceId(resource.resource_id) || normalizeResourceId(resource.id)) : null;
+        }
+
+        function buildResourceLookup(resources) {
+            const lookup = { byTaskId: new Map(), byNodeId: new Map() };
+            flattenResources(resources).forEach(resource => {
+                if (resource.task_id !== undefined && resource.task_id !== null) lookup.byTaskId.set(String(resource.task_id), resource);
+                if (resource.node_id !== undefined && resource.node_id !== null) lookup.byNodeId.set(String(resource.node_id), resource);
+            });
+            return lookup;
+        }
+
+        function findResourceInfoForTask(lookup, task) {
+            if (!lookup || !task) return null;
+            const taskId = getTaskId(task);
+            const nodeId = getNodeId(task);
+            return (taskId ? lookup.byTaskId.get(taskId) : null)
+                || (nodeId ? lookup.byNodeId.get(nodeId) : null)
+                || null;
+        }
+
+        function getTrustedTaskResourceId(task) {
+            if (!task) return null;
+            const resourceId = normalizeResourceId(task.resourceId);
+            if (!resourceId) return null;
+            if (task.resourceIdSource === 'resource') return resourceId;
+            return null;
+        }
+
+        function refreshTaskExecutionState(task) {
+            if (!task) return task;
+            task.resourceMissing = !getTrustedTaskResourceId(task);
+            task.durationMissing = !task.isVideo && !(Number(task.duration) > 0 && task.durationSource === 'platform');
+            task.executable = !task.resourceMissing && !task.durationMissing;
+            return task;
+        }
+
+        function isTaskExecutable(task) {
+            return !!(refreshTaskExecutionState(task) && task.executable);
+        }
+
+        async function resolveTaskResourceId(task, groupId, token) {
+            const trustedResourceId = getTrustedTaskResourceId(task);
+            if (trustedResourceId) return trustedResourceId;
+            if (!task || !groupId || !token) return null;
+
+            const resourceRes = await fetchWithRetry(`https://${DOMAIN}/api/jx-iresource/resource/queryCourseResources?group_id=${groupId}`, {
+                headers: { "authorization": `Bearer ${token}` }
+            }).then(r => r.json());
+            if (!resourceRes.success) return null;
+
+            const lookup = buildResourceLookup(resourceRes.data);
+            const resInfo = findResourceInfoForTask(lookup, task);
+            const resolvedResourceId = getResourceIdFromInfo(resInfo);
+            if (!resolvedResourceId) return null;
+
+            task.resourceId = resolvedResourceId;
+            task.resourceIdSource = 'resource';
+            refreshTaskExecutionState(task);
+            const index = getTaskIndexByNodeId(task.nodeId);
+            if (index !== -1) {
+                taskQueue[index].resourceId = resolvedResourceId;
+                taskQueue[index].resourceIdSource = 'resource';
+                refreshTaskExecutionState(taskQueue[index]);
+                saveData();
+            }
+            return resolvedResourceId;
         }
 
         function formatSeconds(s) {
@@ -323,26 +680,13 @@
         }
 
         function getTaskRouteResourceId(task) {
-            if (!task) return null;
-            if (task.resourceId !== undefined && task.resourceId !== null && task.resourceId !== '') return String(task.resourceId);
-            if (task.taskId !== undefined && task.taskId !== null && task.taskId !== '') return String(task.taskId);
-            if (task.nodeId !== undefined && task.nodeId !== null && task.nodeId !== '') return String(task.nodeId);
-            return null;
-        }
-
-        function getTaskHeartbeatResourceId(task) {
-            if (!task) return null;
-            if (task.resourceId !== undefined && task.resourceId !== null && task.resourceId !== '') return String(task.resourceId);
-            if (task.nodeId !== undefined && task.nodeId !== null && task.nodeId !== '') return String(task.nodeId);
-            if (task.taskId !== undefined && task.taskId !== null && task.taskId !== '') return String(task.taskId);
-            return null;
+            return getTrustedTaskResourceId(task);
         }
 
         function buildTaskUrl(task) {
             const routeResourceId = getTaskRouteResourceId(task);
-            if (!task || !task.groupId || !routeResourceId || !task.nodeId) return null;
-            const { routePrefix } = getPageInfo();
-            return `https://${DOMAIN}/app/jx-web/${task.routePrefix || routePrefix || 'mycourse'}/${task.groupId}/resource/${routeResourceId}/${task.nodeId}`;
+            if (!task || !task.routePrefix || !task.groupId || !routeResourceId || !task.nodeId) return null;
+            return `https://${DOMAIN}/app/jx-web/${task.routePrefix}/${task.groupId}/resource/${routeResourceId}/${task.nodeId}`;
         }
 
         function parseDateTimeSafe(value) {
@@ -458,6 +802,7 @@
                 t.state = stateInfo.state;
                 t.locked = stateInfo.state === 'locked';
                 t.unlockAt = stateInfo.unlockAt ? formatDateTime(stateInfo.unlockAt) : (t.unlockAt || null);
+                refreshTaskExecutionState(t);
             });
         }
 
@@ -479,6 +824,20 @@
             }
         }
 
+        function clearAutoResumeMonitor() {
+            if (autoResumeController) {
+                try {
+                    autoResumeController.abort();
+                } catch (e) {}
+            }
+            if (autoResumeInterval) clearInterval(autoResumeInterval);
+            if (autoResumeDelayTimer) clearTimeout(autoResumeDelayTimer);
+            autoResumeController = null;
+            autoResumeInterval = null;
+            autoResumeDelayTimer = null;
+            autoResumeVideo = null;
+        }
+
         function isDocPreviewOpened() {
             const viewer = document.querySelector('iframe[src*="ow365.cn"], iframe[src*="office"], .disk_previewer_with_banner iframe');
             return !!viewer;
@@ -488,11 +847,6 @@
             const confirmBtn = document.querySelector('.xy_disk_preview .ant-btn-primary');
             if (confirmBtn) {
                 confirmBtn.click();
-                return true;
-            }
-            const fallbackBtn = document.querySelector('#ta_image_preview_btn');
-            if (fallbackBtn) {
-                fallbackBtn.click();
                 return true;
             }
             return false;
@@ -535,7 +889,7 @@
             waitingUnlockText = lockInfo && lockInfo.text
                 ? lockInfo.text
                 : (task && task.unlockAt ? `任务将于${task.unlockAt}开始` : '任务未开启');
-            renderUI();
+            refreshPanelContent({ list: true, status: true });
 
             unlockCheckTimer = setInterval(() => {
                 const latest = getTaskUnlockInfoFromPage();
@@ -558,10 +912,11 @@
                 clearUnlockCheck();
                 const page = getPageInfo();
                 if (String(page.nodeId) === String(task.nodeId)) {
-                    startTimer(task);
+                    checkCurrentTask();
                 } else {
                     const targetUrl = buildTaskUrl(task);
                     if (targetUrl) window.location.replace(targetUrl);
+                    else console.warn('[小雅自动刷] 缺少真实 resourceId，不能跳转:', task.name || task.nodeId);
                 }
             }, 1000);
         }
@@ -574,6 +929,7 @@
         }
 
         function sortTaskQueueByPriority() {
+            
             const stateCache = new Map();
             taskQueue.forEach(t => stateCache.set(t, evaluateTaskState(t).state));
             taskQueue.sort((a, b) => {
@@ -589,16 +945,18 @@
             });
         }
 
+        
         async function fetchWithRetry(url, options = {}, retries = 3, delay = 2000) {
             for (let i = 0; i < retries; i++) {
                 try {
                     const res = await fetch(url, options);
+                    
                     if (res.status === 401 || res.status === 403) {
-                        safeLocalStorageRemove('xy_user_id');
-                        const newToken = getCookie();
+                        safeLocalStorageRemove('xy_user_id'); 
+                        const newToken = getAuthToken();
                         if (newToken && options.headers) {
                             options.headers['authorization'] = `Bearer ${newToken}`;
-                            continue;
+                            continue; 
                         }
                         throw new Error(`Token 过期 (HTTP ${res.status})`);
                     }
@@ -613,6 +971,8 @@
             }
         }
 
+        
+
         function isNewerVersion(latest, current) {
             if (!latest || latest === '0') return false;
             const a = latest.split('.').map(Number);
@@ -625,9 +985,11 @@
             return false;
         }
 
+        
+
         async function runOneShotNoticeCheck() {
             try {
-                const res = await fetch(NOTICE_API, {
+                const res = await fetchWithRetry(NOTICE_API, {
                     method: 'POST',
                     body: JSON.stringify({ action: 'get_notice' })
                 });
@@ -635,25 +997,14 @@
                 const data = await res.json();
                 noticeContent = data && data.content ? String(data.content) : '暂无公告';
                 if (data && data.version) latestVersion = String(data.version).replace(/[^0-9.]/g, '');
-                safeLocalStorageSet(NOTICE_CACHE_KEY, JSON.stringify({ content: noticeContent, version: latestVersion || '' }));
                 const el = document.getElementById('xy-notice-board');
                 if (el) el.innerText = noticeContent;
             } catch (e) {
-                const raw = safeLocalStorageGet(NOTICE_CACHE_KEY);
-                if (raw) {
-                    try {
-                        const cached = JSON.parse(raw);
-                        noticeContent = cached.content || raw;
-                        if (cached.version) latestVersion = cached.version;
-                    } catch (_) {
-                        noticeContent = raw;
-                    }
-                } else {
-                    noticeContent = "❌ 公告加载失败";
-                }
+                noticeContent = "❌ 公告加载失败";
                 const el = document.getElementById('xy-notice-board');
                 if (el) el.innerText = noticeContent;
             }
+            
             if (latestVersion && isNewerVersion(latestVersion, SCRIPT_VERSION)) {
                 const titleEl = document.querySelector('.xy-header-title');
                 if (titleEl && !titleEl.querySelector('.xy-update-badge')) {
@@ -666,21 +1017,26 @@
             }
         }
 
+        
+
         async function submitFinishActivity() {
             if (!currentTask) return;
-            const { groupId } = getPageInfo();
-            const token = getCookie();
-            const targetGroupId = groupId || currentTask.groupId;
+            const token = getAuthToken();
+            const targetGroupId = currentTask.groupId;
+            if (!token || !targetGroupId || !currentTask.taskId) return;
             try {
-                await fetchWithRetry(`https://${DOMAIN}/api/jx-iresource/resource/finishActivity`, {
+                const res = await fetchWithRetry(`https://${DOMAIN}/api/jx-iresource/resource/finishActivity`, {
                     method: 'POST',
                     headers: { 'authorization': `Bearer ${token}`, 'content-type': 'application/json; charset=UTF-8' },
                     body: JSON.stringify({ group_id: targetGroupId, node_id: currentTask.nodeId, task_id: currentTask.taskId })
                 });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
             } catch (e) {
                 console.warn('[小雅自动刷] submitFinishActivity 失败:', e.message);
             }
         }
+
+        
 
         function tryReadVideoDuration() {
             clearVideoDurationProbe();
@@ -689,16 +1045,11 @@
             const { nodeId } = getPageInfo();
             if (!nodeId || String(nodeId) !== taskNodeId) return;
 
-            let timeoutId = null;
             let observer = null;
             let targetVideo = null;
             let settled = false;
 
             function cleanup() {
-                if (timeoutId) {
-                    clearTimeout(timeoutId);
-                    timeoutId = null;
-                }
                 if (observer) {
                     observer.disconnect();
                     observer = null;
@@ -752,6 +1103,7 @@
                 }
                 if (targetVideo) targetVideo.removeEventListener('loadedmetadata', onLoadedMetadata);
                 targetVideo = video;
+                if (autoResumeEnabled && currentTask && currentTask.isVideo) startAutoResumeMonitor();
                 const seconds = readDuration(video);
                 if (seconds) {
                     finalize(seconds);
@@ -773,27 +1125,29 @@
                 attachVideo(document.querySelector('video'));
             });
             observer.observe(document.body || document.documentElement, { childList: true, subtree: true });
-
-            timeoutId = setTimeout(() => finalize(DEFAULT_DURATION * 60), 30000);
         }
 
         function updateTaskDuration(seconds) {
             if (!currentTask) return;
             currentTask.duration = seconds;
             remainingTime = seconds;
+            
             timerTotalDuration = seconds;
             timerStartedAt = Date.now();
             const index = taskQueue.findIndex(t => String(t.nodeId) === String(currentTask.nodeId));
             if (index !== -1) {
                 taskQueue[index].duration = seconds;
+                taskQueue[index].durationSource = currentTask.isVideo ? 'video' : taskQueue[index].durationSource;
+                refreshTaskExecutionState(taskQueue[index]);
                 saveData();
             }
-            renderUI();
+            currentTask.durationSource = currentTask.isVideo ? 'video' : currentTask.durationSource;
+            refreshTaskExecutionState(currentTask);
+            refreshPanelContent({ list: true, status: true });
         }
 
-        function tryAutoPlay() {
-            const video = document.querySelector('video');
-            if (!video || !video.paused) return;
+        function tryAutoPlay(video = document.querySelector('video')) {
+            if (!video || !video.paused || video.ended) return;
             const p = video.play();
             if (p && typeof p.catch === 'function') {
                 p.catch(() => {
@@ -808,49 +1162,124 @@
             }
         }
 
+        function isAutoResumeContextValid(video = autoResumeVideo) {
+            if (!autoResumeEnabled || !currentTask || !currentTask.isVideo || !video || !video.isConnected) return false;
+            const { nodeId } = getPageInfo();
+            return !!nodeId && String(nodeId) === String(currentTask.nodeId);
+        }
+
+        function scheduleResumePlayback() {
+            if (autoResumeDelayTimer) clearTimeout(autoResumeDelayTimer);
+            autoResumeDelayTimer = setTimeout(() => {
+                autoResumeDelayTimer = null;
+                const video = autoResumeVideo;
+                if (!isAutoResumeContextValid(video)) {
+                    clearAutoResumeMonitor();
+                    return;
+                }
+                if (video.paused && !video.ended) tryAutoPlay(video);
+            }, 500);
+        }
+
+        function startAutoResumeMonitor() {
+            clearAutoResumeMonitor();
+            if (!autoResumeEnabled || !currentTask || !currentTask.isVideo) return;
+            const { nodeId } = getPageInfo();
+            if (!nodeId || String(nodeId) !== String(currentTask.nodeId)) return;
+
+            const video = document.querySelector('video');
+            if (!video) return;
+
+            autoResumeVideo = video;
+            autoResumeController = new AbortController();
+            const options = { signal: autoResumeController.signal };
+            video.addEventListener('pause', scheduleResumePlayback, options);
+            video.addEventListener('stalled', scheduleResumePlayback, options);
+            video.addEventListener('waiting', scheduleResumePlayback, options);
+
+            autoResumeInterval = setInterval(() => {
+                const latestVideo = document.querySelector('video');
+                if (latestVideo && latestVideo !== autoResumeVideo) {
+                    startAutoResumeMonitor();
+                    return;
+                }
+                if (!isAutoResumeContextValid(autoResumeVideo)) {
+                    clearAutoResumeMonitor();
+                    return;
+                }
+                if (autoResumeVideo.paused && !autoResumeVideo.ended) scheduleResumePlayback();
+            }, 3000);
+
+            if (video.paused && !video.ended) scheduleResumePlayback();
+        }
+
+        
+
         async function fetchTasksFromApi() {
+            
             const myNavId = ++navigationId;
             const { groupId } = getPageInfo();
-            const token = getCookie();
-            if (!token) return;
             const btn = document.getElementById('xy-refresh-btn');
+            const token = getAuthToken();
+            if (!token) {
+                debugMissingAuthToken();
+                taskListMessage = '';
+                refreshPanelContent({ list: true, status: true, preserveScroll: false });
+                console.warn('[小雅自动刷] 刷新失败：Token 读取失败');
+                return;
+            }
             if (btn) btn.innerText = "加载中";
+            taskListMessage = '正在加载任务...';
+            refreshPanelContent({ list: true, status: true, preserveScroll: false });
             try {
                 if (groupId) {
-                    const [taskRes, resourceList] = await Promise.all([
-                        fetchWithRetry(`https://${DOMAIN}/api/jx-stat/group/task/queryTaskNotices?group_id=${groupId}&role=1`, {
+                    const taskRes = await fetchWithRetry(`https://${DOMAIN}/api/jx-stat/group/task/queryTaskNotices?group_id=${groupId}&role=1`, {
+                        headers: { "authorization": `Bearer ${token}` }
+                    }).then(r => r.json());
+                    let resourceLookup = null;
+                    try {
+                        const resourceList = await fetchWithRetry(`https://${DOMAIN}/api/jx-iresource/resource/queryCourseResources?group_id=${groupId}`, {
                             headers: { "authorization": `Bearer ${token}` }
-                        }).then(r => r.json()),
-                        fetchWithRetry(`https://${DOMAIN}/api/jx-iresource/resource/queryCourseResources?group_id=${groupId}`, {
-                            headers: { "authorization": `Bearer ${token}` }
-                        }).then(r => r.json())
-                    ]);
+                        }).then(r => r.json());
+                        if (resourceList.success) resourceLookup = buildResourceLookup(resourceList.data);
+                    } catch (e) {
+                        console.warn('[小雅自动刷] 资源查询失败:', groupId, e.message);
+                    }
+                    
                     if (myNavId !== navigationId) return;
                     if (taskRes.success) {
-                        const resourceMap = new Map();
-                        if (resourceList.success) resourceList.data.forEach(r => { if (r.is_task) resourceMap.set(String(r.task_id), r); });
+                        const studentTasks = getStudentTaskList(taskRes);
                         const courseName = document.title.replace(/-.*/, '').trim() || "当前课程";
                         const now = new Date();
-                        taskQueue = taskRes.data.student_tasks.filter(t => {
-                            if (t.task_type !== 1 || t.finish === 2) return false;
+                        taskQueue = studentTasks.filter(t => {
+                            const taskId = getTaskId(t);
+                            const nodeId = getNodeId(t);
+                            if (Number(t.task_type) !== 1 || Number(t.finish) === 2) return false;
+                            if (!groupId || !nodeId || !taskId || !String(t.name || '').trim()) return false;
                             const expired = t.end_time && new Date(t.end_time) <= now;
                             if (expired && !normalizeBool(t.is_allow_after_submitted)) return false;
                             return true;
                         }).map(t => {
+                            const taskId = getTaskId(t);
+                            const nodeId = getNodeId(t);
                             const allowLateSubmit = normalizeBool(t.is_allow_after_submitted);
-                            const resInfo = resourceMap.get(String(t.task_id));
-                            const resourceId = String((resInfo && (resInfo.resource_id || resInfo.id)) || t.resource_id || t.task_id);
+                            const resInfo = findResourceInfoForTask(resourceLookup, t);
+                            const resourceId = getResourceIdFromInfo(resInfo);
+                            const displayName = resInfo && resInfo.name ? resInfo.name : t.name;
                             let isVideo = false;
-                            if (resInfo) isVideo = (resInfo.type && String(resInfo.type).includes('video')) || (resInfo.mimetype && resInfo.mimetype.includes('video')) || (resInfo.name && VIDEO_EXT.test(resInfo.name));
-                            let dur = isVideo ? 0 : ((resInfo && resInfo.watch_min_minutes > 0) ? (resInfo.watch_min_minutes * 60 + 20) : DEFAULT_DURATION * 60);
-                            return {
+                            if (resInfo) isVideo = (resInfo.type && String(resInfo.type).includes('video')) || (resInfo.mimetype && resInfo.mimetype.includes('video')) || VIDEO_EXT.test(displayName);
+                            else isVideo = VIDEO_EXT.test(displayName);
+                            const dur = isVideo ? 0 : (resInfo && resInfo.watch_min_minutes > 0 ? resInfo.watch_min_minutes * 60 + 20 : 0);
+                            return refreshTaskExecutionState({
                                 routePrefix: getPageInfo().routePrefix || 'mycourse',
                                 groupId,
-                                nodeId: String(t.node_id),
-                                taskId: String(t.task_id),
-                                resourceId,
-                                name: resInfo ? resInfo.name : t.name,
+                                nodeId,
+                                taskId,
+                                resourceId: resourceId || '',
+                                resourceIdSource: resourceId ? 'resource' : null,
+                                name: displayName,
                                 duration: Math.ceil(dur),
+                                durationSource: dur > 0 ? 'platform' : null,
                                 isVideo,
                                 groupName: courseName,
                                 endTime: t.end_time || null,
@@ -859,7 +1288,7 @@
                                 locked: false,
                                 state: 'ready',
                                 allowLateSubmit
-                            };
+                            });
                         });
                     }
                 } else {
@@ -869,7 +1298,7 @@
                     if (myNavId !== navigationId) return;
                     if (res.success) {
                         const now2 = new Date();
-                        const type1Tasks = res.data.filter(t => t.task_type === 1);
+                        const type1Tasks = getUnfinishedTaskList(res).filter(t => Number(t.task_type) === 1);
                         const keepTasks = [];
                         const needLookup = new Map();
                         for (const t of type1Tasks) {
@@ -881,7 +1310,8 @@
                                     keepTasks.push(Object.assign({}, t, { _allowLate: true }));
                                 }
                             } else {
-                                const gid = String(t.group_id);
+                                const gid = getGroupId(t);
+                                if (!gid) continue;
                                 if (!needLookup.has(gid)) needLookup.set(gid, []);
                                 needLookup.get(gid).push(t);
                             }
@@ -896,9 +1326,12 @@
                                 if (myNavId !== navigationId) return;
                                 if (noticeRes.success) {
                                     const noticeMap = new Map();
-                                    noticeRes.data.student_tasks.forEach(nt => noticeMap.set(String(nt.node_id), nt));
+                                    getStudentTaskList(noticeRes).forEach(nt => {
+                                        const noticeNodeId = getNodeId(nt);
+                                        if (noticeNodeId) noticeMap.set(noticeNodeId, nt);
+                                    });
                                     for (const t of tasks) {
-                                        const notice = noticeMap.get(String(t.node_id));
+                                        const notice = noticeMap.get(getNodeId(t));
                                         if (notice && normalizeBool(notice.is_allow_after_submitted)) {
                                             keepTasks.push(Object.assign({}, t, { _allowLate: true }));
                                         }
@@ -908,41 +1341,80 @@
                                 console.warn('[小雅自动刷] 补交反查失败:', e.message);
                             }
                         }
-                        taskQueue = keepTasks.map(t => ({
-                            routePrefix: 'mycourse',
-                            groupId: String(t.group_id),
-                            nodeId: String(t.node_id),
-                            taskId: String(t.task_id || t.id || t.resource_id),
-                            resourceId: String(t.resource_id || t.id || t.task_id),
-                            name: t.name,
-                            duration: 0,
-                            isVideo: VIDEO_EXT.test(t.name),
-                            groupName: t.group_name,
-                            endTime: t.end_time || null,
-                            startTime: t.start_time || null,
-                            unlockAt: t.start_time || null,
-                            locked: false,
-                            state: 'ready',
-                            allowLateSubmit: !!t._allowLate
+                        const resourceLookupByGroup = new Map();
+                        const groupIds = Array.from(new Set(keepTasks.map(getGroupId).filter(gid => gid !== null)));
+                        await Promise.all(groupIds.map(async gid => {
+                            try {
+                                const resourceRes = await fetchWithRetry(`https://${DOMAIN}/api/jx-iresource/resource/queryCourseResources?group_id=${gid}`, {
+                                    headers: { "authorization": `Bearer ${token}` }
+                                }).then(r => r.json());
+                                if (resourceRes.success) resourceLookupByGroup.set(gid, buildResourceLookup(resourceRes.data));
+                            } catch (e) {
+                                console.warn('[小雅自动刷] 资源反查失败:', gid, e.message);
+                            }
                         }));
+                        if (myNavId !== navigationId) return;
+                        taskQueue = keepTasks.filter(t => {
+                            return getGroupId(t)
+                                && getNodeId(t)
+                                && getTaskId(t)
+                                && String(t.name || '').trim();
+                        }).map(t => {
+                            const groupIdValue = getGroupId(t);
+                            const nodeId = getNodeId(t);
+                            const taskId = getTaskId(t);
+                            const lookup = resourceLookupByGroup.get(groupIdValue);
+                            const resInfo = findResourceInfoForTask(lookup, t);
+                            const resourceId = getResourceIdFromInfo(resInfo);
+                            const displayName = resInfo && resInfo.name ? resInfo.name : t.name;
+                            const isVideo = resInfo
+                                ? ((resInfo.type && String(resInfo.type).includes('video')) || (resInfo.mimetype && resInfo.mimetype.includes('video')) || VIDEO_EXT.test(displayName))
+                                : VIDEO_EXT.test(displayName);
+                            const dur = isVideo ? 0 : (resInfo && resInfo.watch_min_minutes > 0 ? resInfo.watch_min_minutes * 60 + 20 : 0);
+                            return refreshTaskExecutionState({
+                                routePrefix: 'mycourse',
+                                groupId: groupIdValue,
+                                nodeId,
+                                taskId,
+                                resourceId: resourceId || '',
+                                resourceIdSource: resourceId ? 'resource' : null,
+                                name: displayName,
+                                duration: Math.ceil(dur),
+                                durationSource: dur > 0 ? 'platform' : null,
+                                isVideo: !!isVideo,
+                                groupName: t.group_name || t.groupName || '未分类',
+                                endTime: t.end_time || null,
+                                startTime: t.start_time || null,
+                                unlockAt: t.start_time || null,
+                                locked: false,
+                                state: 'ready',
+                                allowLateSubmit: !!t._allowLate
+                            });
+                        });
                     }
                 }
                 refreshTaskStatesFromTime();
                 sortTaskQueueByPriority();
                 saveData();
-                renderUI();
+                taskListMessage = taskQueue.length > 0 ? '' : '未发现待完成任务';
+                refreshPanelContent({ list: true, status: true, preserveScroll: false });
                 checkCurrentTask();
             } catch (e) {
+                taskListMessage = `任务加载失败：${e.message}`;
+                refreshPanelContent({ list: true, status: true, preserveScroll: false });
                 console.warn('[小雅自动刷] fetchTasksFromApi 失败:', e.message);
             } finally {
                 if (btn) btn.innerText = "刷新";
             }
         }
 
+        
+
         async function sendHeartbeat() {
-            const { groupId, resourceId } = getPageInfo();
-            const token = getCookie();
-            if (!token) return;
+            const { nodeId } = getPageInfo();
+            const token = getAuthToken();
+            if (!token || !currentTask) return;
+            if (nodeId && String(currentTask.nodeId) !== String(nodeId)) return;
             try {
                 let userId = safeLocalStorageGet('xy_user_id');
                 if (!userId) {
@@ -952,9 +1424,12 @@
                     userId = userRes.data.info.id;
                     safeLocalStorageSet('xy_user_id', userId);
                 }
-                const targetGroupId = groupId || (currentTask ? currentTask.groupId : null);
-                const targetResourceId = resourceId || getTaskHeartbeatResourceId(currentTask);
-                if (!targetGroupId || !targetResourceId) return;
+                const targetGroupId = currentTask.groupId;
+                const targetResourceId = await resolveTaskResourceId(currentTask, targetGroupId, token);
+                if (!targetGroupId || !targetResourceId) {
+                    console.warn('[小雅自动刷] 心跳跳过：缺少真实 resourceId');
+                    return;
+                }
                 const message = JSON.stringify({ user_id: userId, group_id: targetGroupId, clientType: 1, roleType: 1, resourceId: targetResourceId });
                 const timestamp = Date.now().toString(), nonce = crypto.randomUUID();
                 const arr = [encodeURIComponent(message), timestamp, nonce, "--xy-create-signature--"].sort().join("");
@@ -966,7 +1441,7 @@
                     body: JSON.stringify({ message, signature, timestamp, nonce })
                 });
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                const result = await res.json().catch(() => null);
+                const result = await res.json();
                 if (result && result.success === false && result.code !== 200 && result.code !== 0) {
                     throw new Error(result.message || `code ${result.code}`);
                 }
@@ -975,19 +1450,22 @@
             }
         }
 
-        function stopTimer() {
+        
+
+        function stopTimer({ render = true } = {}) {
             if (timerInterval) clearInterval(timerInterval);
             if (heartbeatInterval) clearInterval(heartbeatInterval);
             clearUnlockCheck();
             clearDocPreviewCheck();
             clearVideoDurationProbe();
+            clearAutoResumeMonitor();
             timerInterval = null;
             heartbeatInterval = null;
             currentTask = null;
             nextTaskNodeId = null;
             timerStartedAt = 0;
             timerTotalDuration = 0;
-            renderUI();
+            if (render) refreshPanelContent({ list: true, status: true });
         }
 
         function jumpToNext() {
@@ -996,10 +1474,10 @@
             let nextTask = null;
             if (nextTaskNodeId) {
                 const preferred = findTaskByNodeId(nextTaskNodeId);
-                if (preferred && evaluateTaskState(preferred).state === 'ready') nextTask = preferred;
+                if (preferred && evaluateTaskState(preferred).state === 'ready' && isTaskExecutable(preferred)) nextTask = preferred;
             }
             if (!nextTask) {
-                nextTask = taskQueue.find(t => evaluateTaskState(t).state === 'ready') || null;
+                nextTask = taskQueue.find(t => evaluateTaskState(t).state === 'ready' && isTaskExecutable(t)) || null;
             }
 
             if (!nextTask) {
@@ -1043,6 +1521,7 @@
 
         function startTimer(task) {
             clearDocPreviewCheck();
+            clearAutoResumeMonitor();
             const lockInfo = getTaskUnlockInfoFromPage();
             if (lockInfo && lockInfo.remainingSec > 0) {
                 const index = getTaskIndexByNodeId(task.nodeId);
@@ -1056,6 +1535,23 @@
                 return;
             }
 
+            refreshTaskExecutionState(task);
+            if (!task.executable) {
+                const reason = task.resourceMissing ? '缺少真实 resourceId' : '缺少平台时长';
+                console.warn(`[小雅自动刷] 任务不可自动执行：${reason}`, task.name || task.nodeId);
+                const index = getTaskIndexByNodeId(task.nodeId);
+                if (index !== -1) {
+                    Object.assign(taskQueue[index], {
+                        resourceMissing: task.resourceMissing,
+                        durationMissing: task.durationMissing,
+                        executable: task.executable
+                    });
+                    saveData();
+                }
+                refreshPanelContent({ list: true, status: true });
+                return;
+            }
+
             clearUnlockCheck();
             currentTask = task;
             task.locked = false;
@@ -1064,6 +1560,7 @@
             const duration = parseInt(task.duration) || 0;
             remainingTime = duration;
 
+            
             timerTotalDuration = duration;
             timerStartedAt = Date.now();
 
@@ -1074,6 +1571,7 @@
             if (timerInterval) clearInterval(timerInterval);
             timerInterval = setInterval(() => {
                 if (timerTotalDuration > 0 && timerStartedAt > 0) {
+                    
                     const elapsed = Math.floor((Date.now() - timerStartedAt) / 1000);
                     remainingTime = Math.max(0, timerTotalDuration - elapsed);
                     updateTimerDisplay();
@@ -1083,30 +1581,43 @@
 
             if (task.duration === 0) tryReadVideoDuration();
             if (task.isVideo) {
-                setTimeout(tryAutoPlay, 2000);
+                const autoPlayNodeId = String(task.nodeId);
+                startAutoResumeMonitor();
+                setTimeout(() => {
+                    const page = getPageInfo();
+                    if (!currentTask || String(currentTask.nodeId) !== autoPlayNodeId || String(page.nodeId) !== autoPlayNodeId) return;
+                    tryAutoPlay();
+                    startAutoResumeMonitor();
+                }, 2000);
             }
             if (!task.isVideo && docPreviewDoneNodeId !== String(task.nodeId)) setTimeout(() => tryAutoOpenDocPreview(task), 400);
-            renderUI();
+            refreshPanelContent({ list: true, status: true });
         }
 
+        
+
         async function checkCurrentTask() {
+            
             const myNavId = navigationId;
             const { nodeId, groupId } = getPageInfo();
             if (!nodeId) { stopTimer(); return; }
             const taskIndex = taskQueue.findIndex(t => String(t.nodeId) === String(nodeId));
             const task = taskQueue[taskIndex];
             if (task) {
-                if (!task.isVideo && (!task.duration || task.duration === 0 || task.duration === DEFAULT_DURATION * 60)) {
-                    const token = getCookie();
+                refreshTaskExecutionState(task);
+                if (task.resourceMissing || (!task.isVideo && task.durationMissing)) {
+                    const token = getAuthToken();
                     try {
                         const taskRes = await fetchWithRetry(`https://${DOMAIN}/api/jx-stat/group/task/queryTaskNotices?group_id=${groupId}&role=1`, {
                             headers: { "authorization": `Bearer ${token}` }
                         }).then(r => r.json());
+                        
                         if (myNavId !== navigationId) return;
                         if (taskRes.success) {
-                            const realTaskNotice = taskRes.data.student_tasks.find(t => String(t.node_id) === String(nodeId));
+                            const realTaskNotice = getStudentTaskList(taskRes).find(t => String(getNodeId(t)) === String(nodeId));
                             if (realTaskNotice) {
-                                const realTaskId = String(realTaskNotice.task_id);
+                                const realTaskId = getTaskId(realTaskNotice);
+                                if (!realTaskId) return;
                                 task.taskId = realTaskId;
                                 taskQueue[taskIndex].taskId = realTaskId;
                                 const lateSub = normalizeBool(realTaskNotice.is_allow_after_submitted);
@@ -1117,17 +1628,27 @@
                                 }).then(r => r.json());
                                 if (myNavId !== navigationId) return;
                                 if (resourceRes.success) {
-                                    const resInfo = resourceRes.data.find(r => String(r.task_id) === realTaskId);
-                                    const realResourceId = String((resInfo && (resInfo.resource_id || resInfo.id)) || task.resourceId || realTaskId);
-                                    task.resourceId = realResourceId;
-                                    taskQueue[taskIndex].resourceId = realResourceId;
+                                    const lookup = buildResourceLookup(resourceRes.data);
+                                    const resInfo = findResourceInfoForTask(lookup, { task_id: realTaskId, node_id: nodeId });
+                                    const realResourceId = getResourceIdFromInfo(resInfo);
+                                    if (realResourceId) {
+                                        task.resourceId = realResourceId;
+                                        task.resourceIdSource = 'resource';
+                                        taskQueue[taskIndex].resourceId = realResourceId;
+                                        taskQueue[taskIndex].resourceIdSource = 'resource';
+                                    } else {
+                                        console.warn('[小雅自动刷] checkCurrentTask 未找到真实 resourceId:', nodeId);
+                                    }
                                     if (resInfo && resInfo.watch_min_minutes > 0) {
                                         task.duration = Math.ceil((resInfo.watch_min_minutes * 60) + 20);
-                                    } else {
-                                        if (task.duration !== DEFAULT_DURATION * 60) task.duration = DEFAULT_DURATION * 60;
+                                        task.durationSource = 'platform';
+                                        taskQueue[taskIndex].duration = task.duration;
+                                        taskQueue[taskIndex].durationSource = 'platform';
                                     }
+                                    refreshTaskExecutionState(task);
+                                    refreshTaskExecutionState(taskQueue[taskIndex]);
                                     saveData();
-                                    renderUI();
+                                    refreshPanelContent({ list: true, status: true });
                                 }
                             }
                         }
@@ -1139,16 +1660,22 @@
             } else stopTimer();
         }
 
+        
+
         function makeDraggable(el, handle) {
             handle.addEventListener('mousedown', (e) => {
+                if (e.button !== 0) return;
                 let moved = false;
                 const rect = el.getBoundingClientRect();
+                const startX = e.clientX, startY = e.clientY;
                 const offsetX = e.clientX - rect.left, offsetY = e.clientY - rect.top;
                 el.style.right = 'auto'; el.style.bottom = 'auto';
                 el.style.left = rect.left + 'px'; el.style.top = rect.top + 'px';
                 function onMouseMove(e) {
+                    const deltaX = e.clientX - startX;
+                    const deltaY = e.clientY - startY;
+                    if (!moved && Math.hypot(deltaX, deltaY) < DRAG_THRESHOLD_PX) return;
                     moved = true;
-                    dragOccurred = true;
                     const nextLeft = e.clientX - offsetX;
                     const nextTop = e.clientY - offsetY;
                     const safe = clampPositionToViewport(nextTop + 'px', nextLeft + 'px', { width: rect.width, height: rect.height });
@@ -1158,14 +1685,17 @@
                 function onMouseUp() {
                     document.removeEventListener('mousemove', onMouseMove);
                     document.removeEventListener('mouseup', onMouseUp);
-                    savePos(el.style.top, el.style.left);
-                    if (moved) setTimeout(() => { dragOccurred = false; }, 0);
+                    if (moved) {
+                        savePos(el.style.top, el.style.left);
+                        suppressNextClickUntil = Date.now() + 250;
+                    }
                 }
                 document.addEventListener('mousemove', onMouseMove);
                 document.addEventListener('mouseup', onMouseUp);
             });
         }
 
+        
 
         const container = document.createElement('div');
         container.id = 'xy-helper-container';
@@ -1178,6 +1708,8 @@
         function ensureContainerMounted() {
             if (!container.isConnected && document.body) document.body.appendChild(container);
         }
+
+        
 
         const style = document.createElement('style');
         style.textContent = `
@@ -1194,14 +1726,14 @@
 
         @keyframes xy-pulse { 0%,100% { box-shadow: 0 4px 20px rgba(0,122,255,0.3); } 50% { box-shadow: 0 8px 36px rgba(0,122,255,0.5); } }
         @keyframes xy-status-dot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
-        @keyframes xy-panel-in { from { opacity: 0; transform: scale(0.92) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes xy-badge-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
         
         .xy-ball { width: 56px; height: 56px; background-image: url('${ICON_BASE64}'); background-size: cover; background-position: center; border-radius: 50%; box-shadow: 0 6px 24px rgba(0,122,255,0.25); cursor: grab; display: flex; align-items: center; justify-content: center; user-select: none; transition: all 0.3s cubic-bezier(.25,.8,.25,1); }
         .xy-ball:hover { transform: scale(1.08); box-shadow: 0 10px 32px rgba(0,122,255,0.35); }
         .xy-ball.running { animation: xy-pulse 2.5s ease-in-out infinite; }
 
-        .xy-panel { width: 460px; background: var(--xy-bg); backdrop-filter: blur(30px) saturate(1.8); -webkit-backdrop-filter: blur(30px) saturate(1.8); color: var(--xy-text-main); border-radius: 24px; box-shadow: var(--xy-shadow); overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.5); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; transition: height 0.3s ease; animation: xy-panel-in 0.35s cubic-bezier(.25,.46,.45,.94); }
+        .xy-panel { width: min(520px, calc(100vw - 24px)); background: linear-gradient(180deg, rgba(255,255,255,0.86) 0%, rgba(255,250,247,0.78) 100%); backdrop-filter: blur(30px) saturate(1.8); -webkit-backdrop-filter: blur(30px) saturate(1.8); color: var(--xy-text-main); border-radius: 24px; box-shadow: var(--xy-shadow); overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.6); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; transition: height 0.3s ease; box-sizing: border-box; }
+        .xy-panel * { box-sizing: border-box; }
 
         .xy-header { padding: 20px 28px; background: linear-gradient(135deg, #007AFF 0%, #0056D2 100%); display: flex; justify-content: space-between; align-items: center; cursor: grab; user-select: none; color: #fff; }
         .xy-header-title { font-weight: 600; font-size: 18px; letter-spacing: -0.3px; }
@@ -1211,24 +1743,24 @@
         .xy-header-btn { background: rgba(255,255,255,0.2); border: none; color: white; cursor: pointer; width: 32px; height: 32px; border-radius: 12px; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
         .xy-header-btn:hover { background: rgba(255,255,255,0.35); transform: scale(1.05); }
 
-        .xy-status-bar { padding: 12px 20px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; background: rgba(255,255,255,0.5); border-bottom: 1px solid var(--xy-border); }
-        .xy-status-left { display: flex; align-items: center; gap: 10px; flex: 1; padding-left: 16px; }
-        .xy-status-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .xy-status-bar { padding: 16px 20px 14px; display: grid; grid-template-columns: 1fr; gap: 12px; font-size: 14px; font-weight: 500; background: linear-gradient(180deg, rgba(255,255,255,0.72) 0%, rgba(248,250,252,0.62) 100%); border-bottom: 1px solid var(--xy-border); }
+        .xy-status-left { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 12px 14px; border-radius: 18px; background: rgba(255,255,255,0.72); border: 1px solid rgba(255,255,255,0.72); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 22px rgba(15,23,42,0.05); }
+        .xy-status-actions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; width: 100%; }
         .xy-status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; box-shadow: 0 0 8px currentColor; }
         .xy-status-dot.idle { background: var(--xy-text-sub); color: var(--xy-text-sub); }
         .xy-status-dot.active { background: #34C759; color: #34C759; animation: xy-status-dot 1.5s ease-in-out infinite; }
         .xy-status-dot.loading { background: #FF9500; color: #FF9500; animation: xy-status-dot 1s ease-in-out infinite; }
-        .xy-status-text { color: var(--xy-text-main); font-weight: 600; }
+        .xy-status-text { color: var(--xy-text-main); font-weight: 700; letter-spacing: 0.2px; white-space: nowrap; }
         .xy-status-text.active { color: #34C759; }
-        .xy-status-time { font-variant-numeric: tabular-nums; font-weight: 700; color: #34C759; background: rgba(52, 199, 89, 0.1); padding: 4px 10px; border-radius: 8px; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; }
+        .xy-status-time { font-variant-numeric: tabular-nums; font-weight: 800; color: #168a3a; background: linear-gradient(135deg, rgba(52,199,89,0.18), rgba(52,199,89,0.08)); padding: 5px 12px; border-radius: 999px; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; border: 1px solid rgba(52,199,89,0.14); }
         .xy-status-time.waiting { color: #d97706; background: rgba(255,149,0,0.14); }
 
-        .xy-notice-card { margin: 10px 20px 4px; background: rgba(255,255,255,0.8); border: 1px solid var(--xy-border); border-radius: 16px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .xy-notice-card { margin: 14px 20px 6px; background: rgba(255,255,255,0.82); border: 1px solid rgba(255,255,255,0.76); border-radius: 20px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 12px 30px rgba(15,23,42,0.06); overflow: hidden; }
         .xy-notice-header { padding: 14px 20px 8px; display: flex; align-items: center; gap: 8px; }
         .xy-notice-label { font-size: 14px; font-weight: 600; color: var(--xy-primary); }
         .xy-notice-body { padding: 0 20px 14px; font-size: 14px; color: var(--xy-text-sub); line-height: 1.6; white-space: pre-wrap; word-break: break-all; transition: max-height 0.4s ease, opacity 0.4s ease; overflow: hidden; }
         .xy-notice-body.collapsed { max-height: 44px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; margin-bottom: 0;}
-        .xy-notice-toggle { display: block; width: 100%; padding: 12px 20px; border: none; border-top: 1px solid var(--xy-border); background: transparent; color: var(--xy-primary); font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; border-radius: 0 0 16px 16px; }
+        .xy-notice-toggle { display: block; width: 100%; padding: 12px 20px; border: none; border-top: 1px solid var(--xy-border); background: rgba(255,255,255,0.42); color: var(--xy-primary); font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.2s; border-radius: 0 0 20px 20px; }
         .xy-notice-toggle:hover { background: rgba(0,122,255,0.05); }
 
         .xy-list { max-height: 520px; overflow-y: auto; padding: 6px 10px 16px; scroll-behavior: smooth; flex: 1; }
@@ -1253,11 +1785,13 @@
         .xy-item.xy-locked { background: rgba(255,149,0,0.08); border-color: rgba(255,149,0,0.24); }
         .xy-item.xy-late-submit { background: rgba(217,119,6,0.06); border-color: rgba(217,119,6,0.22); }
         .xy-item.xy-expired { background: rgba(120,120,128,0.08); border-color: rgba(120,120,128,0.22); opacity: 0.8; }
+        .xy-item.xy-blocked { background: rgba(255,59,48,0.05); border-color: rgba(255,59,48,0.18); }
 
         .xy-item-name { flex: 1; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 16px; cursor: pointer; color: var(--xy-text-main); font-weight: 500; }
         .xy-item-name:hover { color: var(--xy-primary); }
 
         .xy-deadline { width: 100%; font-size: 12px; margin-top: 10px; font-weight: 500; display: flex; align-items: center; gap: 4px; }
+        .xy-blocker { width: 100%; font-size: 12px; margin-top: 8px; font-weight: 600; color: #dc2626; }
 
         .xy-item-right { display: flex; align-items: center; gap: 12px; }
 
@@ -1278,13 +1812,232 @@
         .xy-empty { text-align: center; padding: 48px 20px; color: var(--xy-text-sub); font-size: 16px; }
         .xy-empty-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.6; }
 
-        .xy-btn { border: none; padding: 6px 16px; border-radius: 100px; font-size: 12px; font-weight: 600; transition: all 0.2s ease; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
-        .xy-btn.primary { background: var(--xy-primary); color: white; }
-        .xy-btn.primary:hover { background: var(--xy-primary-hover); }
-        .xy-btn.outline { background: transparent; color: var(--xy-text-sub); border: 1px solid var(--xy-border); }
-        .xy-btn.outline:hover { background: rgba(0,0,0,0.04); color: var(--xy-text-main); }
+        .xy-btn { border: none; min-width: 0; min-height: 38px; padding: 8px 10px; border-radius: 14px; font-size: 12px; font-weight: 800; letter-spacing: 0.1px; transition: all 0.2s ease; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .xy-btn.primary { background: linear-gradient(135deg, #0A84FF 0%, #0066D6 100%); color: white; box-shadow: 0 8px 18px rgba(0,122,255,0.24); }
+        .xy-btn.primary:hover { background: linear-gradient(135deg, #2492ff 0%, #006de5 100%); transform: translateY(-1px); box-shadow: 0 12px 24px rgba(0,122,255,0.28); }
+        .xy-btn.outline { background: rgba(255,255,255,0.78); color: #5f6673; border: 1px solid rgba(15,23,42,0.08); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 5px 14px rgba(15,23,42,0.04); }
+        .xy-btn.outline:hover { background: rgba(255,255,255,0.95); color: var(--xy-text-main); transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 18px rgba(15,23,42,0.08); }
+        @media (max-width: 440px) {
+            .xy-panel { width: calc(100vw - 16px); border-radius: 20px; }
+            .xy-header { padding: 18px 20px; }
+            .xy-status-bar { padding: 14px 14px 12px; }
+            .xy-status-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .xy-notice-card { margin-left: 14px; margin-right: 14px; }
+        }
     `;
         document.head.appendChild(style);
+
+        
+
+        function renderStatusLeft(statusLeft) {
+            if (currentTask) {
+                if (waitingUnlockText) {
+                    statusLeft.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">等待解锁</span><span class="xy-status-time waiting"></span>`;
+                    statusLeft.querySelector('.xy-status-time').textContent = waitingUnlockText;
+                } else if (remainingTime > 0) {
+                    statusLeft.innerHTML = `<span class="xy-status-dot active"></span><span class="xy-status-text active">进行中</span><span class="xy-status-time">${formatSeconds(remainingTime)}</span>`;
+                } else {
+                    statusLeft.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">正在读取时长…</span>`;
+                }
+            } else {
+                statusLeft.innerHTML = `<span class="xy-status-dot idle"></span><span class="xy-status-text">待机中</span>`;
+            }
+        }
+
+        function updateFloatingBallState() {
+            const ball = container.querySelector('.xy-ball');
+            if (ball) ball.classList.toggle('running', !!currentTask);
+        }
+
+        function updateSilentButton() {
+            const silentBtn = document.getElementById('xy-silent-btn');
+            if (silentBtn) silentBtn.innerText = `拦截声音:${silentEnabled ? '开' : '关'}`;
+        }
+
+        function updateAutoResumeButton() {
+            const autoResumeBtn = document.getElementById('xy-auto-resume-btn');
+            if (autoResumeBtn) autoResumeBtn.innerText = `恢复播放:${autoResumeEnabled ? '开' : '关'}`;
+        }
+
+        function renderTaskList(list) {
+            list.innerHTML = '';
+            if (taskQueue.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'xy-empty';
+                empty.innerHTML = `<div class="xy-empty-icon">📂</div>`;
+                empty.appendChild(document.createTextNode(taskListMessage || '暂无待完成任务'));
+                list.appendChild(empty);
+                return;
+            }
+
+            const groups = new Map();
+            taskQueue.forEach((task, index) => {
+                const gn = task.groupName || '未分类';
+                if (!groups.has(gn)) groups.set(gn, []);
+                groups.get(gn).push({ task, index });
+            });
+
+            groups.forEach((items, groupName) => {
+                const isGroupCollapsed = collapsedGroups.has(groupName);
+                const groupHeader = document.createElement('div');
+                groupHeader.className = 'xy-group-header';
+                groupHeader.innerHTML = `<span class="xy-group-arrow${isGroupCollapsed ? ' collapsed' : ''}">▼</span> 📂 `;
+                groupHeader.appendChild(document.createTextNode(groupName + ' '));
+                const groupCount = document.createElement('span');
+                groupCount.className = 'xy-group-count';
+                groupCount.textContent = `${items.length} 项`;
+                groupHeader.appendChild(groupCount);
+
+                const groupContainer = document.createElement('div');
+                groupContainer.className = 'xy-group-items' + (isGroupCollapsed ? ' collapsed' : '');
+                groupHeader.onclick = () => {
+                    const isNowCollapsed = !collapsedGroups.has(groupName);
+                    if (isNowCollapsed) collapsedGroups.add(groupName);
+                    else collapsedGroups.delete(groupName);
+                    groupContainer.classList.toggle('collapsed', isNowCollapsed);
+                    groupHeader.querySelector('.xy-group-arrow').classList.toggle('collapsed', isNowCollapsed);
+                };
+                list.appendChild(groupHeader);
+
+                items.forEach(({ task, index }) => {
+                    const item = document.createElement('div');
+                    const stateInfo = evaluateTaskState(task);
+                    task.state = stateInfo.state;
+                    task.locked = stateInfo.state === 'locked';
+                    refreshTaskExecutionState(task);
+                    const isActive = currentTask && String(task.nodeId) === String(currentTask.nodeId);
+                    let urgencyClass = '';
+                    let deadlineColor = '#94a3b8', deadlineText = '';
+                    if (stateInfo.state === 'expired') {
+                        urgencyClass = ' xy-expired';
+                        deadlineColor = '#8e8e93';
+                        deadlineText = '已截止';
+                    } else if (stateInfo.state === 'locked') {
+                        urgencyClass = ' xy-locked';
+                        deadlineColor = '#d97706';
+                        const unlockAtText = stateInfo.unlockAt ? formatDateTime(stateInfo.unlockAt) : (task.unlockAt || '');
+                        deadlineText = unlockAtText ? `⏳ ${formatDurationCn(stateInfo.remainingSec)} · ${unlockAtText} 开始` : `⏳ ${formatDurationCn(stateInfo.remainingSec)} 后开始`;
+                    } else if (stateInfo.lateSubmit && task.endTime) {
+                        urgencyClass = ' xy-late-submit';
+                        deadlineColor = '#d97706';
+                        const dl = new Date(task.endTime);
+                        const dateStr = (dl.getMonth()+1) + '/' + dl.getDate() + ' ' + String(dl.getHours()).padStart(2,'0') + ':' + String(dl.getMinutes()).padStart(2,'0');
+                        deadlineText = '📝 可补交 · 原截止 ' + dateStr;
+                    } else if (task.endTime) {
+                        const dl = new Date(task.endTime), nw = new Date();
+                        const diffDays = (dl - nw) / 86400000;
+                        if (diffDays <= 1) { urgencyClass = ' xy-urgent'; deadlineColor = '#dc2626'; deadlineText = diffDays <= 0 ? '⚠ 已截止' : '⚠ 今天截止'; }
+                        else if (diffDays <= 3) { urgencyClass = ' xy-warn'; deadlineColor = '#d97706'; deadlineText = '⏰ ' + Math.ceil(diffDays) + '天后截止'; }
+                        else { deadlineColor = '#94a3b8'; const dateStr = dl.getFullYear() !== nw.getFullYear() ? dl.getFullYear() + '/' + (dl.getMonth()+1) + '/' + dl.getDate() : (dl.getMonth()+1) + '/' + dl.getDate(); deadlineText = '截止 ' + dateStr; }
+                    }
+                    const blockers = [];
+                    if (task.resourceMissing) blockers.push('缺少资源ID，不能自动跳转/心跳');
+                    if (task.durationMissing) blockers.push('缺少平台时长，不能自动完成');
+                    const blockerText = blockers.join('；');
+                    item.className = `xy-item${isActive ? ' active' : ''}${urgencyClass}${blockerText ? ' xy-blocked' : ''}`;
+
+                    const name = document.createElement('div');
+                    name.className = 'xy-item-name';
+                    name.title = task.name || '未知任务';
+                    const tagHtml = stateInfo.state === 'locked'
+                        ? '<span class="xy-tag locked">🔒 未开启</span>'
+                        : (stateInfo.state === 'expired'
+                            ? '<span class="xy-tag expired">⏱ 已截止</span>'
+                            : (stateInfo.lateSubmit
+                                ? '<span class="xy-tag late-submit">📝 可补交</span>'
+                                : (task.isVideo ? '<span class="xy-tag video">▶ 视频</span>' : '<span class="xy-tag">📄 文档</span>')));
+                    name.innerHTML = tagHtml;
+                    name.appendChild(document.createTextNode(task.name || '未知任务'));
+                    name.onclick = () => {
+                        const targetUrl = buildTaskUrl(task);
+                        if (targetUrl) window.location.replace(targetUrl);
+                        else console.warn('[小雅自动刷] 缺少真实 resourceId，不能跳转:', task.name || task.nodeId);
+                    };
+                    item.appendChild(name);
+
+                    const right = document.createElement('div');
+                    right.className = 'xy-item-right';
+                    const timeInput = document.createElement('input');
+                    timeInput.type = 'text'; timeInput.className = 'xy-time-input';
+                    if (task.duration && task.duration > 0) timeInput.value = (task.duration / 60).toFixed(1);
+                    else { timeInput.value = ""; timeInput.placeholder = task.durationMissing ? "缺少时长" : "待读取"; timeInput.className += " waiting"; }
+                    timeInput.onchange = (e) => {
+                        const val = parseFloat(e.target.value);
+                        if (val && val > 0) {
+                            task.duration = Math.ceil(val * 60);
+                            task.durationSource = 'manual';
+                            refreshTaskExecutionState(task);
+                            if (isActive) {
+                                timerTotalDuration = task.duration;
+                                timerStartedAt = Date.now();
+                                remainingTime = task.duration;
+                            }
+                            saveData();
+                            refreshPanelContent({ list: true, status: true });
+                        }
+                    };
+                    right.appendChild(timeInput);
+                    if (task.duration > 0) {
+                        const unit = document.createElement('span');
+                        unit.className = 'xy-time-unit'; unit.innerText = 'min';
+                        right.appendChild(unit);
+                    }
+                    const delBtn = document.createElement('div');
+                    delBtn.className = 'xy-delete'; delBtn.innerHTML = '✕';
+                    delBtn.title = '移除任务';
+                    delBtn.onclick = () => {
+                        if (isActive) stopTimer({ render: false });
+                        taskQueue.splice(index, 1);
+                        saveData();
+                        refreshPanelContent({ list: true, status: true, preserveScroll: false });
+                    };
+                    right.appendChild(delBtn); item.appendChild(right);
+
+                    if (deadlineText) {
+                        const dlRow = document.createElement('div');
+                        dlRow.className = 'xy-deadline';
+                        dlRow.style.color = deadlineColor;
+                        dlRow.innerText = deadlineText;
+                        item.appendChild(dlRow);
+                    }
+                    if (blockerText) {
+                        const blockerRow = document.createElement('div');
+                        blockerRow.className = 'xy-blocker';
+                        blockerRow.innerText = '⚠ ' + blockerText;
+                        item.appendChild(blockerRow);
+                    }
+                    groupContainer.appendChild(item);
+                });
+                list.appendChild(groupContainer);
+            });
+        }
+
+        function updateTaskList({ preserveScroll = true } = {}) {
+            const list = document.getElementById('xy-task-list');
+            if (!list) return;
+            const scrollTop = list.scrollTop;
+            renderTaskList(list);
+            if (preserveScroll) list.scrollTop = scrollTop;
+        }
+
+        function refreshPanelContent({ list = true, status = true, silent = true, preserveScroll = true } = {}) {
+            ensureContainerMounted();
+            if (!isExpanded) {
+                updateFloatingBallState();
+                return;
+            }
+            if (!container.querySelector('.xy-panel')) {
+                renderUI();
+                return;
+            }
+            if (status) updateTimerDisplay();
+            if (list) updateTaskList({ preserveScroll });
+            if (silent) {
+                updateSilentButton();
+                updateAutoResumeButton();
+            }
+            updateFloatingBallState();
+        }
 
         function renderUI() {
             ensureContainerMounted();
@@ -1293,7 +2046,11 @@
                 const ball = document.createElement('div');
                 ball.className = 'xy-ball' + (currentTask ? ' running' : '');
                 ball.title = '点击展开面板';
-                ball.onclick = () => { if (dragOccurred) return; isExpanded = true; renderUI(); };
+                ball.onclick = () => {
+                    if (Date.now() < suppressNextClickUntil) return;
+                    isExpanded = true;
+                    renderUI();
+                };
                 makeDraggable(container, ball);
                 container.appendChild(ball);
             } else {
@@ -1323,18 +2080,7 @@
                 status.className = 'xy-status-bar'; status.id = 'xy-timer-display';
                 const statusLeft = document.createElement('div');
                 statusLeft.className = 'xy-status-left';
-                if (currentTask) {
-                    if (waitingUnlockText) {
-                        statusLeft.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">等待解锁</span><span class="xy-status-time waiting"></span>`;
-                        statusLeft.querySelector('.xy-status-time').textContent = waitingUnlockText;
-                    } else if (remainingTime > 0) {
-                        statusLeft.innerHTML = `<span class="xy-status-dot active"></span><span class="xy-status-text active">进行中</span><span class="xy-status-time">${formatSeconds(remainingTime)}</span>`;
-                    } else {
-                        statusLeft.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">正在读取时长…</span>`;
-                    }
-                } else {
-                    statusLeft.innerHTML = `<span class="xy-status-dot idle"></span><span class="xy-status-text">待机中</span>`;
-                }
+                renderStatusLeft(statusLeft);
                 status.appendChild(statusLeft);
                 const statusActions = document.createElement('div');
                 statusActions.className = 'xy-status-actions';
@@ -1342,19 +2088,37 @@
                 refreshBtn.className = 'xy-btn primary'; refreshBtn.id = 'xy-refresh-btn'; refreshBtn.innerText = '刷新';
                 refreshBtn.onclick = fetchTasksFromApi;
                 const silentBtn = document.createElement('button');
-                silentBtn.className = 'xy-btn outline';
+                silentBtn.className = 'xy-btn outline'; silentBtn.id = 'xy-silent-btn';
                 silentBtn.innerText = `拦截声音:${silentEnabled ? '开' : '关'}`;
                 silentBtn.title = '切换是否拦截声音';
                 silentBtn.onclick = () => {
                     silentEnabled = !silentEnabled;
                     savePlayPref();
                     syncSilentState();
-                    renderUI();
+                    updateSilentButton();
+                };
+                const autoResumeBtn = document.createElement('button');
+                autoResumeBtn.className = 'xy-btn outline'; autoResumeBtn.id = 'xy-auto-resume-btn';
+                autoResumeBtn.innerText = `恢复播放:${autoResumeEnabled ? '开' : '关'}`;
+                autoResumeBtn.title = '切换视频暂停后的自动恢复播放';
+                autoResumeBtn.onclick = () => {
+                    autoResumeEnabled = !autoResumeEnabled;
+                    savePlayPref();
+                    updateAutoResumeButton();
+                    if (autoResumeEnabled) startAutoResumeMonitor();
+                    else clearAutoResumeMonitor();
                 };
                 const clearBtn = document.createElement('button');
                 clearBtn.className = 'xy-btn outline'; clearBtn.innerText = '清空';
-                clearBtn.onclick = () => { if (confirm("确定清空本地列表吗？")) { taskQueue = []; saveData(); stopTimer(); renderUI(); } };
-                statusActions.appendChild(refreshBtn); statusActions.appendChild(silentBtn); statusActions.appendChild(clearBtn);
+                clearBtn.onclick = () => {
+                    if (confirm("确定清空本地列表吗？")) {
+                        taskQueue = [];
+                        saveData();
+                        stopTimer({ render: false });
+                        refreshPanelContent({ list: true, status: true, preserveScroll: false });
+                    }
+                };
+                statusActions.appendChild(refreshBtn); statusActions.appendChild(silentBtn); statusActions.appendChild(autoResumeBtn); statusActions.appendChild(clearBtn);
                 status.appendChild(statusActions);
                 panel.appendChild(status);
 
@@ -1386,128 +2150,8 @@
                 panel.appendChild(noticeCard);
 
                 const list = document.createElement('div');
-                list.className = 'xy-list';
-                if (taskQueue.length === 0) {
-                    list.innerHTML = `<div class="xy-empty"><div class="xy-empty-icon">📂</div>暂无待完成任务</div>`;
-                } else {
-                    const groups = new Map();
-                    taskQueue.forEach((task, index) => {
-                        const gn = task.groupName || '未分类';
-                        if (!groups.has(gn)) groups.set(gn, []);
-                        groups.get(gn).push({ task, index });
-                    });
-                    groups.forEach((items, groupName) => {
-                        const isGroupCollapsed = collapsedGroups.has(groupName);
-                        const groupHeader = document.createElement('div');
-                        groupHeader.className = 'xy-group-header';
-                        groupHeader.innerHTML = `<span class="xy-group-arrow${isGroupCollapsed ? ' collapsed' : ''}">▼</span> 📂 `;
-                        groupHeader.appendChild(document.createTextNode(groupName + ' '));
-                        const groupCount = document.createElement('span');
-                        groupCount.className = 'xy-group-count';
-                        groupCount.textContent = `${items.length} 项`;
-                        groupHeader.appendChild(groupCount);
-                        const groupContainer = document.createElement('div');
-                        groupContainer.className = 'xy-group-items' + (isGroupCollapsed ? ' collapsed' : '');
-                        groupHeader.onclick = () => {
-                            const isNowCollapsed = !collapsedGroups.has(groupName);
-                            if (isNowCollapsed) collapsedGroups.add(groupName);
-                            else collapsedGroups.delete(groupName);
-                            groupContainer.classList.toggle('collapsed', isNowCollapsed);
-                            groupHeader.querySelector('.xy-group-arrow').classList.toggle('collapsed', isNowCollapsed);
-                        };
-                        list.appendChild(groupHeader);
-                        items.forEach(({ task, index }) => {
-                        const item = document.createElement('div');
-                        const stateInfo = evaluateTaskState(task);
-                        task.state = stateInfo.state;
-                        task.locked = stateInfo.state === 'locked';
-                        const isActive = currentTask && String(task.nodeId) === String(currentTask.nodeId);
-                        let urgencyClass = '';
-                        let deadlineColor = '#94a3b8', deadlineText = '';
-                        if (stateInfo.state === 'expired') {
-                            urgencyClass = ' xy-expired';
-                            deadlineColor = '#8e8e93';
-                            deadlineText = '已截止';
-                        } else if (stateInfo.state === 'locked') {
-                            urgencyClass = ' xy-locked';
-                            deadlineColor = '#d97706';
-                            const unlockAtText = stateInfo.unlockAt ? formatDateTime(stateInfo.unlockAt) : (task.unlockAt || '');
-                            deadlineText = unlockAtText ? `⏳ ${formatDurationCn(stateInfo.remainingSec)} · ${unlockAtText} 开始` : `⏳ ${formatDurationCn(stateInfo.remainingSec)} 后开始`;
-                        } else if (stateInfo.lateSubmit && task.endTime) {
-                            urgencyClass = ' xy-late-submit';
-                            deadlineColor = '#d97706';
-                            const dl = new Date(task.endTime);
-                            const dateStr = (dl.getMonth()+1) + '/' + dl.getDate() + ' ' + String(dl.getHours()).padStart(2,'0') + ':' + String(dl.getMinutes()).padStart(2,'0');
-                            deadlineText = '📝 可补交 · 原截止 ' + dateStr;
-                        } else if (task.endTime) {
-                            const dl = new Date(task.endTime), nw = new Date();
-                            const diffDays = (dl - nw) / 86400000;
-                            if (diffDays <= 1) { urgencyClass = ' xy-urgent'; deadlineColor = '#dc2626'; deadlineText = diffDays <= 0 ? '⚠ 已截止' : '⚠ 今天截止'; }
-                            else if (diffDays <= 3) { urgencyClass = ' xy-warn'; deadlineColor = '#d97706'; deadlineText = '⏰ ' + Math.ceil(diffDays) + '天后截止'; }
-                            else { deadlineColor = '#94a3b8'; const dateStr = dl.getFullYear() !== nw.getFullYear() ? dl.getFullYear() + '/' + (dl.getMonth()+1) + '/' + dl.getDate() : (dl.getMonth()+1) + '/' + dl.getDate(); deadlineText = '截止 ' + dateStr; }
-                        }
-                        item.className = `xy-item${isActive ? ' active' : ''}${urgencyClass}`;
-
-                        const name = document.createElement('div');
-                        name.className = 'xy-item-name';
-                        name.title = task.name || '未知任务';
-                        const tagHtml = stateInfo.state === 'locked'
-                            ? '<span class="xy-tag locked">🔒 未开启</span>'
-                            : (stateInfo.state === 'expired'
-                                ? '<span class="xy-tag expired">⏱ 已截止</span>'
-                                : (stateInfo.lateSubmit
-                                    ? '<span class="xy-tag late-submit">📝 可补交</span>'
-                                    : (task.isVideo ? '<span class="xy-tag video">▶ 视频</span>' : '<span class="xy-tag">📄 文档</span>')));
-                        name.innerHTML = tagHtml;
-                        name.appendChild(document.createTextNode(task.name || '未知任务'));
-                        name.onclick = () => {
-                            const targetUrl = buildTaskUrl(task);
-                            if (targetUrl) window.location.replace(targetUrl);
-                        };
-                        item.appendChild(name);
-
-                        const right = document.createElement('div');
-                        right.className = 'xy-item-right';
-                        const timeInput = document.createElement('input');
-                        timeInput.type = 'text'; timeInput.className = 'xy-time-input';
-                        if (task.duration && task.duration > 0) timeInput.value = (task.duration / 60).toFixed(1);
-                        else { timeInput.value = ""; timeInput.placeholder = "待读取"; timeInput.className += " waiting"; }
-                        timeInput.onchange = (e) => {
-                            const val = parseFloat(e.target.value);
-                            if (val && val > 0) {
-                                task.duration = Math.ceil(val * 60);
-                                if (isActive) {
-                                    timerTotalDuration = task.duration;
-                                    timerStartedAt = Date.now();
-                                    remainingTime = task.duration;
-                                }
-                                saveData(); renderUI();
-                            }
-                        };
-                        right.appendChild(timeInput);
-                        if (task.duration > 0) {
-                            const unit = document.createElement('span');
-                            unit.className = 'xy-time-unit'; unit.innerText = 'min';
-                            right.appendChild(unit);
-                        }
-                        const delBtn = document.createElement('div');
-                        delBtn.className = 'xy-delete'; delBtn.innerHTML = '✕';
-                        delBtn.title = '移除任务';
-                        delBtn.onclick = () => { if (isActive) stopTimer(); taskQueue.splice(index, 1); saveData(); renderUI(); };
-                        right.appendChild(delBtn); item.appendChild(right);
-
-                        if (deadlineText) {
-                            const dlRow = document.createElement('div');
-                            dlRow.className = 'xy-deadline';
-                            dlRow.style.color = deadlineColor;
-                            dlRow.innerText = deadlineText;
-                            item.appendChild(dlRow);
-                        }
-                        groupContainer.appendChild(item);
-                        });
-                        list.appendChild(groupContainer);
-                    });
-                }
+                list.className = 'xy-list'; list.id = 'xy-task-list';
+                renderTaskList(list);
                 panel.appendChild(list);
                 container.appendChild(panel);
             }
@@ -1515,17 +2159,15 @@
 
         function updateTimerDisplay() {
             const el = document.getElementById('xy-timer-display');
-            if (el && currentTask) {
-                const left = el.querySelector('.xy-status-left');
-                if (left) {
-                    if (waitingUnlockText) { left.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">等待解锁</span><span class="xy-status-time waiting"></span>`; left.querySelector('.xy-status-time').textContent = waitingUnlockText; }
-                    else if (remainingTime > 0) left.innerHTML = `<span class="xy-status-dot active"></span><span class="xy-status-text active">进行中</span><span class="xy-status-time">${formatSeconds(remainingTime)}</span>`;
-                    else left.innerHTML = `<span class="xy-status-dot loading"></span><span class="xy-status-text">正在读取时长…</span>`;
-                }
-            }
+            const left = el && el.querySelector('.xy-status-left');
+            if (left) renderStatusLeft(left);
+            updateFloatingBallState();
         }
 
+        
+
         function init() {
+            
             navigationId++;
             clearDocPreviewCheck();
             loadData();
@@ -1559,7 +2201,7 @@
             _resizeTimer = setTimeout(() => applySafeContainerPosition(), 200);
         });
 
-    }
+    } 
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', main);
