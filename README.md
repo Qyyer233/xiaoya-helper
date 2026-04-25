@@ -3,7 +3,7 @@
 # 🚀 小雅自动刷
 
 [![ScriptCat](https://img.shields.io/badge/ScriptCat-脚本猫安装-4e443c.svg?logo=google-chrome&logoColor=white)](https://scriptcat.org/zh-CN/script-show-page/4727)
-[![Version](https://img.shields.io/badge/Version-1.5-blue.svg)](https://scriptcat.org/zh-CN/script-show-page/4727)
+[![Version](https://img.shields.io/badge/Version-1.6-blue.svg)](https://scriptcat.org/zh-CN/script-show-page/4727)
 
 **专为小雅学习平台打造的辅助自动刷课工具。**
 
