@@ -3,7 +3,7 @@
 # 🚀 小雅自动刷
 
 [![ScriptCat](https://img.shields.io/badge/ScriptCat-脚本猫安装-4e443c.svg?logo=google-chrome&logoColor=white)](https://scriptcat.org/zh-CN/script-show-page/4727)
-[![Version](https://img.shields.io/badge/Version-1.7-blue.svg)](https://scriptcat.org/zh-CN/script-show-page/4727)
+[![Version](https://img.shields.io/badge/Version-1.8-blue.svg)](https://scriptcat.org/zh-CN/script-show-page/4727)
 
 **专为小雅学习平台打造的辅助自动刷课工具。**
 
@@ -20,7 +20,9 @@
 - 📺 **自动播放**：打开任务后自动播放，可拦截声音，切到后台也不会暂停。
 - ⏭️ **自动连播**：当前视频播放完毕后，自动跳转至下一节任务。
 - 🔧 **智能时长**：自动读取视频时长或手动修正，防止进度未记录。
+- ⏳ **挂时长**：没有布置观看任务、但要求学习时长的课程，也能挂机累计时长；可以一门课挂一个资源，也可以轮流挂课程里的每个文件。
 - 🧩 **悬浮面板**：右侧内置悬浮球，点一下展开控制面板；有夜航、青花两种风格可选。
+- 🩺 **诊断日志**：遇到问题时，单击面板上的版本号复制日志，双击下载完整日志，发给作者就能排查。日志只存在你自己的浏览器里，不会上传。
 
 ## 📖 使用方法
 

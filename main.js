@@ -1,18 +1,17 @@
 // ==UserScript==
 // @name         小雅自动刷
 // @namespace    http://tampermonkey.net/
-// @version      1.7
+// @version      1.8
 // @description  🚀 小雅平台自动刷课神器！视频自动播放、无缝跳转，突破防切屏限制实现后台挂机 🛡️！智能监测未开启任务倒计时 ⏳，成倍提升学习效率！📈
 // @author       Qy
 // @match        https://*.ai-augmented.com/*
 // @grant        none
 // @run-at       document-start
-// @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiPjxkZWZzPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDI9IjAiIHkyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjMTQyNTRhIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDgxMDFmIi8+PC9saW5lYXJHcmFkaWVudD48cmFkaWFsR3JhZGllbnQgaWQ9ImgiIGN4PSIuMTgiIGN5PSIuMSIgcj0iLjkiPjxzdG9wIHN0b3AtY29sb3I9IiMyZjZiZmYiIHN0b3Atb3BhY2l0eT0iLjQyIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzJmNmJmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9ImkiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMjYwIiB5MT0iNzYwIiB4Mj0iODAwIiB5Mj0iMzAwIj48c3RvcCBzdG9wLWNvbG9yPSIjZmZmIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iI2Q2ZjJmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzg2ZGRmZiIvPjwvbGluZWFyR3JhZGllbnQ+PGZpbHRlciBpZD0iYiIgeD0iLTQwJSIgeT0iLTQwJSIgd2lkdGg9IjE4MCUiIGhlaWdodD0iMTgwJSI+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iMjYiLz48L2ZpbHRlcj48bGluZWFyR3JhZGllbnQgaWQ9ImsiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iNTYwIiB5MT0iMjAwIiB4Mj0iNzAwIiB5Mj0iODIwIj48c3RvcCBzdG9wLWNvbG9yPSIjYmJiIi8+PHN0b3Agb2Zmc2V0PSIuNSIgc3RvcC1jb2xvcj0iIzU1NSIvPjxzdG9wIG9mZnNldD0iMSIvPjwvbGluZWFyR3JhZGllbnQ+PG1hc2sgaWQ9Im0iPjxyZWN0IHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiIGZpbGw9IiNmZmYiLz48ZyBmaWxsPSJ1cmwoI2spIj48cGF0aCBkPSJNNzE3LjggMjU1LjNjMCAwIDM4LjYgMzQuNyA1NC4zIDU0LjggMTUuNyAyMC4xIDI5LjIgNDIuNiAzOS43IDY1LjggMTAuNiAyMy4yIDE4LjYgNDguMyAyMy40IDczLjMgNC45IDI1IDYuOCA1MS4yIDUuNyA3Ni43LTEuMSAyNS40LTUuMyA1MS40LTEyLjMgNzUuOS03IDI0LjQtMTcuMiA0OC43LTI5LjcgNzAuOC0xMi42IDIyLjItMjguMiA0My4zLTQ1LjYgNjEuOC0xNy40IDE4LjUtMzcuNSAzNS40LTU4LjcgNDkuMi0yMS4zIDEzLjctNDQuOCAyNS4zLTY4LjcgMzMuNC0yMy44IDguMS01Ny42IDEyLjMtNzQuMiAxNS4yLTE2LjcgMy0xNy45IDEuOS0yNS44IDIuNy03LjkuOS0xNy44IDMuNS0yMS42IDIuNC0zLjctMS4xLTQuMy03LjItLjktOC45IDMuNS0xLjggMTMuNy0xIDIxLjYtMS42IDcuOS0uNSA5LjMuOSAyNS44LTEuNyAxNi40LTIuNyA0OS41LTYuNCA3Mi45LTE0LjEgMjMuNS03LjcgNDYuOC0xOC43IDY3LjgtMzIgMjEtMTMuMyA0MS0yOS43IDU4LjMtNDcuNyAxNy40LTE4LjEgMzMtMzguOCA0NS43LTYwLjYgMTIuNi0yMS43IDIyLjktNDUuNiAzMC4xLTY5LjggNy4yLTI0LjEgMTEuNi00OS45IDEyLjktNzUuMSAxLjQtMjUuMy0uMy01MS40LTQuOS03Ni4zLTQuNy0yNC45LTEyLjQtNTAtMjIuNy03My4yLTEwLjMtMjMuMS0yMy43LTQ1LjgtMzkuMi02Ni0xNS41LTIwLjEtNTMuOS01NS01My45LTU1eiIvPjxwYXRoIGQ9Ik03NzguMiAzODUuMWMwIDAgMTUuNSAzNS43IDIwLjUgNTQuMyA0LjkgMTguNiA4LjIgMzguMSA5LjUgNTcuNCAxLjMgMTkuMy42IDM5LjEtMS45IDU4LjMtMi41IDE5LjItNy4xIDM4LjYtMTMuMyA1Ny02LjMgMTguMy0xNC42IDM2LjUtMjQuNCA1My4zLTkuOCAxNi44LTIxLjUgMzMtMzQuNSA0Ny42LTEyLjkgMTQuNi0yNy43IDI4LjEtNDMuMyAzOS45LTE1LjYgMTEuOC0zMi43IDIyLjItNTAuMyAzMC42LTE3LjcgOC41LTM4LjQgMTUuNi01NS41IDIwLjMtMTcgNC43LTM1LjkgNi40LTQ2LjcgOC4xLTEwLjggMS42LTEyLjEgMS4xLTE4LjEgMS43LTYuMS42LTE1IDIuNy0xOC4xIDEuOC0zLjItLjgtMy43LTUuNi0uOC02LjkgMy0xLjQgMTIuMi0uOCAxOC4yLTEuMSA2LjEtLjQgNy41LjMgMTguMi0xLjEgMTAuNy0xLjQgMjkuMy0yLjkgNDYuMS03LjMgMTYuOS00LjQgMzcuNC0xMS4yIDU0LjgtMTkuMyAxNy41LTguMiAzNC41LTE4LjMgNTAuMS0yOS43IDE1LjUtMTEuNSAzMC4yLTI0LjggNDMuMi0zOS4xIDEyLjktMTQuMyAyNC43LTMwLjIgMzQuNi00Ni44IDkuOS0xNi41IDE4LjMtMzQuNSAyNC43LTUyLjcgNi40LTE4LjIgMTEuMS0zNy40IDEzLjgtNTYuNSAyLjctMTkuMSAzLjUtMzguOCAyLjQtNTguMS0xLjEtMTkuMi00LjItMzguNy05LjEtNTcuMy00LjgtMTguNi0yMC4xLTU0LjQtMjAuMS01NC40eiIvPjxwYXRoIGQ9Ik02MDIuMSAyNTguMWMwIDAgNDQuMiAxNy41IDYzLjcgMzAuMyAxOS42IDEyLjggMzguMSAyOC44IDUzLjcgNDYuNCAxNS42IDE3LjYgMjkuMyAzOC4xIDM5LjkgNTkuNCAxMC41IDIxLjIgMTguNiA0NC42IDIzLjMgNjcuOSA0LjcgMjMuMyA2LjUgNDguMSA1LjEgNzItMS40IDIzLjktNi4xIDQ4LjUtMTMuNyA3MS4zLTcuNSAyMi44LTE4LjQgNDUuNS0zMS43IDY1LjgtMTMuMyAyMC4yLTI5LjcgMzkuNS00Ny44IDU1LjgtMTguMiAxNi4zLTM5LjEgMzAuNy02MSA0Mi4xLTIxLjggMTEuNC01MiAyMC45LTcwLjEgMjYuMy0xOC4xIDUuNC0yOCA0LjYtMzguNSA2LjEtMTAuNCAxLjUtMTkuOSA0LjEtMjQuMSAyLjktNC4yLTEuMi00LjktOC0xLTEwIDMuOS0xLjkgMTMuOC0uNyAyNC4yLTEuOCAxMC40LTEuMiAyMC4zLS4xIDM4LTUuMSAxNy44LTUgNDcuMS0xNCA2OC41LTI0LjggMjEuNC0xMC45IDQyLjEtMjQuNyA2MC00MC40IDE3LjktMTUuOCAzNC4yLTM0LjQgNDcuNS01NC4xIDEzLjItMTkuNyAyNC4yLTQxLjkgMzEuOS02NC4yIDcuNy0yMi40IDEyLjYtNDYuNiAxNC4zLTcwLjEgMS43LTIzLjYuMi00OC4xLTQuMi03MS4zLTQuNS0yMy4xLTEyLjItNDYuNS0yMi41LTY3LjYtMTAuMi0yMS4yLTIzLjYtNDEuNy0zOS01OS40LTE1LjMtMTcuNy0zMy42LTMzLjktNTMuMS00Ni44LTE5LjQtMTIuOS02My40LTMwLjctNjMuNC0zMC43eiIvPjxwYXRoIGQ9Ik04NTEuNiA1MTMuNmMwIDAtMS42IDM2LjEtNC41IDUzLjgtMyAxNy43LTcuNCAzNS40LTEzLjEgNTIuNC01LjcgMTctMTIuOSAzMy44LTIxLjMgNDkuNi04LjQgMTUuOS0xOC4yIDMxLjItMjkuMSA0NS41LTEwLjkgMTQuMi0yMyAyNy44LTM2LjEgNDAtMTMgMTIuMy0yNy4yIDIzLjctNDIgMzMuNi0xNC44IDkuOS0zMC42IDE4LjktNDYuOSAyNi4xLTE2LjIgNy4yLTMzLjQgMTIuOS01MC42IDE3LjEtMTcuMSA0LjItNDAgNi42LTUyLjMgOC4zLTEyLjMgMS43LTE1LjMgMS4zLTIxLjMgMS45LTYgLjYtOS43IDEuMS0xNC42IDEuNi00LjkuNS0xMi4xIDIuMy0xNC43IDEuNS0yLjUtLjctMi45LTQuOC0uNi01LjkgMi40LTEuMiA5LjgtLjcgMTQuNy0xIDQuOS0uMyA4LjctLjYgMTQuNy0xIDYtLjQgOS4xLjIgMjEuMy0xLjMgMTIuMS0xLjUgMzQuOC0zLjYgNTEuOC03LjYgMTctNCAzNC4xLTkuNSA1MC4zLTE2LjUgMTYuMS02LjkgMzEuOS0xNS42IDQ2LjctMjUuMyAxNC44LTkuOCAyOS0yMC45IDQyLjEtMzMgMTMtMTIgMjUuMy0yNS40IDM2LjItMzkuNSAxMC45LTE0LjEgMjAuOS0yOS4zIDI5LjQtNDUgOC41LTE1LjcgMTUuOC0zMi40IDIxLjctNDkuMyA1LjgtMTYuOSAxMC4zLTM0LjYgMTMuNC01Mi4zIDMtMTcuNiA0LjgtNTMuNyA0LjgtNTMuN3oiLz48cGF0aCBkPSJNNzYyLjYgNjAxLjNjMCAwLTcuOSAyMi0xMi45IDMyLjUtNC45IDEwLjYtMTAuNiAyMC45LTE2LjkgMzAuNy02LjMgOS45LTEzLjMgMTkuNS0yMC45IDI4LjUtNy41IDktMTUuNyAxNy42LTI0LjQgMjUuNi04LjcgOC0xOCAxNS41LTI3LjcgMjIuNC05LjcgNi45LTIwIDEzLjItMzAuNSAxOC45LTEwLjYgNS43LTIxLjUgMTAuOS0zMi43IDE1LjQtMTEuMiA0LjQtMjQuNiA4LjYtMzQuNyAxMS4zLTEwIDIuNy0xOS40IDMuOC0yNS43IDQuOS02LjMgMS04LjEuOS0xMi4xIDEuNC00IC41LTggLjktMTIgMS40LTQuMS40LTEwIDEuOS0xMi4xIDEuMy0yLjEtLjYtMi40LTQtLjUtNSAxLjktMSA4LjEtLjUgMTIuMS0uOCA0LS4zIDguMS0uNiAxMi4xLS45IDQtLjMgNS44IDAgMTIuMS0uOSA2LjMtLjkgMTUuNi0xLjkgMjUuNi00LjQgMTAtMi42IDIzLjMtNi42IDM0LjQtMTAuOCAxMS4yLTQuMyAyMi05LjQgMzIuNS0xNC45IDEwLjUtNS41IDIwLjgtMTEuNiAzMC41LTE4LjQgOS43LTYuNyAxOS4xLTE0IDI3LjgtMjEuOSA4LjctNy45IDE3LTE2LjQgMjQuNi0yNS4zIDcuNi04LjkgMTQuNy0xOC4zIDIxLjEtMjguMSA2LjQtOS44IDEyLjItMjAgMTcuMi0zMC41IDUtMTAuNSAxMy4xLTMyLjQgMTMuMS0zMi40eiIvPjxwYXRoIGQ9Ik00NDQgMjEyLjRjMCAwIDIwLjUtNS4xIDMxLTYuOCAxMC40LTEuNyAyMS0yLjcgMzEuNi0zLjMgMTAuNi0uNSAyMS40LS40IDMyIC4yIDEwLjYuNiAyMS4zIDEuOCAzMS44IDMuNiAxMC42IDEuOCAyMS4xIDQuMiAzMS40IDcuMSAxMC4yIDIuOSAyMC41IDYuNSAzMC40IDEwLjUgOS45IDQgMTkuNyA4LjYgMjkuMSAxMy43IDkuNCA1LjEgMTguNyAxMC44IDI3LjUgMTYuOSA4LjggNi4xIDE3LjMgMTIuNyAyNS41IDE5LjcgOC4xIDcgMTUuOCAxNC41IDIzLjEgMjIuMyA3LjMgNy45IDE0LjIgMTYuMSAyMC42IDI0LjcgNi40IDguNSAxNy45IDI2LjYgMTcuOSAyNi42IDAgMC0xMS45LTE3LjgtMTguNS0yNi4xLTYuNS04LjQtMTMuNi0xNi41LTIxLTI0LjItNy41LTcuNi0xNS4zLTE0LjktMjMuNS0yMS43LTguMi02LjgtMTYuOC0xMy4yLTI1LjctMTkuMS04LjgtNS44LTE4LTExLjMtMjcuNC0xNi4yLTkuNC01LTE5LjEtOS40LTI4LjktMTMuNC05LjktMy45LTIwLTcuMy0zMC4xLTEwLjItMTAuMi0yLjktMjAuNi01LjMtMzEtNy4yLTEwLjQtMS44LTIwLjktMy4xLTMxLjQtMy45LTEwLjUtLjgtMjEuMS0xLjEtMzEuNy0uOC0xMC41LjItMjEuMSAxLTMxLjUgMi4zLTEwLjUgMS4zLTMxLjIgNS4zLTMxLjIgNS4zeiIvPjxwYXRoIGQ9Ik0zNjQuOCAyNzYuOGMwIDAgMTcuNS0xMS4zIDI2LjgtMTYuMiA5LjItNC44IDE4LjgtOS4xIDI4LjYtMTIuOSA5LjgtMy43IDE5LjktNi45IDMwLjEtOS41IDEwLjEtMi42IDIwLjUtNC42IDMxLTYgMTAuNC0xLjQgMjEtMi4yIDMxLjYtMi40IDEwLjUtLjEgMjEuMi4zIDMxLjcgMS40IDEwLjUgMSAyMSAyLjcgMzEuNCA1IDEwLjMgMi4zIDIwLjYgNS4yIDMwLjYgOC42IDEwIDMuNSAxOS44IDcuNiAyOS40IDEyLjIgOS41IDQuNiAxOC44IDkuOCAyNy43IDE1LjUgOSA1LjcgMTcuNiAxMiAyNS44IDE4LjYgOC4yIDYuNyAyMy40IDIxLjUgMjMuNCAyMS41IDAgMC0xNS42LTE0LjQtMjMuOS0yMC44LTguNC02LjQtMTcuMS0xMi40LTI2LjEtMTcuOS05LTUuNC0xOC40LTEwLjQtMjgtMTQuNy05LjUtNC40LTE5LjQtOC4yLTI5LjMtMTEuNS0xMC0zLjItMjAuMi01LjktMzAuNC04LTEwLjItMi4yLTIwLjYtMy43LTMxLTQuNy0xMC40LS45LTIwLjktMS4zLTMxLjMtMS4yLTEwLjQuMi0yMC44LjktMzEuMSAyLjItMTAuMyAxLjMtMjAuNiAzLjItMzAuNyA1LjUtMTAuMSAyLjQtMjAuMiA1LjMtMzAgOC44LTkuOCAzLjQtMTkuNCA3LjQtMjguOCAxMS44LTkuNCA0LjUtMjcuNSAxNC43LTI3LjUgMTQuN3oiLz48cGF0aCBkPSJNMjY1LjEgMzE0LjljMCAwIDkuOS0xMi40IDE1LjItMTguMiA1LjItNS44IDEwLjgtMTEuNSAxNi41LTE2LjkgNS44LTUuNCAxMS43LTEwLjYgMTcuOS0xNS41IDYuMS01IDEyLjQtOS43IDE5LTE0LjIgNi41LTQuNSAxMy4xLTguNyAyMC0xMi43IDYuOC00IDEzLjgtNy43IDIwLjktMTEuMSA3LjEtMy41IDE0LjQtNi42IDIxLjctOS41IDcuNC0yLjkgMTQuOS01LjYgMjIuNC03LjkgNy42LTIuMyAxNS4yLTQuNCAyMi45LTYuMiA3LjgtMS43IDE1LjYtMy4yIDIzLjQtNC40IDcuOC0xLjIgMTUuNy0yLjEgMjMuNi0yLjcgNy45LS42IDIzLjctLjkgMjMuNy0uOSAwIDAtMTUuOC43LTIzLjcgMS41LTcuOC44LTE1LjcgMS45LTIzLjQgMy4zLTcuOCAxLjMtMTUuNSAzLTIzLjIgNC45LTcuNiAxLjktMTUuMiA0LjEtMjIuNiA2LjUtNy41IDIuNS0xNC45IDUuMi0yMi4xIDguMi03LjMgMi45LTE0LjUgNi4yLTIxLjUgOS42LTcgMy41LTEzLjkgNy4yLTIwLjcgMTEuMS02LjggNC0xMy40IDguMS0xOS45IDEyLjUtNi41IDQuNC0xMi44IDktMTkgMTMuOC02LjIgNC45LTEyLjIgOS45LTE4LjEgMTUuMS01LjggNS4zLTExLjUgMTAuNy0xNyAxNi4zLTUuNSA1LjYtMTYgMTcuNC0xNiAxNy40eiIvPjwvZz48L21hc2s+PHBhdGggaWQ9InEiIGQ9Ik0yMzAgMGg1NjRjMTI3IDAgMjMwIDEwMyAyMzAgMjMwdjU2NGMwIDEyNy0xMDMgMjMwLTIzMCAyMzBIMjMwQzEwMyAxMDI0IDAgOTIxIDAgNzk0VjIzMEMwIDEwMyAxMDMgMCAyMzAgMHoiLz48cGF0aCBpZD0iciIgZD0iTTM4NSA3MTVjLTUtMy05LTQtMTMtNy00LTMtOC02LTEyLTktNC0zLTgtNi0xMS0xMC00LTMtNy03LTExLTEwLTMtNC02LTgtOS0xMi0zLTQtNS04LTgtMTItMy00LTYtOC04LTEyLTMtNS02LTktOS0xMy0yLTQtNC05LTYtMTMtMi01LTQtOS02LTE0LTItNC01LTgtNy0xMy0yLTUtNC05LTYtMTQtMS01LTMtMTAtNC0xNC0xLTUtMi0xMC0zLTE1LTEtNS0yLTEwLTMtMTUgMC01LTEtMTAtMS0xNiAwLTUgMC0xMCAwLTE1IDAtNS0xLTEwIDAtMTUgMC01IDItMTAgMi0xNSAxLTUgMi0xMSAzLTE2IDEtNSAyLTEwIDQtMTUgMi00IDQtOSA2LTE0IDItNCA0LTkgNy0xNCAyLTQgNC05IDctMTMgMi01IDUtOSA4LTEzIDMtNCA2LTkgOC0xMyAzLTQgNS05IDktMTMgMy00IDctNyAxMS0xMCAzLTQgNy04IDEwLTExIDQtNCA3LTggMTEtMTEgNC00IDctOCAxMS0xMSA0LTMgOC02IDEyLTkgNS0zIDktNSAxNC03IDQtMyA5LTUgMTMtOCA1LTIgOS01IDE0LTcgNC0yIDktNSAxNC03IDQtMiA5LTMgMTQtNSA1LTEgMTAtMiAxNS0zIDUtMSAxMC0yIDE1LTMgNi0xIDExLTMgMTYtNCA1LTEgMTAtMSAxNS0xIDUgMCAxMS0xIDE2LTEgNSAwIDEwIDAgMTUgMSA2IDAgMTEgMSAxNiAxIDUgMSAxMCAyIDE1IDMgNiAxIDExIDIgMTYgMyA1IDEgMTAgMyAxNSA0IDUgMiAxMCA0IDE1IDYgNSAyIDkgNCAxNCA2IDUgMyAxMCA1IDE1IDcgNCAyIDkgNSAxMyA4IDUgMyA5IDYgMTMgOSA1IDMgOSA3IDEzIDEwIDQgNCA5IDYgMTMgMTAgMyA0IDYgOCAxMCAxMiAzIDQgNyA4IDEwIDEyIDQgNCA4IDggMTEgMTMgMyA0IDcgOCAxMCAxMiAzIDUgNiAxMCA4IDE1IDMgNCA1IDEwIDcgMTUgMiA1IDQgMTAgNiAxNSAyIDUgNCAxMCA2IDE1IDEgNSAxIDExIDMgMTYgMSA1IDMgMTEgNCAxNiAxIDUgMiAxMSAyIDE2IDEgNiAxIDExIDEgMTcgMCA1IDAgMTAgMCAxNiAwIDUgMCAxMSAwIDE2LTEgNi0yIDExLTMgMTcgMCA1LTEgMTAtMiAxNi0xIDUtMSAxMS0yIDE2LTEgNi0yIDExLTQgMTctMSA1LTMgMTAtNSAxNS0yIDYtNCAxMS02IDE2LTIgNS01IDEwLTcgMTUtMyA1LTYgMTAtOCAxNS0zIDUtNiAxMC05IDE1LTMgNS02IDEwLTkgMTQtNCA1LTggOS0xMSAxMy00IDUtOCA5LTEyIDEzLTQgNC03IDEwLTExIDE0LTQgNC0xMCA2LTE0IDEwLTUgMy05IDctMTQgMTEtNSAzLTkgNy0xNCAxMC01IDMtMTAgNy0xNiAxMC01IDMtMTAgNi0xNSA5LTUgMy0xMSA1LTE2IDgtNiAzLTEyIDUtMTcgNy02IDItMTIgMy0xOCA2LTYgMy0xNyA5LTE3IDkgMCAwIDEzIDMgMTkgMyA3IDEgMTMgMCAyMC0xIDYgMCAxMy0xIDE5LTEgNy0xIDE0LTEgMjEtMiA2LTEgMTItNCAxOS02IDYtMiAxMi00IDE5LTcgNi0yIDEyLTUgMTgtOCA2LTMgMTMtNiAxOS05IDUtNCAxMS04IDE3LTExIDUtNCAxMi03IDE3LTEyIDYtNCAxMS05IDE2LTEzIDUtNSA5LTEwIDE0LTE1IDUtNSAxMS05IDE1LTE0IDUtNiA5LTExIDEzLTE3IDQtNiA4LTEyIDExLTE4IDQtNiA3LTEyIDEwLTE4IDQtNiA3LTEzIDEwLTE5IDMtNiA3LTEyIDktMTkgMy02IDQtMTMgNi0yMCAyLTcgNC0xMyA2LTIwIDItNyA0LTE0IDUtMjEgMS03IDItMTQgMi0yMSAxLTcgMS0xNCAxLTIxIDAtNyAwLTE0IDAtMjEgMC03IDAtMTQgMC0yMSAwLTctMS0xNC0yLTIxLTEtOC0yLTE1LTMtMjEtMi03LTQtMTQtNi0yMS0zLTctNS0xMy03LTIwLTMtNy01LTEzLTgtMjAtMy02LTUtMTMtOC0xOS0zLTctNy0xMy0xMC0xOS00LTYtNy0xMy0xMC0xOS00LTYtNy0xMi0xMS0xOC00LTYtOC0xMi0xMy0xOC01LTUtMTAtMTAtMTUtMTUtNS01LTEwLTExLTE1LTE2LTUtNS0xMS0xMC0xNi0xNS02LTUtMTEtOS0xNy0xNC02LTQtMTItOC0xOC0xMi03LTMtMTMtNy0xOS0xMS03LTMtMTQtNS0yMS04LTYtMy0xMy01LTIwLTgtNy0yLTE0LTUtMjAtNy03LTItMTQtNS0yMS02LTctMi0xNS0yLTIyLTQtNy0xLTE0LTItMjEtMy04LTEtMTUtMS0yMi0xLTctMS0xNS0xLTIyIDAtNyAwLTE0IDEtMjEgMi04IDEtMTUgMS0yMiAyLTcgMS0xNCAzLTIxIDQtNyAyLTE0IDUtMjEgNy03IDItMTQgMy0yMSA2LTYgMi0xMyA1LTIwIDgtNiAzLTEzIDYtMTkgOS03IDMtMTMgNi0yMCAxMC02IDMtMTIgNi0xOCAxMC02IDQtMTIgOS0xOCAxMy01IDUtMTAgMTAtMTYgMTQtNSA1LTExIDEwLTE2IDE1LTUgNS0xMCAxMC0xNSAxNS02IDUtMTEgMTAtMTUgMTYtNSA1LTggMTEtMTMgMTctNCA2LTggMTItMTIgMTgtNCA2LTggMTItMTEgMTgtMyA3LTYgMTQtOSAyMC0zIDctNiAxMy04IDIwLTMgNy01IDE0LTggMjAtMiA3LTUgMTQtNyAyMS0yIDctNSAxNC02IDIxLTEgNy0xIDE1LTIgMjItMSA3LTMgMTQtMyAyMS0xIDgtMiAxNS0yIDIyLTEgOC0xIDE1LTIgMjMgMCA3LTEgMTUtMSAyMiAxIDcgMiAxNSAzIDIyIDEgOCAzIDE1IDUgMjIgMiA4IDMgMTUgNSAyMiAyIDcgNCAxNSA3IDIyIDIgNyA1IDE0IDggMjEgMyA3IDcgMTQgMTAgMjEgNCA2IDcgMTMgMTEgMjAgNCA2IDggMTMgMTIgMTkgNSA2IDEwIDEyIDE1IDE4IDQgNiA4IDEzIDEzIDE5IDUgNiAxMSAxMSAxNyAxNiA2IDUgMTIgMTAgMTggMTUgNiA0IDEyIDkgMTggMTQgNiA0IDEzIDEwIDE5IDEzIDYgNCAxMSA3IDE3IDggNyAxIDE0IDEgMjEtMSA3LTEgMTQtNCAyMC04IDYtNCAxMi05IDE3LTE1IDUtNSA5LTEyIDEyLTE5IDMtNyA1LTE0IDYtMjIgMS03IDAtMTUtMS0yMS0yLTctNS0xNC05LTE5LTMtNS0xMC05LTE1LTEyeiIvPjxwYXRoIGlkPSJ0IiBkPSJNNDU4LjggMzg3LjlRNDM4IDM3NiA0MzggNDAwTDQzOCA2MjRRNDM4IDY0OCA0NTguOCA2MzYuMUw2NTUuMiA1MjMuOVE2NzYgNTEyIDY1NS4yIDUwMC4xeiIvPjwvZGVmcz48dXNlIGhyZWY9IiNxIiBmaWxsPSJ1cmwoI2cpIi8+PHVzZSBocmVmPSIjcSIgZmlsbD0idXJsKCNoKSIvPjx1c2UgaHJlZj0iI3IiIGZpbGw9IiMzOGI4ZmYiIG9wYWNpdHk9Ii41IiBmaWx0ZXI9InVybCgjYikiLz48dXNlIGhyZWY9IiNyIiBmaWxsPSJ1cmwoI2kpIiBtYXNrPSJ1cmwoI20pIi8+PHVzZSBocmVmPSIjdCIgZmlsbD0iIzM4YjhmZiIgb3BhY2l0eT0iLjQ1IiBmaWx0ZXI9InVybCgjYikiLz48dXNlIGhyZWY9IiN0IiBmaWxsPSIjZjVmYmZmIi8+PC9zdmc+
+// @icon         data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTYiIGZpbGw9IiNlOGVkZmMiLz48cG9seWdvbiBwb2ludHM9IjUuMjEsNDQgMTUuNDcsMjYgMjMuOTcsMjYgMTMuNzEsNDQiIGZpbGw9IiNhZWJmZjMiLz48cG9seWdvbiBwb2ludHM9IjE1LjIxLDQ5IDMyLjg4LDE4IDQxLjM4LDE4IDIzLjcxLDQ5IiBmaWxsPSIjNmQ4YmVjIi8+PHBvbHlnb24gcG9pbnRzPSIyNS4yMSw1NCA1MC4yOSwxMCA1OC43OSwxMCAzMy43MSw1NCAyOC40NCw1MC40IiBmaWxsPSIjMmY1NGQ0Ii8+PHBvbHlnb24gcG9pbnRzPSI1MC4yOSwxMCA1OC43OSwxMCA0NS4xNiwxOSIgZmlsbD0iIzFkMzc5YiIvPjwvc3ZnPg==
 // ==/UserScript==
 
 (function () {
     'use strict';
-
     (function injectAntiPause() {
         const s = document.createElement('script');
         s.textContent = `(function(){
@@ -31,7 +30,6 @@
         (document.head || document.documentElement).appendChild(s);
         s.remove();
     })();
-
     (function injectAudioIntercept() {
         let initSilent = true;
         try {
@@ -125,20 +123,18 @@
         (document.head || document.documentElement).appendChild(s);
         s.remove();
     })();
-
     if (window.top !== window) return;
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', main, { once: true });
     else main();
-
     function main() {
-
-        const VERSION = '1.7';
+        const VERSION = '1.8';
         const NOTICE_API = 'https://xiaoya.qyovo.com/notice';
         const KEY = {
             tasks: 'xy_qy_tasks_v17',
             pref: 'xy_qy_play_pref',
             ui: 'xy_qy_ui_v17',
             user: 'xy_qy_user_v17',
+            hang: 'xy_qy_hang_v18',
         };
         const VIDEO_EXT = /\.(mp4|flv|avi|mov|mkv|wmv|rmvb|m4v|webm)$/i;
         const HEARTBEAT_MS = 30000;
@@ -147,7 +143,6 @@
         const VERIFY = { doc: { tries: 6, gap: 4000 }, video: { tries: 12, gap: 5000 } };
         const BALL = 52;
         const EDGE = 8;
-
         const store = {
             get(key, empty) {
                 try {
@@ -161,13 +156,11 @@
                 try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
             },
         };
-
         ['xy_qy_task_queue', 'xy_qy_ui_pos', 'xy_user_id'].forEach(key => {
             try { localStorage.removeItem(key); } catch (e) {}
         });
-
         const pref = store.get(KEY.pref, {});
-        const ui = Object.assign({ x: null, y: null, open: false, folded: [], seen: '', theme: null, welcomed: false }, store.get(KEY.ui, {}));
+        const ui = Object.assign({ x: null, y: null, open: false, folded: [], seen: '', theme: null, welcomed: false, tab: 'task' }, store.get(KEY.ui, {}));
         let silent = pref.silentEnabled !== false;
         let autoResume = pref.autoResumeEnabled !== false;
         let tasks = [];
@@ -185,28 +178,33 @@
         let dragging = false;
         let obStep = 1;
         let obPick = ui.theme || 'night';
-
+        const hang = Object.assign({ def: 60, pageMin: null, mode: 'one', each: 5, list: [], fetchedAt: 0, c: {}, on: null }, store.get(KEY.hang, {}));
+        let hangLoading = false;
+        let resetArmed = false;
+        let resetTimer = null;
+        let here = null;
+        const TAB = (() => {
+            try { return sessionStorage.getItem('xy_qy_tab') || (sessionStorage.setItem('xy_qy_tab', Math.random().toString(36).slice(2)), sessionStorage.getItem('xy_qy_tab')); } catch (e) { return ''; }
+        })();
+        const myHang = () => !!hang.on && hang.on.tab === TAB;
         function loadTasks() {
             const saved = store.get(KEY.tasks, {});
             tasks = Array.isArray(saved.tasks) ? saved.tasks : [];
             fetchedAt = saved.fetchedAt || 0;
         }
-
         const saveTasks = () => store.set(KEY.tasks, { fetchedAt, tasks });
         const saveUi = () => store.set(KEY.ui, ui);
+        const saveHang = () => store.set(KEY.hang, hang);
         const savePref = () => store.set(KEY.pref, { silentEnabled: silent, autoResumeEnabled: autoResume });
-
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
         const clamp = (n, min, max) => Math.min(Math.max(n, min), Math.max(min, max));
         const pad = n => String(n).padStart(2, '0');
         const esc = s => String(s === null || s === undefined ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
         const yes = v => v === true || v === 1 || v === '1';
-
         function idOf(value) {
             const text = value === null || value === undefined ? '' : String(value).trim();
             return text && text !== '_' && text !== 'null' && text !== 'undefined' ? text : null;
         }
-
         function parseTime(value) {
             if (value === null || value === undefined || value === '') return null;
             if (typeof value === 'number') return value < 1e12 ? value * 1000 : value;
@@ -215,13 +213,11 @@
             const ms = m ? new Date(+m[1], m[2] - 1, +m[3], +m[4], +m[5], +(m[6] || 0)).getTime() : Date.parse(text);
             return Number.isFinite(ms) ? ms : null;
         }
-
         function clock(sec) {
             sec = Math.max(0, Math.round(sec));
             const h = Math.floor(sec / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60;
             return h ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
         }
-
         function dayText(ms) {
             const d = new Date(ms), today = new Date();
             const days = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(today.getFullYear(), today.getMonth(), today.getDate())) / 86400000);
@@ -231,7 +227,6 @@
             if (days === -1) return `昨天 ${hm}`;
             return `${d.getFullYear() !== today.getFullYear() ? `${d.getFullYear()}年` : ''}${d.getMonth() + 1}月${d.getDate()}日 ${hm}`;
         }
-
         function isNewer(latest, current) {
             if (!latest || latest === '0') return false;
             const a = latest.split('.').map(Number), b = current.split('.').map(Number);
@@ -240,14 +235,89 @@
             }
             return false;
         }
-
         function page() {
             const m = location.pathname.match(/\/(mycourse|course)\/(\d+)(?:\/resource\/(\d+)\/(\d+))?/);
             return m
                 ? { route: m[1], groupId: m[2], resourceId: m[3] || null, nodeId: m[4] || null }
                 : { route: 'mycourse', groupId: null, resourceId: null, nodeId: null };
         }
-
+        const LOG_KEY = 'xy_qy_log_v18';
+        const LOG_MAX = 250000;
+        let logPending = '', logTimer = null, logLast = '', logRepeat = 0;
+        const when = (ms = Date.now()) => {
+            const d = new Date(ms);
+            return `${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+        };
+        function logStr(v) {
+            if (v instanceof Error) return v.message;
+            if (v && typeof v === 'object') {
+                try { return JSON.stringify(v).slice(0, 300); } catch (e) { return String(v); }
+            }
+            return String(v);
+        }
+        function log(...parts) {
+            const text = parts.filter(v => v !== '' && v !== null && v !== undefined).map(logStr).join(' ');
+            if (text === logLast) {
+                logRepeat++;
+                return;
+            }
+            const d = new Date();
+            const at = `${when(d)}.${String(d.getMilliseconds()).padStart(3, '0')}`;
+            if (logRepeat) logPending += `${at} ↑ 上一条又重复了 ${logRepeat} 次\n`;
+            logLast = text;
+            logRepeat = 0;
+            logPending += `${at} ${text}\n`;
+            if (!logTimer) logTimer = setTimeout(saveLog, 1000);
+        }
+        function saveLog() {
+            clearTimeout(logTimer);
+            logTimer = null;
+            let text = '';
+            try { text = localStorage.getItem(LOG_KEY) || ''; } catch (e) {}
+            text += logPending;
+            logPending = '';
+            if (text.length > LOG_MAX) text = text.slice(text.indexOf('\n', text.length - LOG_MAX * 0.8) + 1);
+            try {
+                localStorage.setItem(LOG_KEY, text);
+            } catch (e) {
+                text = text.slice(text.indexOf('\n', text.length / 2) + 1);
+                try { localStorage.setItem(LOG_KEY, text); } catch (e2) {}
+            }
+            return text;
+        }
+        const taskLine = t => `「${t.name}」${t.groupName} ${t.kind} node=${t.nodeId} 资源=${t.resourceId || '无'} 开始=${t.start ? when(t.start) : '-'} 截止=${t.end ? when(t.end) : '-'}`
+            + `${t.lateOk ? ' 可补交' : ''}${t.minutes ? ` 要求${t.minutes}分` : ''}${t.custom ? ` 手填${t.custom}秒` : ''}${t.length ? ` 时长${t.length}秒` : ''}${t.failed ? ' 未确认' : ''}${t.blocked ? ' 打不开' : ''}`;
+        function logHeader() {
+            const r = run;
+            return [
+                `小雅自动刷 v${VERSION} 诊断日志`,
+                `导出：${new Date().toString()}`,
+                `页面：${location.host}${location.pathname}`,
+                `浏览器：${navigator.userAgent}`,
+                `时区：${Intl.DateTimeFormat().resolvedOptions().timeZone}，窗口 ${innerWidth}×${innerHeight}`,
+                `设置：拦截声音=${silent} 恢复播放=${autoResume} 风格=${ui.theme}`,
+                `公告：${notice ? (notice.error ? '加载失败' : `v${notice.version}`) : '未加载'}`,
+                `运行：${r ? `${r.mode}/${r.phase} 「${r.task.name}」 ${Math.round(r.done)}/${Math.round(r.total)}秒` : '无'}`,
+                `任务：${tasks.length} 个，${fetchedAt ? `${when(fetchedAt)} 获取` : '未获取'}`,
+                ...tasks.map(t => `  ${taskLine(t)}`),
+                '',
+                '',
+            ].join('\n');
+        }
+        function copyLog() {
+            const text = logHeader() + saveLog().trimEnd().split('\n').slice(-150).join('\n');
+            navigator.clipboard.writeText(text).then(
+                () => flash('诊断日志已复制（最近 150 条），发给作者就行'),
+                () => flash('复制失败，双击版本号可以下载完整日志'));
+        }
+        function downloadLog() {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(new Blob([logHeader() + saveLog()], { type: 'text/plain;charset=utf-8' }));
+            a.download = `小雅自动刷日志-v${VERSION}-${when().replace(/\D/g, '')}.txt`;
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+            flash('完整诊断日志已下载');
+        }
         function token() {
             let suffixMatch = null;
             for (const cookie of document.cookie.split('; ')) {
@@ -259,33 +329,46 @@
             }
             return suffixMatch;
         }
-
         async function api(path, body) {
             const tk = token();
-            if (!tk) throw new Error('没有读到登录信息，请重新登录小雅');
+            const method = body ? 'POST' : 'GET';
+            if (!tk) {
+                log('接口', method, path, '没有登录 token');
+                throw new Error('没有读到登录信息，请重新登录小雅');
+            }
             for (let attempt = 1; ; attempt++) {
                 let res = null;
+                const t0 = Date.now();
                 try {
                     res = await fetch(path, {
-                        method: body ? 'POST' : 'GET',
+                        method,
                         headers: body
                             ? { authorization: `Bearer ${tk}`, 'content-type': 'application/json; charset=UTF-8' }
                             : { authorization: `Bearer ${tk}` },
                         body: body ? JSON.stringify(body) : undefined,
                     });
                 } catch (e) {
+                    log('接口', method, path, `网络错误（第 ${attempt} 次）`, e);
                     if (attempt >= 3) throw new Error('网络连接失败');
                 }
                 if (!res || (res.status >= 500 && attempt < 3)) {
+                    if (res) log('接口', method, path, res.status, `（第 ${attempt} 次，重试）`);
                     await sleep(1500);
                     continue;
                 }
                 const data = await res.json().catch(() => null);
+                log('接口', method, path, res.status, `${Date.now() - t0}ms`, apiSummary(path, data));
                 if (!res.ok || !data || data.success === false) throw new Error((data && data.message) || `请求失败（HTTP ${res.status}）`);
                 return data;
             }
         }
-
+        function apiSummary(path, data) {
+            if (!data) return '返回不是 JSON';
+            if (data.success === false) return `失败：${data.message}`;
+            if (path.includes('oauth2/info')) return 'ok';
+            const list = listOf(data);
+            return list.length ? `${list.length} 条` : logStr(data.data).slice(0, 160);
+        }
         function listOf(res) {
             const data = res && res.data;
             if (Array.isArray(data)) return data;
@@ -294,9 +377,7 @@
             }
             return [];
         }
-
         const taskNotices = groupId => api(`/api/jx-stat/group/task/queryTaskNotices?group_id=${groupId}&role=1`).then(listOf);
-
         async function resourceIndex(groupId) {
             const index = { byTask: new Map(), byNode: new Map() };
             const walk = list => {
@@ -304,7 +385,8 @@
                 for (const item of list) {
                     if (!item || typeof item !== 'object') continue;
                     if (idOf(item.task_id)) index.byTask.set(idOf(item.task_id), item);
-                    if (idOf(item.node_id)) index.byNode.set(idOf(item.node_id), item);
+                    const node = idOf(item.node_id) || idOf(item.id);
+                    if (node) index.byNode.set(node, item);
                     walk(item.children);
                     walk(item.child_nodes);
                     walk(item.items);
@@ -313,9 +395,8 @@
             walk((await api(`/api/jx-iresource/resource/queryCourseResources?group_id=${groupId}`)).data);
             return index;
         }
-
-        const resourceIdOf = res => res ? idOf(res.resource_id) || idOf(res.id) : null;
-
+        const resourceIdOf = res => res ? idOf(res.parent_id) || idOf(res.resource_id) || idOf(res.id) : null;
+        const isVideoRes = x => Number(x.type) === 9 || String(x.type || '').includes('video') || String(x.mimetype || '').includes('video') || VIDEO_EXT.test(String(x.name || ''));
         async function userId() {
             const tail = (token() || '').slice(-12), cached = store.get(KEY.user, {});
             if (cached.id && cached.tail === tail) return cached.id;
@@ -323,20 +404,16 @@
             store.set(KEY.user, { id, tail });
             return id;
         }
-
         function taskState(t, now = Date.now()) {
             if (t.end && now >= t.end) return t.lateOk ? 'late' : 'expired';
             if (t.start && now < t.start) return 'locked';
             return 'ready';
         }
-
         const runnable = t => !t.failed && !t.blocked && (t.kind === 'video' || t.custom || t.minutes);
-
         function canAuto(t, now = Date.now()) {
             const state = taskState(t, now);
             return (state === 'ready' || state === 'late') && runnable(t);
         }
-
         function toTask(raw, groupId, groupName, index, route) {
             const nodeId = idOf(raw.node_id) || idOf(raw.nodeId);
             const taskId = idOf(raw.task_id) || idOf(raw.taskId) || idOf(raw.id) || idOf(raw.resource_id);
@@ -344,9 +421,7 @@
             if (!groupId || !nodeId || !taskId || !rawName) return null;
             const res = index ? index.byTask.get(taskId) || index.byNode.get(nodeId) : null;
             const name = (res && res.name) || rawName;
-            const video = res
-                ? String(res.type || '').includes('video') || String(res.mimetype || '').includes('video') || VIDEO_EXT.test(name)
-                : VIDEO_EXT.test(name);
+            const video = res ? isVideoRes(res) : VIDEO_EXT.test(name);
             const old = tasks.find(t => t.nodeId === nodeId) || {};
             return {
                 nodeId,
@@ -365,7 +440,6 @@
                 length: old.length || null,
             };
         }
-
         function sortTasks(list) {
             const now = Date.now();
             const rank = { ready: 0, late: 1, locked: 2, expired: 3 };
@@ -384,10 +458,10 @@
                 || a.groupId.localeCompare(b.groupId)
                 || cmp(key(a), key(b)));
         }
-
         async function refreshAll() {
             const now = Date.now(), keep = [], unknown = new Map();
-            for (const t of listOf(await api('/api/jx-stat/group/task/un_finish'))) {
+            const all = listOf(await api('/api/jx-stat/group/task/un_finish'));
+            for (const t of all) {
                 if (Number(t.task_type) !== 1) continue;
                 const end = parseTime(t.end_time), groupId = idOf(t.group_id);
                 if (!end || end > now || yes(t.is_allow_after_submitted)) keep.push(t);
@@ -413,8 +487,9 @@
                 const groupId = idOf(t.group_id);
                 return toTask(t, groupId, t.group_name, groupId && courses.get(groupId).index, 'mycourse');
             }).filter(Boolean));
+            log('刷新', `首页：未完成 ${all.length} 条，观看任务 ${all.filter(t => Number(t.task_type) === 1).length} 个，截止后待确认能否补交的课 ${unknown.size} 门，最后留下 ${tasks.length} 个`);
+            for (const [groupId, c] of courses) if (!c.index) log('刷新', `课程 ${groupId} 的资源树没取到`);
         }
-
         async function refreshCourse(groupId, route) {
             const [list, index, name] = await Promise.all([
                 taskNotices(groupId),
@@ -431,8 +506,8 @@
                 .map(t => toTask(t, groupId, name, index, route))
                 .filter(Boolean);
             tasks = sortTasks([...tasks.filter(t => t.groupId !== groupId), ...fresh]);
+            log('刷新', `课程页「${name}」：任务 ${list.length} 条，留下观看任务 ${fresh.length} 个${index ? '' : '，资源树没取到'}`);
         }
-
         async function refresh() {
             if (loading) return;
             const p = page();
@@ -444,26 +519,26 @@
                 else await refreshAll();
                 fetchedAt = Date.now();
                 saveTasks();
+                tasks.forEach(t => log('任务', taskLine(t)));
             } catch (e) {
+                log('刷新', '失败', e);
                 flash(`任务获取失败：${e.message}`);
             }
             loading = false;
             syncRun();
         }
-
         function setTask(nodeId, patch) {
             for (const t of tasks) if (t.nodeId === nodeId) Object.assign(t, patch);
             if (run && run.task.nodeId === nodeId) Object.assign(run.task, patch);
             saveTasks();
         }
-
         function removeTask(nodeId) {
-            if (run && run.task.nodeId === nodeId) stopRun();
+            log('列表', '移出', nodeId);
+            if (run && run.task.nodeId === nodeId) stopRun('任务被移出列表');
             tasks = tasks.filter(t => t.nodeId !== nodeId);
             saveTasks();
             render();
         }
-
         function clearList() {
             clearTimeout(clearTimer);
             if (!clearArmed) {
@@ -471,33 +546,44 @@
                 clearTimer = setTimeout(() => { clearArmed = false; render(); }, 3000);
             } else {
                 clearArmed = false;
-                stopRun();
+                log('列表', `清空 ${tasks.length} 个任务`);
+                stopRun('清空列表');
                 tasks = [];
                 saveTasks();
             }
             render();
         }
-
         function setDuration(nodeId, value) {
             const minutes = parseFloat(value);
+            log('列表', '改时长', nodeId, JSON.stringify(value), minutes > 0 ? `→ ${Math.round(minutes * 60)} 秒` : '→ 恢复自动');
             setTask(nodeId, { custom: minutes > 0 ? Math.round(minutes * 60) : null });
             render();
         }
-
         function syncRun() {
             const nodeId = page().nodeId;
+            if (myHang()) {
+                if (hang.on.nodeId === nodeId) {
+                    if (!run || run.mode !== 'hang') startHang();
+                    render();
+                    return;
+                }
+                log('挂时长', '当前页不是正在挂的那一页，不再挂', location.pathname);
+                hang.on = null;
+                saveHang();
+            }
+            if (run && run.mode === 'hang') stopRun('挂时长已取消');
             const task = nodeId && tasks.find(t => t.nodeId === nodeId);
             if (task && !task.failed) {
                 if (!run || run.mode !== 'task' || run.task.nodeId !== nodeId) startTask(task);
             } else if (run && run.mode === 'task' && run.phase !== 'finishing') {
-                stopRun();
+                stopRun(task ? '这个任务上次未确认完成，等用户点它重试' : '当前页不是列表里的任务');
             }
             render();
         }
-
         function startTask(task) {
-            stopRun();
+            stopRun('换成另一个任务');
             idleNote = null;
+            log('开始', taskLine(task));
             const now = Date.now();
             run = { mode: 'task', task, phase: 'loading', total: 0, done: 0, startedAt: now, watched: 0, lastCT: null, lastTick: now, previewTries: 0, pausedSince: 0, lastPlay: 0 };
             run.timer = setInterval(tick, 1000);
@@ -505,40 +591,43 @@
             tick();
             heartbeat();
         }
-
         function startWait(task) {
-            stopRun();
+            stopRun('改为等待');
             idleNote = null;
+            log('等待', `下一个能做的任务 ${when(task.start)} 才开始`, taskLine(task));
             run = { mode: 'wait', task, phase: 'waiting', total: 0, done: 0 };
             run.timer = setInterval(tick, 1000);
             tick();
         }
-
-        function stopRun() {
+        function stopRun(why) {
             if (!run) return;
+            log('停止', why, `${run.mode}/${run.phase}「${run.task.name}」`);
             clearInterval(run.timer);
             clearInterval(run.beat);
             if (run.abort) run.abort.abort();
             run = null;
         }
-
         function tick() {
             const r = run;
             if (!r || r.phase === 'finishing') return;
             if (r.mode === 'wait') {
                 const t = tasks.find(x => x.nodeId === r.task.nodeId);
                 if (!t) {
-                    stopRun();
+                    stopRun('等待的任务已不在列表里');
                     render();
                 } else if (Date.now() >= t.start) {
-                    stopRun();
+                    stopRun('等待的任务到点了');
                     goNext(t);
                 }
                 paint();
                 return;
             }
             if (page().nodeId !== r.task.nodeId) {
-                stopRun();
+                if (r.mode === 'hang') {
+                    hang.on = null;
+                    saveHang();
+                }
+                stopRun(`页面换了：${location.pathname}`);
                 render();
                 return;
             }
@@ -546,15 +635,27 @@
             if (lock) {
                 r.phase = 'locked';
                 r.startAt = lock.startAt;
-                if (lock.startAt && Date.now() >= lock.startAt + 3000 && reloadAllowed(r.task.nodeId)) location.reload();
+                if (lock.startAt && Date.now() >= lock.startAt + 3000 && reloadAllowed(r.task.nodeId)) {
+                    log('锁定', '到开始时间了，刷新页面');
+                    saveLog();
+                    location.reload();
+                }
+            } else if (r.mode === 'hang') {
+                tickHang(r);
             } else if (r.task.kind === 'video') {
                 tickVideo(r);
             } else {
                 tickDoc(r);
             }
+            if (run === r && r.phase !== r.logged) {
+                r.logged = r.phase;
+                const v = r.video;
+                log('状态', r.phase, r.phase === 'locked' ? `开始时间 ${r.startAt ? when(r.startAt) : '读不到'}，页面写着「${(document.querySelector('.aia-course-task-not-start') || {}).innerText || ''}」`.replace(/\s+/g, ' ')
+                    : v ? `进度 ${(v.currentTime || 0).toFixed(1)}/${(v.duration || 0).toFixed(1)} 暂停=${v.paused} 就绪=${v.readyState} 静音=${v.muted} 已看=${Math.round(r.watched)}秒`
+                    : `${Math.round(r.done)}/${Math.round(r.total)}秒`);
+            }
             paint();
         }
-
         function pageLock() {
             const el = document.querySelector('.aia-course-task-not-start');
             const text = el ? (el.innerText || '').replace(/\s+/g, ' ').trim() : '';
@@ -568,7 +669,6 @@
             }
             return { startAt: left === null ? null : Date.now() + left * 1000 };
         }
-
         function reloadAllowed(nodeId) {
             try {
                 const key = `xy_qy_reload_${nodeId}`;
@@ -579,7 +679,6 @@
                 return false;
             }
         }
-
         function tickVideo(r) {
             const video = document.querySelector('video');
             if (!video) {
@@ -603,9 +702,12 @@
             r.total = custom || duration;
             r.done = custom ? r.watched : ct;
             if (video.ended || (duration && ct >= duration - 0.5) || (custom && r.watched >= custom)) {
-                finish(r);
+                finish(r, video.ended ? '视频播完（ended）' : custom && r.watched >= custom ? `手填时长看满 ${Math.round(r.watched)} 秒` : `播到结尾 ${ct.toFixed(1)}/${duration.toFixed(1)}`);
                 return;
             }
+            keepPlaying(r, video, now);
+        }
+        function keepPlaying(r, video, now) {
             if (!video.paused) {
                 r.autoplayed = true;
                 r.pausedSince = 0;
@@ -621,49 +723,57 @@
             }
             r.phase = !r.autoplayed ? 'loading' : !autoResume ? 'paused' : now - r.pausedSince > 9000 ? 'blocked' : 'resuming';
         }
-
         function attachVideo(r, video) {
             if (r.abort) r.abort.abort();
             r.abort = new AbortController();
             r.video = video;
             r.lastCT = null;
             r.attachedAt = Date.now();
+            log('视频', '找到视频', (video.currentSrc || video.src || '').split('?')[0].split('/').pop() || '（还没有地址）');
+            for (const type of ['loadedmetadata', 'play', 'playing', 'pause', 'waiting', 'stalled', 'seeking', 'seeked', 'ratechange', 'emptied', 'error', 'ended']) {
+                video.addEventListener(type, () => log('视频', type, `${(video.currentTime || 0).toFixed(1)}/${(video.duration || 0).toFixed(1)}`,
+                    type === 'ratechange' ? `倍速=${video.playbackRate}` : '',
+                    type === 'error' && video.error ? `错误码=${video.error.code} ${video.error.message || ''}` : ''), { signal: r.abort.signal });
+            }
             video.addEventListener('ended', tick, { signal: r.abort.signal });
             video.addEventListener('pause', () => setTimeout(() => {
                 if (r.autoplayed && autoResume) kick(r, video);
             }, 600), { signal: r.abort.signal });
         }
-
         function kick(r, video) {
             const now = Date.now();
             if (run !== r || r.phase === 'finishing' || !video.paused || video.ended || now - r.lastPlay < 4000) return;
             r.lastPlay = now;
+            log('播放', '尝试播放');
             tryAutoPlay(video);
         }
-
         function tryAutoPlay(video) {
             const p = video.play();
             if (p && typeof p.catch === 'function') {
-                p.catch(() => {
+                p.catch(e => {
+                    log('播放', '被拦截，改为先静音播放', e && e.name);
                     video.muted = true;
                     const p2 = video.play();
                     if (p2 && typeof p2.finally === 'function') {
-                        p2.catch(() => {}).finally(() => setTimeout(() => { video.muted = false; }, 150));
+                        p2.catch(e2 => log('播放', '静音播放也失败', e2 && e2.name)).finally(() => setTimeout(() => { video.muted = false; }, 150));
                     }
                 });
             }
         }
-
-        function tickDoc(r) {
-            if (!r.previewDone && r.previewTries < 12) {
-                if (document.querySelector('iframe[src*="ow365.cn"], iframe[src*="office"], .disk_previewer_with_banner iframe')) {
-                    r.previewDone = true;
-                } else {
-                    r.previewTries++;
-                    const confirm = document.querySelector('.xy_disk_preview .ant-btn-primary');
-                    if (confirm) confirm.click();
-                }
+        function confirmPreview(r) {
+            if (r.previewDone || r.previewTries >= 12) return;
+            if (document.querySelector('iframe[src*="ow365.cn"], iframe[src*="office"], .disk_previewer_with_banner iframe')) {
+                r.previewDone = true;
+                log('文档', '预览已打开');
+            } else {
+                r.previewTries++;
+                const confirm = document.querySelector('.xy_disk_preview .ant-btn-primary');
+                if (confirm) confirm.click();
+                log('文档', `第 ${r.previewTries} 次找预览`, confirm ? '点了「确定」' : '没找到「确定」按钮');
             }
+        }
+        function tickDoc(r) {
+            confirmPreview(r);
             const t = r.task;
             const total = t.custom || (t.minutes ? Math.ceil(t.minutes * 60) + DOC_EXTRA_S : 0);
             if (!total) {
@@ -674,15 +784,14 @@
             r.phase = 'counting';
             r.total = total;
             r.done = (Date.now() - r.startedAt) / 1000;
-            if (r.done >= total) finish(r);
+            if (r.done >= total) finish(r, `文档停留满 ${total} 秒`);
         }
-
         async function heartbeat() {
             const r = run;
-            if (!r || r.mode !== 'task' || r.phase === 'locked' || r.phase === 'nodur') return;
+            if (!r || r.mode === 'wait' || r.phase === 'locked' || r.phase === 'nodur') return;
             const t = r.task;
-            const resourceId = t.resourceId || page().resourceId;
-            if (!resourceId) return;
+            const resourceId = t.nodeId;
+            log('心跳', `${r.phase} ${Math.round(r.done)}/${Math.round(r.total)}秒`);
             try {
                 const message = JSON.stringify({ user_id: await userId(), group_id: t.groupId, clientType: 1, roleType: 1, resourceId });
                 const timestamp = Date.now().toString(), nonce = crypto.randomUUID();
@@ -690,10 +799,11 @@
                 const hash = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(raw));
                 const signature = Array.from(new Uint8Array(hash), b => b.toString(16).padStart(2, '0')).join('');
                 await api('/api/jx-iresource/learnLength/learnRecord', { message, signature, timestamp, nonce });
-            } catch (e) {}
+            } catch (e) {
+                log('心跳', '失败', e);
+            }
         }
-
-        async function finish(r) {
+        async function finish(r, why) {
             if (run !== r || r.phase === 'finishing') return;
             r.phase = 'finishing';
             r.done = r.total;
@@ -702,12 +812,17 @@
             if (r.abort) r.abort.abort();
             paint();
             const t = r.task;
+            log('完成', why, `「${t.name}」`);
             if (t.kind === 'doc') {
-                await api('/api/jx-iresource/resource/finishActivity', { group_id: t.groupId, node_id: t.nodeId, task_id: t.taskId }).catch(() => {});
+                await api('/api/jx-iresource/resource/finishActivity', { group_id: t.groupId, node_id: t.nodeId, task_id: t.taskId }).catch(e => log('完成', '完成接口失败', e));
             }
             const ok = await verify(r);
-            if (run !== r) return;
+            if (run !== r) {
+                log('完成', '确认途中任务被换掉了，不再处理');
+                return;
+            }
             const next = nextAfter(t.nodeId);
+            log('完成', ok ? '平台已确认完成，移出列表' : '平台一直没确认，标成「未确认完成」', next ? `下一个：「${next.name}」` : '没有能自动做的下一个');
             run = null;
             if (ok) {
                 tasks = tasks.filter(x => x.nodeId !== t.nodeId);
@@ -717,7 +832,6 @@
             }
             goNext(next);
         }
-
         async function verify(r) {
             const { tries, gap } = VERIFY[r.task.kind];
             for (let i = 0; i < tries; i++) {
@@ -725,23 +839,25 @@
                 if (run !== r) return false;
                 try {
                     const hit = (await taskNotices(r.task.groupId)).find(n => idOf(n.node_id) === r.task.nodeId);
+                    log('确认', `第 ${i + 1}/${tries} 次`, hit ? `finish=${hit.finish}` : '课程任务列表里找不到这个任务');
                     if (hit && Number(hit.finish) === 2) return true;
-                } catch (e) {}
+                } catch (e) {
+                    log('确认', `第 ${i + 1}/${tries} 次出错`, e);
+                }
             }
             return false;
         }
-
         function nextAfter(nodeId) {
             const i = tasks.findIndex(t => t.nodeId === nodeId), now = Date.now();
             const order = i < 0 ? tasks : [...tasks.slice(i + 1), ...tasks.slice(0, i)];
             return order.find(t => canAuto(t, now)) || null;
         }
-
         async function goNext(next) {
             const tried = new Set();
             while (next && !tried.has(next.nodeId)) {
                 tried.add(next.nodeId);
                 if (await openTask(next)) return;
+                log('连播', `「${next.name}」打不开，跳过`);
                 next = nextAfter(next.nodeId);
             }
             const now = Date.now();
@@ -749,12 +865,15 @@
                 .filter(t => taskState(t, now) === 'locked' && runnable(t))
                 .sort((a, b) => a.start - b.start)[0];
             if (soonest) startWait(soonest);
-            else idleNote = tasks.length
-                ? { label: '自动连播已结束', name: `还有 ${tasks.length} 个任务需要手动处理`, meta: '列表里标出了原因，点任务可以手动打开' }
-                : { label: '全部完成', name: '列表里的任务都完成了', meta: '有新任务时点「刷新任务」获取' };
+            else {
+                idleNote = tasks.length
+                    ? { tab: 'task', label: '自动连播已结束', name: `还有 ${tasks.length} 个任务需要手动处理`, meta: '列表里标出了原因，点任务可以手动打开' }
+                    : { tab: 'task', label: '全部完成', name: '列表里的任务都完成了', meta: '有新任务时点「刷新任务」获取' };
+                log('连播', '结束', idleNote.name);
+                tasks.forEach(t => log('连播', `剩下：${taskState(t, now)}${runnable(t) ? '' : ' 不能自动做'}`, taskLine(t)));
+            }
             render();
         }
-
         async function openTask(task) {
             let resourceId = task.resourceId;
             if (!resourceId) {
@@ -763,26 +882,273 @@
                     resourceId = resourceIdOf(index.byTask.get(task.taskId) || index.byNode.get(task.nodeId));
                     setTask(task.nodeId, resourceId ? { resourceId } : { blocked: true });
                 } catch (e) {
+                    log('打开', `「${task.name}」查资源 ID 出错`, e);
                     flash(`打不开「${task.name}」：${e.message}`);
                     return false;
                 }
             }
             if (!resourceId) {
+                log('打开', `「${task.name}」资源树里找不到资源 ID`);
                 flash(`「${task.name}」缺少资源 ID，无法打开`);
                 return false;
             }
-            location.replace(`/app/jx-web/${task.route || 'mycourse'}/${task.groupId}/resource/${resourceId}/${task.nodeId}`);
+            const url = `/app/jx-web/${task.route || 'mycourse'}/${task.groupId}/resource/${resourceId}/${task.nodeId}`;
+            log('打开', `「${task.name}」`, url);
+            saveLog();
+            location.replace(url);
             return true;
         }
-
         function clickTask(nodeId) {
             const task = tasks.find(t => t.nodeId === nodeId);
+            log('面板', '点任务', task ? taskLine(task) : `${nodeId}（列表里已经没有了）`);
             if (!task) return;
+            if (myHang()) {
+                hang.on = null;
+                saveHang();
+            }
             if (task.failed || task.blocked) setTask(nodeId, { failed: false, blocked: false });
             if (page().nodeId === nodeId) syncRun();
             else openTask(task);
         }
-
+        const HANG_SAVE_S = 10;
+        const hc = id => (hang.c[id] = hang.c[id] || { target: null, done: 0, hidden: false, pick: null });
+        const hangGoal = id => (hc(id).target === null ? hang.def : hc(id).target) * 60;
+        const pageGoal = () => (hang.pageMin === null ? hang.def : hang.pageMin) * 60;
+        const hangCourses = () => hang.list.filter(g => !hc(g.id).hidden);
+        const hangable = g => hc(g.id).pick !== false && hangGoal(g.id) > 0 && hc(g.id).done < hangGoal(g.id);
+        async function refreshCourses() {
+            if (hangLoading) return;
+            hangLoading = true;
+            render();
+            try {
+                const list = listOf(await api('/api/jx-iresource/group/student/groups?time_flag=1'));
+                hang.list = list.map(g => ({ id: idOf(g.id), name: String(g.name || g.site_name || '').trim() })).filter(g => g.id && g.name);
+                hang.fetchedAt = Date.now();
+                hang.list.forEach(g => Object.assign(hc(g.id), { hidden: false, pick: null }));
+                saveHang();
+                log('挂时长', `课程 ${hang.list.length} 门`, hang.list.map(g => g.name).join('、'));
+            } catch (e) {
+                log('挂时长', '课程获取失败', e);
+                flash(`课程获取失败：${e.message}`);
+            }
+            hangLoading = false;
+            render();
+        }
+        async function courseFiles(groupId) {
+            const list = listOf(await api(`/api/jx-iresource/resource/queryCourseResources/v2?group_id=${groupId}`));
+            const byId = new Map(list.map(x => [idOf(x.id), x]));
+            const order = x => String(x.path || x.id).split('/').map(id => Number((byId.get(id) || {}).sort_position) || 0);
+            const cmp = (a, b) => {
+                const p = order(a), q = order(b);
+                for (let i = 0; i < Math.min(p.length, q.length); i++) if (p[i] !== q[i]) return p[i] - q[i];
+                return p.length - q.length;
+            };
+            const files = list.filter(x => idOf(x.id) && idOf(x.parent_id) && (isVideoRes(x) || Number(x.type) === 6)).sort(cmp);
+            const plain = files.filter(x => !/^image\//.test(x.mimetype || ''));
+            const videos = files.filter(isVideoRes);
+            const first = videos[0] || plain[0] || files[0];
+            const rotation = plain.length ? plain : files;
+            log('挂时长', `这门课有 ${list.length} 条资源，视频 ${videos.length} 个，文件 ${files.length - videos.length} 个，轮流挂的有 ${rotation.length} 个`,
+                first ? `第一个是「${first.name}」 type=${first.type} mimetype=${first.mimetype}` : '没有能挂的视频或文档');
+            const pick = x => ({ nodeId: idOf(x.id), parentId: idOf(x.parent_id), name: String(x.name || ''), kind: isVideoRes(x) ? 'video' : 'doc' });
+            return { first: first ? pick(first) : false, rotation: rotation.map(pick) };
+        }
+        async function hangCourse(id) {
+            const c = hc(id), g = hang.list.find(x => x.id === id), rotate = hang.mode === 'rotate';
+            if (c.pick === null || rotate) {
+                try {
+                    const f = await courseFiles(id);
+                    c.count = f.rotation.length;
+                    c.pick = rotate ? f.rotation[(c.at || 0) % Math.max(1, c.count)] || false : f.first;
+                } catch (e) {
+                    log('挂时长', '取课程资源失败', e);
+                    flash(`打不开这门课：${e.message}`);
+                    return false;
+                }
+                saveHang();
+            }
+            if (!c.pick) {
+                render();
+                return false;
+            }
+            if (c.done >= hangGoal(id)) c.done = 0;
+            return hangOpen(Object.assign({ mode: 'course', groupId: id, groupName: g ? g.name : '', since: 0 }, c.pick));
+        }
+        function hangPage() {
+            const p = page(), g = hang.list.find(x => x.id === p.groupId);
+            const known = here && here.nodeId === p.nodeId;
+            hangOpen({ mode: 'page', groupId: p.groupId, groupName: g ? g.name : '', nodeId: p.nodeId, parentId: p.resourceId,
+                name: known ? here.name : '这一页', kind: known ? here.kind : null, done: 0 });
+        }
+        function hangOpen(on) {
+            hang.on = Object.assign(on, { tab: TAB });
+            saveHang();
+            idleNote = null;
+            log('挂时长', on.mode === 'page' ? '只挂这一页' : '挂这门课', `「${on.groupName}」「${on.name}」 node=${on.nodeId}`);
+            if (page().nodeId === on.nodeId) {
+                syncRun();
+                return true;
+            }
+            const url = `/app/jx-web/mycourse/${on.groupId}/resource/${on.parentId}/${on.nodeId}`;
+            log('打开', url);
+            saveLog();
+            location.replace(url);
+            return true;
+        }
+        function startHang() {
+            stopRun('改为挂时长');
+            const on = hang.on, now = Date.now();
+            run = { mode: 'hang', on, task: { nodeId: on.nodeId, groupId: on.groupId, groupName: on.groupName, name: on.name, kind: on.kind },
+                phase: 'loading', total: 0, done: 0, lastTick: now, lastCT: null, watched: 0, previewTries: 0, pausedSince: 0, lastPlay: 0, unsaved: 0 };
+            log('开始', '挂时长', on);
+            run.timer = setInterval(tick, 1000);
+            run.beat = setInterval(heartbeat, HEARTBEAT_MS);
+            tick();
+            heartbeat();
+        }
+        function tickHang(r) {
+            const now = Date.now();
+            const dt = (now - r.lastTick) / 1000;
+            r.lastTick = now;
+            const video = document.querySelector('video');
+            if (video) {
+                if (r.video !== video) attachVideo(r, video);
+                if (video.ended) {
+                    log('挂时长', '视频播完，从头再播');
+                    video.currentTime = 0;
+                    r.lastPlay = 0;
+                    kick(r, video);
+                }
+                keepPlaying(r, video, now);
+            } else if (r.task.kind === 'video') {
+                r.phase = 'loading';
+            } else {
+                confirmPreview(r);
+                r.phase = 'counting';
+            }
+            const on = r.on, course = hc(on.groupId);
+            if ((r.phase === 'playing' || r.phase === 'buffering' || r.phase === 'counting') && dt > 0 && dt < 90) {
+                course.done += dt;
+                if (on.mode === 'page') on.done += dt;
+                on.since = (on.since || 0) + dt;
+                r.unsaved += dt;
+            }
+            r.total = on.mode === 'page' ? pageGoal() : hangGoal(on.groupId);
+            r.done = on.mode === 'page' ? on.done : course.done;
+            if (r.unsaved >= HANG_SAVE_S) {
+                r.unsaved = 0;
+                saveHang();
+            }
+            if (r.done >= r.total) hangDone(r);
+            else if (on.mode === 'course' && hang.mode === 'rotate' && on.since >= hang.each * 60) hangRotate(r);
+        }
+        function hangRotate(r) {
+            const on = r.on, c = hc(on.groupId);
+            c.at = (c.at || 0) + 1;
+            log('挂时长', `「${on.name}」挂满 ${hang.each} 分钟，换下一个文件（第 ${c.at % Math.max(1, c.count) + 1}/${c.count} 个）`);
+            hang.on = null;
+            saveHang();
+            stopRun('轮流挂：换下一个文件');
+            hangCourse(on.groupId);
+        }
+        function hangDone(r) {
+            const on = r.on;
+            log('挂时长', `挂够了「${on.groupName}」「${on.name}」 ${Math.round(r.done)}/${Math.round(r.total)}秒`);
+            hang.on = null;
+            saveHang();
+            stopRun('挂够了');
+            if (on.mode === 'course') {
+                hangNext(on.groupId);
+                return;
+            }
+            idleNote = { tab: 'hang', label: '挂机完成', big: '1', unit: '页已挂够', name: `「${on.name}」挂够 ${Math.round(r.total / 60)} 分钟`, meta: '想多挂一会，就把分钟数改大再点一次' };
+            render();
+        }
+        async function hangNext(groupId) {
+            const list = hangCourses(), i = list.findIndex(g => g.id === groupId);
+            for (const g of [...list.slice(i + 1), ...list.slice(0, Math.max(i, 0))]) {
+                if (hangable(g) && await hangCourse(g.id)) return;
+            }
+            const n = list.filter(g => hangGoal(g.id) > 0 && hc(g.id).done >= hangGoal(g.id)).length;
+            log('挂时长', `全部挂完，${n} 门挂够`);
+            idleNote = { tab: 'hang', label: '挂机完成', big: String(n), unit: '门课已挂够', name: '列表里的课程都挂够了', meta: '想多挂一会，就把分钟数改大再点一次' };
+            render();
+        }
+        function hangStop() {
+            log('挂时长', '用户点了停止');
+            hang.on = null;
+            saveHang();
+            stopRun('用户停止挂时长');
+            render();
+        }
+        async function loadHere() {
+            const p = page();
+            if (!p.nodeId || (here && here.nodeId === p.nodeId)) return;
+            if (hang.on && hang.on.nodeId === p.nodeId) {
+                here = { nodeId: p.nodeId, name: hang.on.name, kind: hang.on.kind };
+                return;
+            }
+            here = { nodeId: p.nodeId, name: '这一页', kind: null };
+            try {
+                const res = listOf(await api(`/api/jx-iresource/resource/queryCourseResources/v2?group_id=${p.groupId}`)).find(x => idOf(x.id) === p.nodeId);
+                if (res) Object.assign(here, { name: String(res.name || '这一页'), kind: isVideoRes(res) ? 'video' : 'doc' });
+            } catch (e) {
+                log('挂时长', '读这一页的名称失败', e);
+            }
+            render();
+        }
+        function setHangTarget(id, value) {
+            const text = String(value).trim(), n = Math.round(Number(text));
+            if (text && !(n >= 0)) return render();
+            const v = text ? n : null;
+            if (id === 'page') hang.pageMin = v;
+            else hc(id).target = v;
+            log('挂时长', '改分钟数', id, v === null ? '恢复默认' : `${v} 分钟`);
+            saveHang();
+            render();
+        }
+        function setHangDef(value) {
+            const n = Math.round(Number(value));
+            if (n > 0) hang.def = n;
+            log('挂时长', '改默认分钟数', JSON.stringify(value), `→ ${hang.def}`);
+            saveHang();
+            render();
+        }
+        function setHangMode(mode) {
+            hang.mode = mode === 'rotate' ? 'rotate' : 'one';
+            log('挂时长', '挂法', hang.mode === 'rotate' ? `轮流挂，每个文件 ${hang.each} 分钟` : '一个挂到底');
+            saveHang();
+            render();
+        }
+        function setHangEach(value) {
+            const n = Math.round(Number(value));
+            if (n > 0) hang.each = n;
+            log('挂时长', '改每个文件的分钟数', JSON.stringify(value), `→ ${hang.each}`);
+            saveHang();
+            render();
+        }
+        function hideCourse(id) {
+            log('挂时长', '移出课程', id);
+            hc(id).hidden = true;
+            if (myHang() && hang.on.mode === 'course' && hang.on.groupId === id) hangStop();
+            saveHang();
+            render();
+        }
+        function resetHang() {
+            clearTimeout(resetTimer);
+            if (!resetArmed) {
+                resetArmed = true;
+                resetTimer = setTimeout(() => { resetArmed = false; render(); }, 3000);
+            } else {
+                resetArmed = false;
+                log('挂时长', '重置所有课程的已挂时长');
+                Object.values(hang.c).forEach(c => { c.done = 0; });
+                if (hang.on && hang.on.mode === 'page') hang.on.done = 0;
+                idleNote = null;
+                saveHang();
+            }
+            render();
+        }
         async function loadNotice() {
             for (let attempt = 1; attempt <= 2; attempt++) {
                 try {
@@ -792,27 +1158,21 @@
                         version: String(data.version || '').replace(/[^0-9.]/g, ''),
                         updatedAt: String(data.updatedAt || ''),
                     };
+                    log('公告', `最新版本 v${notice.version || '-'}，更新于 ${notice.updatedAt || '-'}`);
                     break;
                 } catch (e) {
+                    log('公告', `加载失败（第 ${attempt} 次）`, e);
                     notice = { content: '公告加载失败', error: true };
                     if (attempt < 2) await sleep(2000);
                 }
             }
             render();
         }
-
+        const firstLine = text => String(text).split('\n').map(s => s.trim()).find(Boolean) || '';
         const noticeKey = () => notice ? `${notice.content}|${notice.updatedAt}` : '';
         const noticeUnread = () => !!notice && !notice.error && notice.content !== '暂无公告' && ui.seen !== noticeKey();
         const hasUpdate = () => !!notice && isNewer(notice.version, VERSION);
-
-        const LOGO = (() => {
-            const shapes = '<linearGradient id="k" gradientUnits="userSpaceOnUse" x1="560" y1="200" x2="700" y2="820"><stop stop-color="#bbb"/><stop offset=".5" stop-color="#555"/><stop offset="1"/></linearGradient><mask id="m"><rect width="1024" height="1024" fill="#fff"/><g fill="url(#k)"><path d="M717.8 255.3c0 0 38.6 34.7 54.3 54.8 15.7 20.1 29.2 42.6 39.7 65.8 10.6 23.2 18.6 48.3 23.4 73.3 4.9 25 6.8 51.2 5.7 76.7-1.1 25.4-5.3 51.4-12.3 75.9-7 24.4-17.2 48.7-29.7 70.8-12.6 22.2-28.2 43.3-45.6 61.8-17.4 18.5-37.5 35.4-58.7 49.2-21.3 13.7-44.8 25.3-68.7 33.4-23.8 8.1-57.6 12.3-74.2 15.2-16.7 3-17.9 1.9-25.8 2.7-7.9.9-17.8 3.5-21.6 2.4-3.7-1.1-4.3-7.2-.9-8.9 3.5-1.8 13.7-1 21.6-1.6 7.9-.5 9.3.9 25.8-1.7 16.4-2.7 49.5-6.4 72.9-14.1 23.5-7.7 46.8-18.7 67.8-32 21-13.3 41-29.7 58.3-47.7 17.4-18.1 33-38.8 45.7-60.6 12.6-21.7 22.9-45.6 30.1-69.8 7.2-24.1 11.6-49.9 12.9-75.1 1.4-25.3-.3-51.4-4.9-76.3-4.7-24.9-12.4-50-22.7-73.2-10.3-23.1-23.7-45.8-39.2-66-15.5-20.1-53.9-55-53.9-55z"/><path d="M778.2 385.1c0 0 15.5 35.7 20.5 54.3 4.9 18.6 8.2 38.1 9.5 57.4 1.3 19.3.6 39.1-1.9 58.3-2.5 19.2-7.1 38.6-13.3 57-6.3 18.3-14.6 36.5-24.4 53.3-9.8 16.8-21.5 33-34.5 47.6-12.9 14.6-27.7 28.1-43.3 39.9-15.6 11.8-32.7 22.2-50.3 30.6-17.7 8.5-38.4 15.6-55.5 20.3-17 4.7-35.9 6.4-46.7 8.1-10.8 1.6-12.1 1.1-18.1 1.7-6.1.6-15 2.7-18.1 1.8-3.2-.8-3.7-5.6-.8-6.9 3-1.4 12.2-.8 18.2-1.1 6.1-.4 7.5.3 18.2-1.1 10.7-1.4 29.3-2.9 46.1-7.3 16.9-4.4 37.4-11.2 54.8-19.3 17.5-8.2 34.5-18.3 50.1-29.7 15.5-11.5 30.2-24.8 43.2-39.1 12.9-14.3 24.7-30.2 34.6-46.8 9.9-16.5 18.3-34.5 24.7-52.7 6.4-18.2 11.1-37.4 13.8-56.5 2.7-19.1 3.5-38.8 2.4-58.1-1.1-19.2-4.2-38.7-9.1-57.3-4.8-18.6-20.1-54.4-20.1-54.4z"/><path d="M602.1 258.1c0 0 44.2 17.5 63.7 30.3 19.6 12.8 38.1 28.8 53.7 46.4 15.6 17.6 29.3 38.1 39.9 59.4 10.5 21.2 18.6 44.6 23.3 67.9 4.7 23.3 6.5 48.1 5.1 72-1.4 23.9-6.1 48.5-13.7 71.3-7.5 22.8-18.4 45.5-31.7 65.8-13.3 20.2-29.7 39.5-47.8 55.8-18.2 16.3-39.1 30.7-61 42.1-21.8 11.4-52 20.9-70.1 26.3-18.1 5.4-28 4.6-38.5 6.1-10.4 1.5-19.9 4.1-24.1 2.9-4.2-1.2-4.9-8-1-10 3.9-1.9 13.8-.7 24.2-1.8 10.4-1.2 20.3-.1 38-5.1 17.8-5 47.1-14 68.5-24.8 21.4-10.9 42.1-24.7 60-40.4 17.9-15.8 34.2-34.4 47.5-54.1 13.2-19.7 24.2-41.9 31.9-64.2 7.7-22.4 12.6-46.6 14.3-70.1 1.7-23.6.2-48.1-4.2-71.3-4.5-23.1-12.2-46.5-22.5-67.6-10.2-21.2-23.6-41.7-39-59.4-15.3-17.7-33.6-33.9-53.1-46.8-19.4-12.9-63.4-30.7-63.4-30.7z"/><path d="M851.6 513.6c0 0-1.6 36.1-4.5 53.8-3 17.7-7.4 35.4-13.1 52.4-5.7 17-12.9 33.8-21.3 49.6-8.4 15.9-18.2 31.2-29.1 45.5-10.9 14.2-23 27.8-36.1 40-13 12.3-27.2 23.7-42 33.6-14.8 9.9-30.6 18.9-46.9 26.1-16.2 7.2-33.4 12.9-50.6 17.1-17.1 4.2-40 6.6-52.3 8.3-12.3 1.7-15.3 1.3-21.3 1.9-6 .6-9.7 1.1-14.6 1.6-4.9.5-12.1 2.3-14.7 1.5-2.5-.7-2.9-4.8-.6-5.9 2.4-1.2 9.8-.7 14.7-1 4.9-.3 8.7-.6 14.7-1 6-.4 9.1.2 21.3-1.3 12.1-1.5 34.8-3.6 51.8-7.6 17-4 34.1-9.5 50.3-16.5 16.1-6.9 31.9-15.6 46.7-25.3 14.8-9.8 29-20.9 42.1-33 13-12 25.3-25.4 36.2-39.5 10.9-14.1 20.9-29.3 29.4-45 8.5-15.7 15.8-32.4 21.7-49.3 5.8-16.9 10.3-34.6 13.4-52.3 3-17.6 4.8-53.7 4.8-53.7z"/><path d="M762.6 601.3c0 0-7.9 22-12.9 32.5-4.9 10.6-10.6 20.9-16.9 30.7-6.3 9.9-13.3 19.5-20.9 28.5-7.5 9-15.7 17.6-24.4 25.6-8.7 8-18 15.5-27.7 22.4-9.7 6.9-20 13.2-30.5 18.9-10.6 5.7-21.5 10.9-32.7 15.4-11.2 4.4-24.6 8.6-34.7 11.3-10 2.7-19.4 3.8-25.7 4.9-6.3 1-8.1.9-12.1 1.4-4 .5-8 .9-12 1.4-4.1.4-10 1.9-12.1 1.3-2.1-.6-2.4-4-.5-5 1.9-1 8.1-.5 12.1-.8 4-.3 8.1-.6 12.1-.9 4-.3 5.8 0 12.1-.9 6.3-.9 15.6-1.9 25.6-4.4 10-2.6 23.3-6.6 34.4-10.8 11.2-4.3 22-9.4 32.5-14.9 10.5-5.5 20.8-11.6 30.5-18.4 9.7-6.7 19.1-14 27.8-21.9 8.7-7.9 17-16.4 24.6-25.3 7.6-8.9 14.7-18.3 21.1-28.1 6.4-9.8 12.2-20 17.2-30.5 5-10.5 13.1-32.4 13.1-32.4z"/><path d="M444 212.4c0 0 20.5-5.1 31-6.8 10.4-1.7 21-2.7 31.6-3.3 10.6-.5 21.4-.4 32 .2 10.6.6 21.3 1.8 31.8 3.6 10.6 1.8 21.1 4.2 31.4 7.1 10.2 2.9 20.5 6.5 30.4 10.5 9.9 4 19.7 8.6 29.1 13.7 9.4 5.1 18.7 10.8 27.5 16.9 8.8 6.1 17.3 12.7 25.5 19.7 8.1 7 15.8 14.5 23.1 22.3 7.3 7.9 14.2 16.1 20.6 24.7 6.4 8.5 17.9 26.6 17.9 26.6 0 0-11.9-17.8-18.5-26.1-6.5-8.4-13.6-16.5-21-24.2-7.5-7.6-15.3-14.9-23.5-21.7-8.2-6.8-16.8-13.2-25.7-19.1-8.8-5.8-18-11.3-27.4-16.2-9.4-5-19.1-9.4-28.9-13.4-9.9-3.9-20-7.3-30.1-10.2-10.2-2.9-20.6-5.3-31-7.2-10.4-1.8-20.9-3.1-31.4-3.9-10.5-.8-21.1-1.1-31.7-.8-10.5.2-21.1 1-31.5 2.3-10.5 1.3-31.2 5.3-31.2 5.3z"/><path d="M364.8 276.8c0 0 17.5-11.3 26.8-16.2 9.2-4.8 18.8-9.1 28.6-12.9 9.8-3.7 19.9-6.9 30.1-9.5 10.1-2.6 20.5-4.6 31-6 10.4-1.4 21-2.2 31.6-2.4 10.5-.1 21.2.3 31.7 1.4 10.5 1 21 2.7 31.4 5 10.3 2.3 20.6 5.2 30.6 8.6 10 3.5 19.8 7.6 29.4 12.2 9.5 4.6 18.8 9.8 27.7 15.5 9 5.7 17.6 12 25.8 18.6 8.2 6.7 23.4 21.5 23.4 21.5 0 0-15.6-14.4-23.9-20.8-8.4-6.4-17.1-12.4-26.1-17.9-9-5.4-18.4-10.4-28-14.7-9.5-4.4-19.4-8.2-29.3-11.5-10-3.2-20.2-5.9-30.4-8-10.2-2.2-20.6-3.7-31-4.7-10.4-.9-20.9-1.3-31.3-1.2-10.4.2-20.8.9-31.1 2.2-10.3 1.3-20.6 3.2-30.7 5.5-10.1 2.4-20.2 5.3-30 8.8-9.8 3.4-19.4 7.4-28.8 11.8-9.4 4.5-27.5 14.7-27.5 14.7z"/><path d="M265.1 314.9c0 0 9.9-12.4 15.2-18.2 5.2-5.8 10.8-11.5 16.5-16.9 5.8-5.4 11.7-10.6 17.9-15.5 6.1-5 12.4-9.7 19-14.2 6.5-4.5 13.1-8.7 20-12.7 6.8-4 13.8-7.7 20.9-11.1 7.1-3.5 14.4-6.6 21.7-9.5 7.4-2.9 14.9-5.6 22.4-7.9 7.6-2.3 15.2-4.4 22.9-6.2 7.8-1.7 15.6-3.2 23.4-4.4 7.8-1.2 15.7-2.1 23.6-2.7 7.9-.6 23.7-.9 23.7-.9 0 0-15.8.7-23.7 1.5-7.8.8-15.7 1.9-23.4 3.3-7.8 1.3-15.5 3-23.2 4.9-7.6 1.9-15.2 4.1-22.6 6.5-7.5 2.5-14.9 5.2-22.1 8.2-7.3 2.9-14.5 6.2-21.5 9.6-7 3.5-13.9 7.2-20.7 11.1-6.8 4-13.4 8.1-19.9 12.5-6.5 4.4-12.8 9-19 13.8-6.2 4.9-12.2 9.9-18.1 15.1-5.8 5.3-11.5 10.7-17 16.3-5.5 5.6-16 17.4-16 17.4z"/></g></mask><path id="q" d="M230 0h564c127 0 230 103 230 230v564c0 127-103 230-230 230H230C103 1024 0 921 0 794V230C0 103 103 0 230 0z"/><path id="r" d="M385 715c-5-3-9-4-13-7-4-3-8-6-12-9-4-3-8-6-11-10-4-3-7-7-11-10-3-4-6-8-9-12-3-4-5-8-8-12-3-4-6-8-8-12-3-5-6-9-9-13-2-4-4-9-6-13-2-5-4-9-6-14-2-4-5-8-7-13-2-5-4-9-6-14-1-5-3-10-4-14-1-5-2-10-3-15-1-5-2-10-3-15 0-5-1-10-1-16 0-5 0-10 0-15 0-5-1-10 0-15 0-5 2-10 2-15 1-5 2-11 3-16 1-5 2-10 4-15 2-4 4-9 6-14 2-4 4-9 7-14 2-4 4-9 7-13 2-5 5-9 8-13 3-4 6-9 8-13 3-4 5-9 9-13 3-4 7-7 11-10 3-4 7-8 10-11 4-4 7-8 11-11 4-4 7-8 11-11 4-3 8-6 12-9 5-3 9-5 14-7 4-3 9-5 13-8 5-2 9-5 14-7 4-2 9-5 14-7 4-2 9-3 14-5 5-1 10-2 15-3 5-1 10-2 15-3 6-1 11-3 16-4 5-1 10-1 15-1 5 0 11-1 16-1 5 0 10 0 15 1 6 0 11 1 16 1 5 1 10 2 15 3 6 1 11 2 16 3 5 1 10 3 15 4 5 2 10 4 15 6 5 2 9 4 14 6 5 3 10 5 15 7 4 2 9 5 13 8 5 3 9 6 13 9 5 3 9 7 13 10 4 4 9 6 13 10 3 4 6 8 10 12 3 4 7 8 10 12 4 4 8 8 11 13 3 4 7 8 10 12 3 5 6 10 8 15 3 4 5 10 7 15 2 5 4 10 6 15 2 5 4 10 6 15 1 5 1 11 3 16 1 5 3 11 4 16 1 5 2 11 2 16 1 6 1 11 1 17 0 5 0 10 0 16 0 5 0 11 0 16-1 6-2 11-3 17 0 5-1 10-2 16-1 5-1 11-2 16-1 6-2 11-4 17-1 5-3 10-5 15-2 6-4 11-6 16-2 5-5 10-7 15-3 5-6 10-8 15-3 5-6 10-9 15-3 5-6 10-9 14-4 5-8 9-11 13-4 5-8 9-12 13-4 4-7 10-11 14-4 4-10 6-14 10-5 3-9 7-14 11-5 3-9 7-14 10-5 3-10 7-16 10-5 3-10 6-15 9-5 3-11 5-16 8-6 3-12 5-17 7-6 2-12 3-18 6-6 3-17 9-17 9 0 0 13 3 19 3 7 1 13 0 20-1 6 0 13-1 19-1 7-1 14-1 21-2 6-1 12-4 19-6 6-2 12-4 19-7 6-2 12-5 18-8 6-3 13-6 19-9 5-4 11-8 17-11 5-4 12-7 17-12 6-4 11-9 16-13 5-5 9-10 14-15 5-5 11-9 15-14 5-6 9-11 13-17 4-6 8-12 11-18 4-6 7-12 10-18 4-6 7-13 10-19 3-6 7-12 9-19 3-6 4-13 6-20 2-7 4-13 6-20 2-7 4-14 5-21 1-7 2-14 2-21 1-7 1-14 1-21 0-7 0-14 0-21 0-7 0-14 0-21 0-7-1-14-2-21-1-8-2-15-3-21-2-7-4-14-6-21-3-7-5-13-7-20-3-7-5-13-8-20-3-6-5-13-8-19-3-7-7-13-10-19-4-6-7-13-10-19-4-6-7-12-11-18-4-6-8-12-13-18-5-5-10-10-15-15-5-5-10-11-15-16-5-5-11-10-16-15-6-5-11-9-17-14-6-4-12-8-18-12-7-3-13-7-19-11-7-3-14-5-21-8-6-3-13-5-20-8-7-2-14-5-20-7-7-2-14-5-21-6-7-2-15-2-22-4-7-1-14-2-21-3-8-1-15-1-22-1-7-1-15-1-22 0-7 0-14 1-21 2-8 1-15 1-22 2-7 1-14 3-21 4-7 2-14 5-21 7-7 2-14 3-21 6-6 2-13 5-20 8-6 3-13 6-19 9-7 3-13 6-20 10-6 3-12 6-18 10-6 4-12 9-18 13-5 5-10 10-16 14-5 5-11 10-16 15-5 5-10 10-15 15-6 5-11 10-15 16-5 5-8 11-13 17-4 6-8 12-12 18-4 6-8 12-11 18-3 7-6 14-9 20-3 7-6 13-8 20-3 7-5 14-8 20-2 7-5 14-7 21-2 7-5 14-6 21-1 7-1 15-2 22-1 7-3 14-3 21-1 8-2 15-2 22-1 8-1 15-2 23 0 7-1 15-1 22 1 7 2 15 3 22 1 8 3 15 5 22 2 8 3 15 5 22 2 7 4 15 7 22 2 7 5 14 8 21 3 7 7 14 10 21 4 6 7 13 11 20 4 6 8 13 12 19 5 6 10 12 15 18 4 6 8 13 13 19 5 6 11 11 17 16 6 5 12 10 18 15 6 4 12 9 18 14 6 4 13 10 19 13 6 4 11 7 17 8 7 1 14 1 21-1 7-1 14-4 20-8 6-4 12-9 17-15 5-5 9-12 12-19 3-7 5-14 6-22 1-7 0-15-1-21-2-7-5-14-9-19-3-5-10-9-15-12z"/><path id="t" d="M458.8 387.9Q438 376 438 400L438 624Q438 648 458.8 636.1L655.2 523.9Q676 512 655.2 500.1z"/>';
-            const svg = (defs, body) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs>${defs}${shapes}</defs>${body}</svg>`;
-            return {
-                night: svg('<linearGradient id="g" x2="0" y2="1"><stop stop-color="#14254a"/><stop offset="1" stop-color="#08101f"/></linearGradient><radialGradient id="h" cx=".18" cy=".1" r=".9"><stop stop-color="#2f6bff" stop-opacity=".42"/><stop offset=".6" stop-color="#2f6bff" stop-opacity="0"/></radialGradient><linearGradient id="i" gradientUnits="userSpaceOnUse" x1="260" y1="760" x2="800" y2="300"><stop stop-color="#fff"/><stop offset=".6" stop-color="#d6f2ff"/><stop offset="1" stop-color="#86ddff"/></linearGradient><filter id="b" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="26"/></filter>', '<use href="#q" fill="url(#g)"/><use href="#q" fill="url(#h)"/><use href="#r" fill="#38b8ff" opacity=".5" filter="url(#b)"/><use href="#r" fill="url(#i)" mask="url(#m)"/><use href="#t" fill="#38b8ff" opacity=".45" filter="url(#b)"/><use href="#t" fill="#f5fbff"/>'),
-                porcelain: svg('<radialGradient id="g" cx=".32" cy=".24" r=".95"><stop stop-color="#fff"/><stop offset=".55" stop-color="#f3f6fb"/><stop offset="1" stop-color="#dfe6f1"/></radialGradient><linearGradient id="i" gradientUnits="userSpaceOnUse" x1="260" y1="760" x2="800" y2="300"><stop stop-color="#132868"/><stop offset=".55" stop-color="#1c3b94"/><stop offset="1" stop-color="#3a62c8"/></linearGradient><filter id="y" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="7"/></filter><filter id="z"><feGaussianBlur stdDeviation="1.4"/></filter><clipPath id="c"><use href="#r"/></clipPath>', '<use href="#q" fill="url(#g)"/><use href="#r" fill="#3159c8" opacity=".2" filter="url(#y)" mask="url(#m)"/><g mask="url(#m)"><use href="#r" fill="url(#i)"/><use href="#r" fill="none" stroke="#0a1648" stroke-opacity=".38" stroke-width="16" clip-path="url(#c)"/><g fill="#08123d" opacity=".6" filter="url(#z)" clip-path="url(#c)"><ellipse cx="260.1" cy="421.4" rx="4.3" ry="2" transform="rotate(-73 260.1 421.4)"/><ellipse cx="183.1" cy="598.2" rx="5" ry="3.8" transform="rotate(-97 183.1 598.2)"/><ellipse cx="246" cy="596.4" rx="3.7" ry="2.3" transform="rotate(-97 246 596.4)"/><ellipse cx="318.6" cy="716.2" rx="4.4" ry="3.5" transform="rotate(-145 318.6 716.2)"/><ellipse cx="312.6" cy="333" rx="4.4" ry="3.4" transform="rotate(-30 312.6 333)"/><ellipse cx="240.9" cy="423.9" rx="1.9" ry="1" transform="rotate(-84 240.9 423.9)"/></g></g><use href="#t" fill="#5677cf"/><use href="#t" fill="none" stroke="#14296b" stroke-width="10" stroke-linejoin="round"/>'),
-            };
-        })();
+        const LOGO = { night: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#131c31"/><polygon points="5.21,44 15.47,26 23.97,26 13.71,44" fill="#2a4594"/><polygon points="15.21,49 32.88,18 41.38,18 23.71,49" fill="#3d66e8"/><polygon points="25.21,54 50.29,10 58.79,10 33.71,54 28.44,50.4" fill="#5b8cff"/><polygon points="50.29,10 58.79,10 45.16,19" fill="#1f3a9e"/></svg>', porcelain: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="16" fill="#e8edfc"/><polygon points="5.21,44 15.47,26 23.97,26 13.71,44" fill="#aebff3"/><polygon points="15.21,49 32.88,18 41.38,18 23.71,49" fill="#6d8bec"/><polygon points="25.21,54 50.29,10 58.79,10 33.71,54 28.44,50.4" fill="#2f54d4"/><polygon points="50.29,10 58.79,10 45.16,19" fill="#1d379b"/></svg>' };
         const icon = d => `<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
         const ICON = {
             minimize: icon('<path d="M6 12h12"/>'),
@@ -833,7 +1193,6 @@
         const WAVE = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='11'%3E%3Cpath d='M0 6 Q11 0 22 6 T44 6' fill='none' stroke='%231f3f97' stroke-width='1.1'/%3E%3C/svg%3E")`;
         const SERIF = '"Cambria", "Palatino Linotype", "Book Antiqua", "Iowan Old Style", "Times New Roman", serif';
         const THIN = '"Segoe UI Variable Display", "Segoe UI", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif';
-
         const CSS = `
         :host { all: initial; }
         .xy { position: relative; color: var(--ink); font: 400 13px/1.5 var(--ui); -webkit-font-smoothing: antialiased; }
@@ -862,8 +1221,10 @@
             --urgent: #b5372f; --warn: #a8711c; --waitc: #5a74b0; --good: #2e7d62;
         }
 
+        
         .ball { position: relative; display: block; width: ${BALL}px; height: ${BALL}px; border-radius: 15px; touch-action: none; user-select: none; transition: transform .2s cubic-bezier(.2, .8, .2, 1); }
         .ball:hover { transform: translateY(-2px); }
+        
         .ball, .mark { background: center / cover no-repeat; }
         .xy[data-theme="night"] :is(.ball, .mark) { background-image: url("data:image/svg+xml,${encodeURIComponent(LOGO.night)}"); }
         .xy[data-theme="porcelain"] :is(.ball, .mark) { background-image: url("data:image/svg+xml,${encodeURIComponent(LOGO.porcelain)}"); }
@@ -880,6 +1241,7 @@
         .xy[data-theme="porcelain"] .ring { padding: 2px; background: conic-gradient(#1f3f97 calc(var(--p, 0) * 1turn), rgba(31, 63, 151, .14) 0); }
         .xy[data-theme="porcelain"] .badge { background: #fcfdfe; color: #1f3f97; font: 600 12px/18px ${SERIF}; font-variant-numeric: lining-nums tabular-nums; box-shadow: 0 0 0 1px rgba(31, 63, 151, .25); }
 
+        
         .panel { position: relative; width: 400px; max-width: calc(100vw - ${EDGE * 2}px); max-height: calc(100vh - ${EDGE * 2}px); display: flex; flex-direction: column; overflow: hidden;
             transform-origin: var(--origin, top right); animation: xy-pop .22s cubic-bezier(.2, .8, .2, 1); }
         .panel > * { position: relative; }
@@ -897,7 +1259,8 @@
         .head:active { cursor: grabbing; }
         .mark { width: 26px; height: 26px; flex: none; margin-right: 2px; border-radius: 8px; }
         .title { font-size: 13.5px; font-weight: 600; letter-spacing: .1em; white-space: nowrap; }
-        .ver { color: var(--muted); font-size: 11.5px; letter-spacing: .04em; }
+        
+        .ver { color: var(--muted); font-size: 11.5px; letter-spacing: .04em; cursor: inherit; }
         .update { padding: 0 8px; border-radius: 99px; font-size: 11px; font-weight: 600; line-height: 18px; white-space: nowrap; }
         .sp { flex: 1; }
         .icon-btn { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 9px; color: var(--icon); transition: background .15s, color .15s; }
@@ -910,6 +1273,7 @@
         .xy[data-theme="porcelain"] .mark { box-shadow: 0 6px 14px -6px rgba(20, 35, 85, .45); }
         .xy[data-theme="porcelain"] .update { background: #1f3f97; color: #fcfdfe; }
 
+        
         .now { display: flex; flex-direction: column; padding: 16px 24px 20px; }
         .state { display: flex; align-items: center; gap: 8px; color: var(--label); font-size: 11.5px; letter-spacing: .3em; }
         .state::before { content: ""; width: 6px; height: 6px; flex: none; border-radius: 50%; background: currentColor; }
@@ -945,6 +1309,7 @@
         .xy[data-theme="porcelain"] .bar i, .xy[data-theme="porcelain"] .bar b { display: none; }
         .xy[data-theme="porcelain"] .now-meta { margin-top: 6px; font: 13px ${SERIF}; letter-spacing: 0; font-variant-numeric: lining-nums tabular-nums; }
 
+        
         .controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
         .ctl { display: flex; align-items: center; justify-content: center; gap: 7px; white-space: nowrap; font-size: 12.5px; transition: background .15s, border-color .15s, color .15s; }
         .ctl svg { width: 15px; height: 15px; flex: none; }
@@ -970,6 +1335,7 @@
         .xy[data-theme="porcelain"] .ctl em { width: 5px; height: 5px; background: #c3cad9; }
         .xy[data-theme="porcelain"] .ctl[aria-pressed="true"] em { background: #1f3f97; }
 
+        
         .notice { display: flex; align-items: center; gap: 10px; font-size: 12.5px; }
         .notice.open { align-items: flex-start; }
         .notice-tag { flex: none; display: inline-flex; align-items: center; gap: 6px; padding-top: 1px; color: var(--label); font-size: 11px; letter-spacing: .24em; }
@@ -984,10 +1350,36 @@
         .xy[data-theme="porcelain"] .notice { margin: 16px 26px 0; font-size: 13px; }
         .xy[data-theme="porcelain"] .notice-tag { font-size: 11.5px; letter-spacing: .34em; }
 
-        .list-head { display: flex; align-items: center; gap: 8px; padding: 20px 24px 6px; }
-        .lh-title { color: var(--muted); font-size: 11.5px; letter-spacing: .3em; }
-        .lh-count { font-size: 12px; font-variant-numeric: lining-nums tabular-nums; }
-        .synced { margin-left: auto; color: var(--faint); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+        
+        .list-head { display: flex; align-items: baseline; gap: 18px; padding: 20px 24px 6px; }
+        .tab { position: relative; display: inline-flex; align-items: baseline; gap: 8px; padding-bottom: 5px; color: var(--muted); font-size: 11.5px; letter-spacing: .3em; transition: color .15s; }
+        .tab b { color: var(--faint); font-size: 12px; font-weight: 400; letter-spacing: 0; font-variant-numeric: lining-nums tabular-nums; }
+        .tab:hover { color: var(--ink-2); }
+        .tab[aria-selected="true"] { color: var(--ink); }
+        .tab[aria-selected="true"] b { color: var(--ink-2); }
+        .tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: .3em; bottom: 0; height: 1.5px; border-radius: 1px; background: var(--accent); }
+        .lh-tools { display: flex; align-items: baseline; gap: 12px; margin-left: auto; }
+        .lh-tools .dur { color: var(--muted); font-size: 11.5px; }
+        .lh-tools .dur input { width: 30px; }
+        .synced { color: var(--faint); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+        .task-sub.good { color: var(--good); }
+        .here-tag { flex: none; margin-left: 6px; padding: 0 6px; border-radius: 99px; color: var(--accent); font-size: 10.5px; line-height: 16px; letter-spacing: .1em; vertical-align: 1px; box-shadow: inset 0 0 0 1px var(--ring-soft); }
+        .task.here { margin-bottom: 6px; }
+        .now .stop { position: absolute; top: 14px; right: 22px; font-size: 12px; }
+        
+        .hang-mode { display: flex; align-items: center; gap: 10px; padding: 2px 24px 8px; color: var(--muted); font-size: 11.5px; }
+        .hang-mode .dur { margin-left: auto; color: var(--muted); font-size: 11.5px; }
+        .hang-mode .dur input { width: 30px; }
+        .seg { display: inline-flex; padding: 2px; border-radius: 9px; box-shadow: inset 0 0 0 1px var(--line); }
+        .seg button { padding: 2px 10px; border-radius: 7px; color: var(--muted); font-size: 12px; transition: background .15s, color .15s; }
+        .seg button:hover { color: var(--ink-2); }
+        .seg button[aria-pressed="true"] { background: var(--hover); color: var(--ink); }
+        .xy[data-theme="porcelain"] .seg button[aria-pressed="true"] { color: #1f3f97; }
+        .xy[data-theme="night"] .tab[aria-selected="true"]::after { box-shadow: 0 0 8px var(--accent); }
+        .xy[data-theme="night"] .t-good .lead { background: var(--good); }
+        .xy[data-theme="porcelain"] .tab { letter-spacing: .38em; }
+        .xy[data-theme="porcelain"] .tab b { font: 13.5px ${SERIF}; font-variant-numeric: lining-nums tabular-nums; }
+        .xy[data-theme="porcelain"] .tab[aria-selected="true"] { color: #1f3f97; }
         .list { flex: 1 1 auto; min-height: 96px; overflow: auto; padding: 0 12px 14px; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
         .group + .group { margin-top: 2px; }
         .group-head { display: flex; align-items: center; gap: 6px; width: 100%; padding: 10px 12px 4px; color: var(--ink-2); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-align: left; }
@@ -1021,6 +1413,7 @@
         .remove:hover { color: var(--urgent); }
         .empty { padding: 26px 16px 30px; color: var(--muted); font-size: 12.5px; text-align: center; }
         .empty b { display: block; margin-bottom: 3px; color: var(--ink-2); font-size: 13px; font-weight: 600; }
+        
         .xy[data-theme="night"] .lead { width: 7px; height: 7px; border-radius: 50%; background: #4d6a99; font-size: 0; }
         .xy[data-theme="night"] .t-urgent .lead, .xy[data-theme="night"] .t-bad .lead { background: #ff8b8b; }
         .xy[data-theme="night"] .t-warn .lead { background: #f1b45c; }
@@ -1030,8 +1423,7 @@
         .xy[data-theme="night"] .task.active { background: linear-gradient(90deg, rgba(47, 107, 255, .3), rgba(47, 107, 255, .12) calc(var(--p, 0) * 100%), rgba(255, 255, 255, .035) calc(var(--p, 0) * 100%)); }
         .xy[data-theme="night"] .task.active .lead { background: #6fd6ff; box-shadow: 0 0 10px #6fd6ff; }
         .xy[data-theme="night"] .task.active .task-name { color: #fff; }
-        .xy[data-theme="porcelain"] .lh-title { color: #1f3f97; letter-spacing: .38em; }
-        .xy[data-theme="porcelain"] .lh-count { color: var(--muted); font: 13.5px ${SERIF}; font-variant-numeric: lining-nums tabular-nums; }
+        
         .xy[data-theme="porcelain"] .list-head { padding: 22px 26px 8px; }
         .xy[data-theme="porcelain"] .list { padding: 0 14px 16px; }
         .xy[data-theme="porcelain"] .group-head { width: calc(100% - 24px); margin: 0 12px; padding: 10px 0 6px; font-size: 12.5px; letter-spacing: .08em; }
@@ -1046,6 +1438,7 @@
         .xy[data-theme="porcelain"] .task.active .task-name { color: #1f3f97; font-weight: 600; }
         .xy[data-theme="porcelain"] .task.active::after { content: ""; position: absolute; left: 44px; bottom: 5px; width: calc((100% - 120px) * var(--p, 0)); height: 1.5px; border-radius: 1px; background: #1f3f97; transition: width .95s linear; }
 
+        
         .ob { padding-bottom: 22px; }
         .ob-body { display: flex; flex-direction: column; gap: 14px; padding: 14px 24px 0; }
         .ob-step { color: var(--label); font-size: 11.5px; letter-spacing: .3em; }
@@ -1086,6 +1479,7 @@
         .xy[data-theme="porcelain"] .ob-next { background: #1f3f97; color: #fcfdfe; box-shadow: 0 12px 26px -14px rgba(31, 63, 151, .7); }
         .xy[data-theme="porcelain"] .ob-list i { color: #1f3f97; }
 
+        
         .flash { position: absolute; z-index: 1; width: max-content; max-width: 300px; padding: 9px 14px; border-radius: 12px; font-size: 12.5px; line-height: 1.5; animation: xy-fade .2s ease-out; }
         @keyframes xy-fade { from { opacity: 0; } }
         .xy.open .flash { left: 50%; translate: -50% 0; }
@@ -1100,24 +1494,28 @@
             .xy *, .xy *::before, .xy *::after { animation: none !important; transition: none !important; }
         }
         `;
-
         const host = document.createElement('div');
         host.style.cssText = 'position:fixed;z-index:2147483000;left:0;top:0;';
         const shadow = host.attachShadow({ mode: 'closed' });
         shadow.innerHTML = `<style>${CSS}</style><div class="xy"></div>`;
         const root = shadow.querySelector('.xy');
         document.body.appendChild(host);
-
         function countdown(at) {
             const sec = Math.max(0, (at - Date.now()) / 1000);
             return sec >= 86400 ? `${Math.floor(sec / 86400)} 天` : clock(sec);
         }
-
         function nowView() {
             const r = run;
             const base = { pct: 0, bar: false, metaL: '', metaR: '', badge: '' };
             if (!r) {
-                if (idleNote) return Object.assign(base, { tone: 'done', label: idleNote.label, big: String(tasks.length), unit: tasks.length ? '个需要处理' : '个待完成', name: idleNote.name, course: idleNote.meta });
+                const tab = ui.tab === 'hang' ? 'hang' : 'task';
+                if (idleNote && idleNote.tab === tab) {
+                    return Object.assign(base, { tone: 'done', label: idleNote.label, big: idleNote.big || String(tasks.length), unit: idleNote.unit || (tasks.length ? '个需要处理' : '个待完成'), name: idleNote.name, course: idleNote.meta });
+                }
+                if (tab === 'hang') {
+                    return Object.assign(base, { tone: 'idle', label: '待机中', big: String(hangCourses().filter(hangable).length), unit: '门课要挂',
+                        name: page().nodeId ? '点一门课开始，或者只挂这一页' : '点一门课开始挂时长', course: `每门默认挂 ${hang.def} 分钟，挂够自动换下一门` });
+                }
                 const nodeId = page().nodeId, here = nodeId && tasks.find(t => t.nodeId === nodeId);
                 const [name, course] = !tasks.length ? ['先获取任务列表', '点「刷新任务」获取所有未完成的观看任务']
                     : here && here.failed ? ['这个任务未确认完成', '在下面的列表里点它重试']
@@ -1126,6 +1524,18 @@
                 return Object.assign(base, { tone: 'idle', label: '待机中', big: String(tasks.length), unit: '个待完成', name, course });
             }
             const t = r.task;
+            if (r.mode === 'hang') {
+                const on = r.on, list = hangCourses(), left = Math.max(0, r.total - r.done);
+                const label = { loading: '正在加载', buffering: '正在缓冲', locked: '等待开始', resuming: '已暂停，正在恢复', paused: '已暂停', blocked: '等待播放' }[r.phase] || '正在挂时长';
+                const course = r.phase === 'paused' ? '「恢复播放」已关闭，点视频的播放键继续'
+                    : r.phase === 'blocked' ? '浏览器拦截了自动播放，点一下视频就能继续'
+                    : on.mode === 'page' ? `${on.groupName || '这门课'} · 只挂这一页`
+                    : `${on.groupName} · 第 ${list.findIndex(g => g.id === on.groupId) + 1}/${list.length} 门${rotating(on) ? ` · 第 ${(hc(on.groupId).at || 0) % hc(on.groupId).count + 1}/${hc(on.groupId).count} 个文件` : ''}`;
+                const tone = ['playing', 'buffering', 'counting'].includes(r.phase) ? 'run' : r.phase === 'loading' ? 'busy' : r.phase === 'locked' ? 'wait' : 'warn';
+                return Object.assign(base, { tone, label, big: r.total ? clock(left) : '--:--', unit: r.total ? '剩余' : '', name: on.name, course,
+                    pct: r.total ? Math.min(1, r.done / r.total) : 0, bar: true, metaL: `已挂 ${clock(r.done)}`, badge: clock(left),
+                    metaR: rotating(on) ? `这个文件还剩 ${clock(Math.max(0, hang.each * 60 - on.since))}` : `目标 ${Math.round(r.total / 60)} 分钟` });
+            }
             if (r.mode === 'wait') {
                 return Object.assign(base, { tone: 'wait', label: '等待下一个任务', big: countdown(t.start), unit: '后开始', name: t.name, course: `${t.groupName} · ${dayText(t.start)} 开始，到点自动打开`, badge: '等待' });
             }
@@ -1164,7 +1574,6 @@
                     return Object.assign(base, { tone: 'busy', label: '正在确认完成', big: '0:00', unit: '', name: t.name, course: '向平台确认任务状态，确认后打开下一个', pct: 1, bar: true, badge: '确认' });
             }
         }
-
         function taskSub(t, now) {
             if (t.blocked) return ['缺少资源 ID，无法自动打开', 'bad'];
             if (t.failed) return ['未确认完成，点击重试', 'bad'];
@@ -1177,9 +1586,7 @@
             const hours = (t.end - now) / 3600000;
             return [`${dayText(t.end)} 截止`, hours < 24 ? 'urgent' : hours < 72 ? 'warn' : ''];
         }
-
         const minutesText = sec => String(Math.round(sec / 6) / 10);
-
         function taskHTML(t, now, order) {
             const [sub, tone] = taskSub(t, now);
             const active = run && run.task.nodeId === t.nodeId;
@@ -1197,7 +1604,6 @@
                 <button class="icon-btn remove" data-act="remove" data-id="${id}" title="移出列表" aria-label="移出列表">${ICON.remove}</button>
             </div>`;
         }
-
         function listHTML() {
             if (!tasks.length) {
                 return loading
@@ -1216,16 +1622,65 @@
                 <div class="group-body">${g.items.map(t => taskHTML(t, now, ++order)).join('')}</div>
             </section>`).join('');
         }
-
+        const rotating = on => on.mode === 'course' && hang.mode === 'rotate' && hc(on.groupId).count > 0;
+        function hangSub(g) {
+            const c = hc(g.id), goal = hangGoal(g.id), min = s => Math.floor(s / 60);
+            const nth = hang.mode === 'rotate' && c.count ? ` · 第 ${(c.at || 0) % c.count + 1}/${c.count} 个文件` : '';
+            if (c.pick === false) return ['这门课没有视频或文档，跳过', 'off'];
+            if (!goal) return ['不挂这门', 'off'];
+            if (c.done >= goal) return [`已挂够 ${min(goal)} 分钟`, 'good'];
+            if (run && run.mode === 'hang' && run.on.mode === 'course' && run.on.groupId === g.id) return [`正在挂 · ${c.pick.name}${nth}`, ''];
+            if (!c.done) return [c.pick ? `还没挂 · ${c.pick.name}` : '还没挂', ''];
+            return [`已挂 ${min(c.done)} / ${min(goal)} 分钟${nth}`, ''];
+        }
+        function hangRowHTML(g, order) {
+            const c = hc(g.id), [sub, tone] = hangSub(g), id = esc(g.id);
+            const active = run && run.mode === 'hang' && run.on.mode === 'course' && run.on.groupId === g.id;
+            return `<div class="task t-${tone || 'plain'}${active ? ' active' : ''}${tone === 'off' ? ' off' : ''}">
+                <button class="task-main" data-act="hang" data-id="${id}" title="从这门课开始挂，挂够自动换下一门">
+                    <span class="lead">${pad(order)}</span>
+                    <span class="task-text"><span class="task-name">${esc(g.name)}</span><span class="task-sub ${tone}">${esc(sub)}</span></span>
+                </button>
+                <label class="dur" title="这门课挂多少分钟。清空恢复默认，填 0 不挂">
+                    <input class="${c.target === null ? 'auto' : ''}" data-hang="${id}" value="${c.target === null ? '' : c.target}" placeholder="${hang.def}" inputmode="numeric" aria-label="挂机分钟数"><span>分</span>
+                </label>
+                <button class="icon-btn remove" data-act="hang-hide" data-id="${id}" title="移出列表，点「刷新课程」会回来" aria-label="移出列表">${ICON.remove}</button>
+            </div>`;
+        }
+        function hereRowHTML() {
+            const p = page();
+            if (!p.nodeId || (hang.on && hang.on.mode === 'course' && hang.on.nodeId === p.nodeId)) return '';
+            const active = run && run.mode === 'hang' && run.on.mode === 'page';
+            const name = active ? run.on.name : here && here.nodeId === p.nodeId ? here.name : '这一页';
+            const g = hang.list.find(x => x.id === p.groupId);
+            return `<div class="task here${active ? ' active' : ''}">
+                <button class="task-main" data-act="hang-here" title="只挂这一页，挂够就停">
+                    <span class="lead">·</span>
+                    <span class="task-text"><span class="task-name">${esc(name)}<span class="here-tag">本页</span></span><span class="task-sub">只挂这一页${g ? ` · ${esc(g.name)}` : ''}</span></span>
+                </button>
+                <label class="dur" title="这一页挂多少分钟，清空恢复默认">
+                    <input class="${hang.pageMin === null ? 'auto' : ''}" data-hang="page" value="${hang.pageMin === null ? '' : hang.pageMin}" placeholder="${hang.def}" inputmode="numeric" aria-label="这一页挂多少分钟"><span>分</span>
+                </label>
+                <span class="remove"></span>
+            </div>`;
+        }
+        function hangListHTML() {
+            const list = hangCourses();
+            const body = list.length ? `<section class="group"><div class="group-body">${list.map((g, i) => hangRowHTML(g, i + 1)).join('')}</div></section>`
+                : hangLoading ? '<div class="empty"><b>正在获取课程…</b>取的是本学期正在上的课</div>'
+                : '<div class="empty"><b>还没有课程</b>点「刷新课程」获取本学期正在上的课</div>';
+            return hereRowHTML() + body;
+        }
         const headHTML = extra => `<header class="head" data-drag>
-            <span class="mark"></span><span class="title">小雅自动刷</span><span class="ver">v${VERSION}</span>${extra}
+            <span class="mark"></span><span class="title">小雅自动刷</span><button class="ver" data-act="log">v${VERSION}</button>${extra}
             <button class="icon-btn" data-act="close" title="收起面板" aria-label="收起面板">${ICON.minimize}</button>
         </header>`;
-
         function panelHTML() {
             const update = hasUpdate();
             const other = THEMES[ui.theme === 'night' ? 'porcelain' : 'night'];
             const showNoticeToggle = notice && !notice.error && notice.content !== '暂无公告';
+            const hangTab = ui.tab === 'hang', busy = hangTab ? hangLoading : loading;
+            const refreshTitle = hangTab ? '获取本学期正在上的课' : page().groupId ? '在课程页只更新这门课的任务' : '获取所有课程的未完成观看任务';
             return `<div class="panel">
                 ${headHTML(`${update ? `<span class="update" title="在脚本猫里检查更新即可升级">v${esc(notice.version)} 可用</span>` : ''}<span class="sp"></span>
                     <button class="icon-btn" data-act="theme" title="切换到「${other.name}」风格" aria-label="切换到${other.name}风格">${ICON.theme}</button>`)}
@@ -1236,26 +1691,37 @@
                     <div class="now-course"></div>
                     <div class="bar" hidden>${brush('track')}${brush('ink')}<i></i><b></b></div>
                     <div class="now-meta" hidden><span></span><span></span></div>
+                    <button class="link muted stop" data-act="hang-stop" hidden>停止</button>
                 </section>
                 <div class="controls">
-                    <button class="ctl primary" data-act="refresh" ${loading ? 'disabled' : ''} title="${page().groupId ? '在课程页只更新这门课的任务' : '获取所有课程的未完成观看任务'}">${ICON.refresh}<span>${loading ? '正在获取' : '刷新任务'}</span></button>
+                    <button class="ctl primary" data-act="refresh" ${busy ? 'disabled' : ''} title="${refreshTitle}">${ICON.refresh}<span>${busy ? '正在获取' : hangTab ? '刷新课程' : '刷新任务'}</span></button>
                     <button class="ctl" data-act="silent" aria-pressed="${silent}" title="拦截视频的声音，视频照常播放">${ICON.silent}<span>拦截声音</span><em></em></button>
                     <button class="ctl" data-act="resume" aria-pressed="${autoResume}" title="视频被暂停后自动继续播放">${ICON.resume}<span>恢复播放</span><em></em></button>
                 </div>
                 <div class="notice${noticeOpen ? ' open' : ''}">
                     <span class="notice-tag${noticeUnread() ? ' unread' : ''}">公告</span>
-                    <span class="notice-text">${esc(notice ? notice.content : '正在加载公告…')}</span>
+                    <span class="notice-text">${esc(!notice ? '正在加载公告…' : noticeOpen ? notice.content : firstLine(notice.content))}</span>
                     ${showNoticeToggle ? `<button class="link" data-act="notice">${noticeOpen ? '收起' : '展开'}</button>` : ''}
                 </div>
-                <div class="list-head">
-                    <span class="lh-title">待完成</span><span class="lh-count">${tasks.length}</span>
-                    <span class="synced">${fetchedAt ? `${dayText(fetchedAt)} 更新` : ''}</span>
-                    ${tasks.length ? `<button class="link ${clearArmed ? 'armed' : 'muted'}" data-act="clear">${clearArmed ? '再点一次清空' : '清空'}</button>` : ''}
+                <div class="list-head" role="tablist">
+                    <button class="tab" role="tab" data-act="tab" data-id="task" aria-selected="${!hangTab}">待完成<b>${tasks.length}</b></button>
+                    <button class="tab" role="tab" data-act="tab" data-id="hang" aria-selected="${hangTab}">挂时长<b>${hangCourses().length}</b></button>
+                    <span class="lh-tools">${hangTab
+                        ? `<label class="dur" title="每门课默认挂多少分钟">每门<input data-hang-def value="${hang.def}" inputmode="numeric" aria-label="每门课默认挂多少分钟"><span>分</span></label>
+                            <button class="link ${resetArmed ? 'armed' : 'muted'}" data-act="hang-reset" title="把所有课程的已挂时长清零">${resetArmed ? '再点一次重置' : '重置'}</button>`
+                        : `<span class="synced">${fetchedAt ? `${dayText(fetchedAt)} 更新` : ''}</span>
+                            ${tasks.length ? `<button class="link ${clearArmed ? 'armed' : 'muted'}" data-act="clear">${clearArmed ? '再点一次清空' : '清空'}</button>` : ''}`}</span>
                 </div>
-                <div class="list">${listHTML()}</div>
+                ${hangTab ? `<div class="hang-mode"><span>挂法</span>
+                    <span class="seg" role="group" aria-label="挂法">
+                        <button data-act="hang-mode" data-id="one" aria-pressed="${hang.mode !== 'rotate'}" title="一门课只挂一个视频或文件，挂满这门课的时长">一个挂到底</button>
+                        <button data-act="hang-mode" data-id="rotate" aria-pressed="${hang.mode === 'rotate'}" title="按目录顺序，每个文件挂一会儿就换下一个，挂满这门课的时长为止">轮流挂</button>
+                    </span>
+                    ${hang.mode === 'rotate' ? `<label class="dur" title="轮流挂时每个文件挂多少分钟">每个文件<input data-hang-each value="${hang.each}" inputmode="numeric" aria-label="每个文件挂多少分钟"><span>分</span></label>` : ''}
+                </div>` : ''}
+                <div class="list">${hangTab ? hangListHTML() : listHTML()}</div>
             </div>`;
         }
-
         function onboardingHTML() {
             const body = obStep === 1
                 ? `<div class="ob-step">第 1 步 · 共 2 步</div>
@@ -1278,16 +1744,13 @@
                     <div class="ob-actions"><button class="link muted" data-act="ob-back">上一步</button><button class="ob-next" data-act="ob-done">开始使用</button></div>`;
             return `<div class="panel ob">${headHTML('<span class="sp"></span>')}<div class="ob-body">${body}</div></div>`;
         }
-
         function ballHTML() {
             const dot = noticeUnread() || hasUpdate() || !ui.theme;
             return `<button class="ball" data-act="expand" data-drag title="小雅自动刷" aria-label="打开小雅自动刷面板">
                 <span class="ring"></span>${dot ? '<span class="dot"></span>' : ''}<span class="badge"></span>
             </button>`;
         }
-
         const tpl = document.createElement('template');
-
         function render() {
             root.dataset.theme = ui.theme || obPick;
             root.classList.toggle('open', ui.open);
@@ -1298,7 +1761,6 @@
             paint();
             place(opening);
         }
-
         function patch(parent, next) {
             const now = parent.childNodes, want = next.childNodes;
             for (let i = 0; i < want.length; i++) {
@@ -1316,7 +1778,6 @@
             }
             while (now.length > want.length) parent.lastChild.remove();
         }
-
         function paint() {
             const v = nowView();
             const card = root.querySelector('.now');
@@ -1329,29 +1790,28 @@
                 card.querySelector('.now-name').textContent = v.name;
                 card.querySelector('.now-course').textContent = v.course;
                 card.querySelector('.bar').hidden = !v.bar;
+                card.querySelector('.stop').hidden = !(run && run.mode === 'hang');
                 const meta = card.querySelector('.now-meta');
                 meta.hidden = !v.metaL && !v.metaR;
                 meta.children[0].textContent = v.metaL;
                 meta.children[1].textContent = v.metaR;
             }
             const active = root.querySelector('.task.active');
-            if (active) active.style.setProperty('--p', run && run.mode === 'task' ? v.pct : 0);
+            if (active) active.style.setProperty('--p', run && run.mode !== 'wait' ? v.pct : 0);
             const ball = root.querySelector('.ball');
             if (ball) {
                 ball.classList.toggle('running', !!run);
-                ball.style.setProperty('--p', run && run.mode === 'task' ? v.pct : 0);
+                ball.style.setProperty('--p', run && run.mode !== 'wait' ? v.pct : 0);
                 ball.querySelector('.badge').textContent = run ? v.badge : '';
                 ball.title = `小雅自动刷 · ${v.label}`;
             }
         }
-
         function flash(text) {
             flashText = text;
             clearTimeout(flashTimer);
             flashTimer = setTimeout(() => { flashText = ''; render(); }, 4200);
             render();
         }
-
         function place(anchor) {
             if (dragging) return;
             const w = window.innerWidth, h = window.innerHeight;
@@ -1380,7 +1840,6 @@
             panel.style.setProperty('--origin', toLeft ? 'top right' : 'top left');
             root.dataset.flash = top + ph + 64 <= h ? 'below' : top >= 64 ? 'above' : 'inside';
         }
-
         function onPointerDown(e) {
             const handle = e.target.closest('[data-drag]');
             if (!handle || e.button !== 0 || (e.target.closest('button') && e.target.closest('button') !== handle)) return;
@@ -1411,7 +1870,6 @@
             document.addEventListener('pointerup', up);
             document.addEventListener('pointercancel', up);
         }
-
         function onClick(e) {
             const el = e.target.closest('[data-act]');
             if (!el) return;
@@ -1420,7 +1878,11 @@
                 return;
             }
             const id = el.dataset.id;
+            if (el.dataset.act !== 'log') log('面板', el.dataset.act, id);
             switch (el.dataset.act) {
+                case 'log':
+                    copyLog();
+                    break;
                 case 'expand':
                     ui.open = true;
                     saveUi();
@@ -1432,7 +1894,36 @@
                     render();
                     break;
                 case 'refresh':
-                    refresh();
+                    if (ui.tab === 'hang') refreshCourses();
+                    else refresh();
+                    break;
+                case 'tab':
+                    ui.tab = id;
+                    saveUi();
+                    if (id === 'hang') {
+                        if (!hang.list.length) refreshCourses();
+                        loadHere();
+                    }
+                    render();
+                    break;
+                case 'hang':
+                    if (hc(id).pick === false) hc(id).pick = null;
+                    hangCourse(id);
+                    break;
+                case 'hang-here':
+                    hangPage();
+                    break;
+                case 'hang-stop':
+                    hangStop();
+                    break;
+                case 'hang-hide':
+                    hideCourse(id);
+                    break;
+                case 'hang-mode':
+                    setHangMode(id);
+                    break;
+                case 'hang-reset':
+                    resetHang();
                     break;
                 case 'silent':
                     silent = !silent;
@@ -1489,33 +1980,58 @@
                     break;
             }
         }
-
         function syncSilent() {
             document.documentElement.setAttribute('data-xy-silent', silent ? '1' : '0');
             document.dispatchEvent(new CustomEvent('xy-silent-change'));
         }
-
         function onRoute() {
             const p = page();
+            log('路由', location.pathname);
+            if (ui.tab === 'hang') loadHere();
             if (!p.groupId && !loading && (!tasks.length || Date.now() - fetchedAt > STALE_MS)) refresh();
             else syncRun();
         }
-
         shadow.addEventListener('click', onClick);
+        shadow.addEventListener('dblclick', e => {
+            if (e.target.closest('[data-act="log"]')) downloadLog();
+        });
         shadow.addEventListener('pointerdown', onPointerDown);
         shadow.addEventListener('change', e => {
             if (e.target.matches('input[data-id]')) setDuration(e.target.dataset.id, e.target.value);
+            else if (e.target.matches('input[data-hang]')) setHangTarget(e.target.dataset.hang, e.target.value);
+            else if (e.target.matches('input[data-hang-def]')) setHangDef(e.target.value);
+            else if (e.target.matches('input[data-hang-each]')) setHangEach(e.target.value);
         });
         shadow.addEventListener('keydown', e => {
             if (e.key === 'Enter' && e.target.matches('input')) e.target.blur();
         });
         window.addEventListener('resize', () => place(true));
         window.addEventListener('storage', e => {
+            if (e.key === KEY.hang && e.newValue && !(run && run.mode === 'hang')) {
+                Object.assign(hang, JSON.parse(e.newValue));
+                render();
+                return;
+            }
             if (e.key !== KEY.tasks || loading) return;
             loadTasks();
+            log('列表', `其它标签页改了任务列表，同步过来 ${tasks.length} 个`);
             syncRun();
         });
-
+        window.addEventListener('error', e => log('报错', e.message, e.filename ? `${e.filename.split('?')[0].split('/').pop()}:${e.lineno}` : ''));
+        window.addEventListener('unhandledrejection', e => log('报错', '未处理的 Promise', e.reason));
+        const POPUP = '.ant-modal, .ant-message-notice, .ant-notification-notice, [role="dialog"], [role="alertdialog"]';
+        new MutationObserver(list => {
+            for (const m of list) {
+                for (const n of m.addedNodes) {
+                    if (n.nodeType !== 1 || n === host) continue;
+                    const hit = n.matches(POPUP) ? n : n.querySelector(POPUP);
+                    if (hit) setTimeout(() => {
+                        const text = (hit.innerText || '').replace(/\s+/g, ' ').trim();
+                        if (text) log('弹窗', text.slice(0, 200));
+                    }, 300);
+                }
+            }
+        }).observe(document.body, { childList: true, subtree: true });
         let lastHref = location.href;
         setInterval(() => {
             if (!host.isConnected && document.body) document.body.appendChild(host);
@@ -1525,13 +2041,13 @@
             }
         }, 800);
         setInterval(render, 30000);
-
         if (!ui.welcomed) {
             ui.welcomed = true;
             if (!ui.theme) ui.open = true;
             saveUi();
         }
         loadTasks();
+        log('=====', `页面加载 v${VERSION}`, location.host + location.pathname, `已存任务 ${tasks.length} 个`, `拦截声音=${silent} 恢复播放=${autoResume}`);
         syncSilent();
         render();
         loadNotice();
