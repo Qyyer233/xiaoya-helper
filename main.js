@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         小雅自动刷
 // @namespace    http://tampermonkey.net/
-// @version      1.8
+// @version      1.9
 // @description  🚀 小雅平台自动刷课神器！视频自动播放、无缝跳转，突破防切屏限制实现后台挂机 🛡️！智能监测未开启任务倒计时 ⏳，成倍提升学习效率！📈
 // @author       Qy
 // @match        https://*.ai-augmented.com/*
@@ -127,7 +127,7 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', main, { once: true });
     else main();
     function main() {
-        const VERSION = '1.8';
+        const VERSION = '1.9';
         const NOTICE_API = 'https://xiaoya.qyovo.com/notice';
         const KEY = {
             tasks: 'xy_qy_tasks_v17',
@@ -487,36 +487,16 @@
                 const groupId = idOf(t.group_id);
                 return toTask(t, groupId, t.group_name, groupId && courses.get(groupId).index, 'mycourse');
             }).filter(Boolean));
-            log('刷新', `首页：未完成 ${all.length} 条，观看任务 ${all.filter(t => Number(t.task_type) === 1).length} 个，截止后待确认能否补交的课 ${unknown.size} 门，最后留下 ${tasks.length} 个`);
+            log('刷新', `全部课程：未完成 ${all.length} 条，观看任务 ${all.filter(t => Number(t.task_type) === 1).length} 个，截止后待确认能否补交的课 ${unknown.size} 门，最后留下 ${tasks.length} 个`);
             for (const [groupId, c] of courses) if (!c.index) log('刷新', `课程 ${groupId} 的资源树没取到`);
-        }
-        async function refreshCourse(groupId, route) {
-            const [list, index, name] = await Promise.all([
-                taskNotices(groupId),
-                resourceIndex(groupId).catch(() => null),
-                api(`/api/jx-iresource/group/queryGroup/${groupId}`).then(res => String((res.data && res.data.name) || '').trim()).catch(() => ''),
-            ]);
-            const now = Date.now();
-            const fresh = list
-                .filter(t => Number(t.task_type) === 1 && Number(t.finish) !== 2)
-                .filter(t => {
-                    const end = parseTime(t.end_time);
-                    return !end || end > now || yes(t.is_allow_after_submitted);
-                })
-                .map(t => toTask(t, groupId, name, index, route))
-                .filter(Boolean);
-            tasks = sortTasks([...tasks.filter(t => t.groupId !== groupId), ...fresh]);
-            log('刷新', `课程页「${name}」：任务 ${list.length} 条，留下观看任务 ${fresh.length} 个${index ? '' : '，资源树没取到'}`);
         }
         async function refresh() {
             if (loading) return;
-            const p = page();
             loading = true;
             idleNote = null;
             render();
             try {
-                if (p.groupId) await refreshCourse(p.groupId, p.route);
-                else await refreshAll();
+                await refreshAll();
                 fetchedAt = Date.now();
                 saveTasks();
                 tasks.forEach(t => log('任务', taskLine(t)));
@@ -1680,7 +1660,7 @@
             const other = THEMES[ui.theme === 'night' ? 'porcelain' : 'night'];
             const showNoticeToggle = notice && !notice.error && notice.content !== '暂无公告';
             const hangTab = ui.tab === 'hang', busy = hangTab ? hangLoading : loading;
-            const refreshTitle = hangTab ? '获取本学期正在上的课' : page().groupId ? '在课程页只更新这门课的任务' : '获取所有课程的未完成观看任务';
+            const refreshTitle = hangTab ? '获取本学期正在上的课' : '获取所有课程的未完成观看任务';
             return `<div class="panel">
                 ${headHTML(`${update ? `<span class="update" title="在脚本猫里检查更新即可升级">v${esc(notice.version)} 可用</span>` : ''}<span class="sp"></span>
                     <button class="icon-btn" data-act="theme" title="切换到「${other.name}」风格" aria-label="切换到${other.name}风格">${ICON.theme}</button>`)}
@@ -1988,7 +1968,7 @@
             const p = page();
             log('路由', location.pathname);
             if (ui.tab === 'hang') loadHere();
-            if (!p.groupId && !loading && (!tasks.length || Date.now() - fetchedAt > STALE_MS)) refresh();
+            if (!p.groupId && !loading && token() && (!tasks.length || Date.now() - fetchedAt > STALE_MS)) refresh();
             else syncRun();
         }
         shadow.addEventListener('click', onClick);
